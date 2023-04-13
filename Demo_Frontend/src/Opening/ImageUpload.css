@@ -1,0 +1,13 @@
+#image {
+  display: none;
+  border-radius:100%;
+  width: 200px;
+  height: 200px;
+}
+
+#display_image {
+  border: 1px solid black;
+  border-radius:100%;
+  width: 200px;
+  height: 200px;
+}

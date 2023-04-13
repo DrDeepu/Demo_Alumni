@@ -1,0 +1,11 @@
+#image_loader {
+  animation: image_loader 1s;
+}
+@keyframes image_loader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}

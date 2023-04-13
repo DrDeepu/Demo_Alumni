@@ -1,0 +1,24 @@
+#loading_div_on {
+  left: 50%;
+  height: 100vh;
+  width: 100%;
+  padding-top: 18%;
+}
+#loading_div_off {
+  display: none;
+}
+#login_logo {
+  animation: login_logo 3s infinite;
+}
+@keyframes login_logo {
+  0% {
+    filter: blur(0px);
+    transform: rotateY(0);
+  }
+  50% {
+    filter: blur(5px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}

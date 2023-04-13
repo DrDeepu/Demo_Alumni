@@ -1,0 +1,132 @@
+#admin_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+  /* animation-delay: 2s; */
+  /* display: none; */
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+    /* display: none; */
+  }
+  to {
+    filter: blur(0px);
+    /* display: show; */
+  }
+}
+
+#admin_users_blur_animation {
+  animation: bluloader 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#login_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#signup_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#dashboard_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#user_profile_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#main_website_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#page_not_found_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+#admin_add_post_blur_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+.main_blur_div_animation {
+  animation-name: bluloader;
+  animation-duration: 0.5s;
+}
+@keyframes bluloader {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
