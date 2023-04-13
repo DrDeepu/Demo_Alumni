@@ -33,6 +33,7 @@
     "react-useanimations": "^2.10.0",
     "reactstrap": "^9.1.7",
     "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
     "stream-chat-react": "^10.7.4",
     "web-vitals": "^2.1.0"
   },

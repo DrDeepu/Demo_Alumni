@@ -1,12 +1,19 @@
-import { createStore, combineReducers } from "redux";
-import { access_token, set_user_data, set_user_profile_data } from "./reducers";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import {
+  getAllUsers,
+  access_token,
+  set_user_data,
+  set_user_profile_data,
+} from "./reducers";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
-  access_token: access_token,
-  set_user_data: set_user_data,
-  set_user_profile_data: set_user_profile_data,
+  access_token,
+  set_user_data,
+  set_user_profile_data,
+  getAllUsers,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

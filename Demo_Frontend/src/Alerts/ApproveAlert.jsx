@@ -4,19 +4,20 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function Example(props) {
+// console.log('=======APPORVECARD',props);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   async function approveUser() {
     await axios
       .post("http://localhost:5000/approveuser", {
         data: { email: props.data.email },
       })
       .then((res) => {
-        console.log(res);
-        window.location.reload();
+        // console.log(res);
+        // window.location.reload();
+        props.fetch_all_users();
       });
   }
   return (
@@ -52,6 +53,7 @@ function Example(props) {
             onClick={() => {
               handleClose();
               approveUser();
+              props.setRefetch();
             }}
           >
             Activate

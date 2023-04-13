@@ -14,3 +14,16 @@ export function store_user_profile_data(data) {
   return { type: "set_user_profile_data", payload: data };
 }
 
+export function getAllUsers() {
+  return (dispatch) => {
+    // dispatch({type:})
+    axios
+      .get(`${LOCALHOST_URL}/all_users`)
+      .then((res) => {
+        dispatch({ type: "setAllUsersError", payload: res.data });
+      })
+      .catch((res) => {
+        dispatch({ type: "setAllUsersError", payload: res.data });
+      });
+  };
+}

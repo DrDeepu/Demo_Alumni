@@ -7,7 +7,6 @@ function Example(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(props.data);
   return (
     <>
       <p variant="primary" onClick={handleShow}>

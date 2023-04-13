@@ -3,13 +3,17 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import HomeIcon from "@mui/icons-material/Home";
+import { useSelector } from "react-redux";
+
 
 import Badge from "@mui/material/Badge";
 function AdminNavBar(props) {
   const [user_data, setUser_data] = useState({});
+  const access_token = useSelector((state) => state.access_token.access_token);
 
   useEffect(() => {
     // if (user === "false" || user === false) {
@@ -19,9 +23,10 @@ function AdminNavBar(props) {
     //   console.log("Admin Else condition", user);
     //   navigate("/admin");
     // }
+    
     async function func() {
       await axios.get("http://127.0.0.1:5000/user_count").then((res) => {
-        console.log(res.data.total_users);
+        // console.log(res.data.total_users);
         setUser_data({
           not_valid_users: res.data.not_valid_users,
         });
@@ -31,7 +36,20 @@ function AdminNavBar(props) {
     func();
     //   setTimeout(setActive(false), 5000);
   }, []);
-
+async function authenticaiton() {
+  await axios
+    .get("http://127.0.0.1:5000/admin", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res) => {
+      localStorage.setItem("access_token", res.data.access_token);
+    })
+    .catch((res) => {
+      // console.log(res);
+    });
+}
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -44,25 +62,30 @@ function AdminNavBar(props) {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/admindashboard" style={{}}>
-                {/* Home */}
-                {/* <HomeIcon /> */}
-                Home
+              <Nav.Link style={{}}>
+                <NavLink to="/admindashboard">
+                  {/* Home */}
+                  {/* <HomeIcon /> */}
+                  Home
+                </NavLink>
               </Nav.Link>
-              <Nav.Link href="/adminusers">
+              <Nav.Link>
                 <Badge badgeContent={user_data.not_valid_users} color="primary">
-                  {/* Users */}
-                  {/* <PeopleIcon /> */}
-                  Users
+                  <NavLink to="/adminusers">
+                    {/* Users */}
+                    {/* <PeopleIcon /> */}
+                    Users
+                  </NavLink>
                 </Badge>
               </Nav.Link>
               {/* <MailIcon color="action" /> */}
-              <Nav.Link href="/adminposts">
-                {/* Posts */}
-                {/* <PostAddIcon /> */}
-                Posts
+              <Nav.Link>
+                <NavLink to="/adminposts">
+                  {/* Posts */}
+                  {/* <PostAddIcon /> */}
+                  Posts
+                </NavLink>
               </Nav.Link>
-              
             </Nav>
           </Navbar.Collapse>
         </Container>

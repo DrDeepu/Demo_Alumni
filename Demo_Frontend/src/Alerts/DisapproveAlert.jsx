@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function Example(props) {
+// console.log("=======DISAPPORVECARD", props);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,7 +15,11 @@ function Example(props) {
       .post("http://localhost:5000/disaproveuser", {
         data: { email: props.data.email },
       })
-      .then(window.location.reload());
+      .then(() => {
+        // window.location.reload()
+        props.fetch_all_users();
+        props.setRefetch();
+      });
 
     // .then((res) => setResult("true"));
   }
@@ -50,6 +56,8 @@ function Example(props) {
             onClick={() => {
               handleClose();
               disapproveUser();
+
+
             }}
           >
             Deactivate

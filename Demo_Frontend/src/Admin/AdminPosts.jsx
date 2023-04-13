@@ -13,6 +13,7 @@ export default function AdminPosts() {
     // setLoader(true);
     fetchAllPosts();
   }, [reFetch]);
+  // }, []);
 
   // const deletePost = () => {
   //  state.filter(s)

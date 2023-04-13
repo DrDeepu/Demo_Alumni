@@ -178,7 +178,7 @@ def dashboard():
 
 
 @app.route('/admin',methods=['GET','POST'])
-# @jwt_required()
+@jwt_required()
 def admin_panel():
     # print(User.query.all())
     # print(get_jwt_identity())
@@ -271,12 +271,12 @@ def upload_admin_post():
     post = AdminPosts(post_title=post_title,post_description=post_description,post_date=date_time,post_image_url=post_image_url,post_event_start_date=event_start_date,post_event_start_time=event_start_time,post_event_end_date = event_end_date,post_event_end_time= event_end_time)
     db.session.add(post)
     db.session.commit()
-    if(mail_check=='true' ):
-        users = User.query.all()    
-        for i in users:
-            if i.email == 'admin@email.com':
-                continue
-            mail(image_url=post_image_url,mail_recipient_email=i.email,recipient_name =i.firstname+' '+i.lastname,event_title=post_title,event_description=post_description,event_start_date=event_start_date,event_start_time=event_start_time,event_end_date=event_end_date,event_end_time=event_end_time)
+    # if(mail_check=='true' ):
+    #     users = User.query.all()    
+    #     for i in users:
+    #         if i.email == 'admin@email.com':
+    #             continue
+    #         mail(image_url=post_image_url,mail_recipient_email=i.email,recipient_name =i.firstname+' '+i.lastname,event_title=post_title,event_description=post_description,event_start_date=event_start_date,event_start_time=event_start_time,event_end_date=event_end_date,event_end_time=event_end_time)
     # mail(mail_recipient='deepukumarpu@outlook.com',event_title=post_title,event_description=post_description,event_start_date=event_start_date,event_start_time=event_start_time,event_end_date=event_end_date,event_end_time=event_end_time)
             
     return Response("Successfully Created The Post")

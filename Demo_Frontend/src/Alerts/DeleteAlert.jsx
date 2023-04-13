@@ -13,7 +13,12 @@ function Example(props) {
       .post("http://localhost:5000/deleteuser", {
         data: { email: props.data.email },
       })
-      .then(window.location.reload());
+      .then(
+        () => {
+          props.fetch_all_users();
+        }
+        // window.location.reload()
+      );
   }
   return (
     <>
@@ -46,6 +51,7 @@ function Example(props) {
             onClick={() => {
               handleClose();
               deleteUser();
+              props.setRefetch();
             }}
           >
             Delete

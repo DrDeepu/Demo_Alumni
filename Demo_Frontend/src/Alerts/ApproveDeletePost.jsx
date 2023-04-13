@@ -58,6 +58,7 @@ function ApproveDeletePost({
             onClick={() => {
               handleClose();
               approveDeletePost(post_id);
+
               setRefetch();
             }}
           >

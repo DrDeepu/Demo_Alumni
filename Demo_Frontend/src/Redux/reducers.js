@@ -1,7 +1,6 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { LOCALHOST_URL } from "../config";
-
 const token = localStorage.getItem("access_token");
 const access_token_initialState = {
   access_token: token ? token : null,
@@ -94,3 +93,16 @@ export const set_user_profile_data = (
   }
 };
 
+const get_all_users_initialState = {
+  data: {},
+};
+
+export const getAllUsers = (state = { get_all_users_initialState }, action) => {
+  switch (action.type) {
+    case "setAllUsersError":
+      // console.log(action.payload);
+      return { data: action.payload };
+    default:
+      return state;
+  }
+};

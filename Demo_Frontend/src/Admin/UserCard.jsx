@@ -8,6 +8,8 @@ import ApproveAlert from "../Alerts/ApproveAlert";
 import DisapproveAlert from "../Alerts/DisapproveAlert";
 
 function UserCard(props) {
+  // console.log('=======USERCARD',props);
+
   return (
     <>
       <Container
@@ -25,17 +27,38 @@ function UserCard(props) {
           </Col>
           {props.valid.valid === "false" ? (
             <Col xs={2}>
-              <ApproveAlert value={"Activate"} data={props.data} />
+              <ApproveAlert
+                value={"Activate"}
+                data={props.data}
+                fetch_all_users={() => props.fetch_all_users()}
+                setRefetch={() => {
+                  props.setRefetch();
+                }}
+              />
             </Col>
           ) : (
             <Col xs={2}>
-              <DisapproveAlert value={"Deactivate"} data={props.data} />
+              <DisapproveAlert
+                value={"Deactivate"}
+                data={props.data}
+                fetch_all_users={() => props.fetch_all_users()}
+                setRefetch={() => {
+                  props.setRefetch();
+                }}
+              />
             </Col>
           )}
 
           <Col xs={2}>
             {" "}
-            <DeleteAlert value={"Delete"} data={props.data} />
+            <DeleteAlert
+              value={"Delete"}
+              data={props.data}
+              fetch_all_users={() => props.fetch_all_users()}
+              setRefetch={() => {
+                props.setRefetch();
+              }}
+            />
           </Col>
         </Row>
       </Container>
