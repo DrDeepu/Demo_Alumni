@@ -16,7 +16,6 @@ export function store_user_profile_data(data) {
 
 export function getAllUsers() {
   return (dispatch) => {
-    // dispatch({type:})
     axios
       .get(`${LOCALHOST_URL}/all_users`)
       .then((res) => {
@@ -26,4 +25,9 @@ export function getAllUsers() {
         dispatch({ type: "setAllUsersError", payload: res.data });
       });
   };
+}
+
+export function saveMailData(mailData) {
+  console.log('ACTIONS======',mailData)
+  return { type: "setMailData", mailData };
 }

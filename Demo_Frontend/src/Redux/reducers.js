@@ -106,3 +106,25 @@ export const getAllUsers = (state = { get_all_users_initialState }, action) => {
       return state;
   }
 };
+
+const setMailInitialData = {
+  mailSubject: "",
+  mailTitle: "",
+  mailDescription: "",
+  alumni: [],
+};
+
+export const saveMailData = (state = { setMailInitialData }, action) => {
+  switch (action.type) {
+    case "setMailData":
+      return {
+        mailSubject: action.mailData.mailData.mailSubject,
+        mailTitle: action.mailData.mailData.mailTitle,
+        mailDescription: action.mailData.mailData.mailDescription,
+        alumni: action.mailData.selectedOptions,
+      };
+    // return state;
+    default:
+      return state;
+  }
+};

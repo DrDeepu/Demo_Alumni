@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -23,6 +24,8 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
   const [instaCheck, setInstaCheck] = useState(false);
   const [mailCheck, setMailCheck] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
+  const mailData = useSelector((state) => state.saveMailData);
+  console.log("========MAILDATA IN ADD POST PAGE=====", mailData);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -48,6 +51,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     formData.append("event_end_time", endTime);
     formData.append("insta_check", instaCheck);
     formData.append("mail_check", mailCheck);
+    formData.append("mailData", mailData);
 
     await axios
       .post("http://localhost:5000/upload_admin_post", formData)
@@ -70,15 +74,6 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
           });
       });
   }
-  // function handleDateChange(event) {
-  //   const { value } = event.target;
-  //   const inputDate = new Date(value);
-  //   const today = new Date();
-
-  //   if (inputDate.getTime() > today.getTime()) {
-  //     setDate(value);
-  //   }
-  // }
   function filterLimit(postsData) {
     let dates = [];
 
@@ -95,7 +90,6 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     });
     console.log(dates);
   }
-  // filterLimit(postsData);
 
   return (
     <>
@@ -110,7 +104,6 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              {/* <Form.Label>Preview Image</Form.Label> */}
               {imageLoader ? (
                 <div
                   align="center"

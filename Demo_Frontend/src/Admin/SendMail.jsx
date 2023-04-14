@@ -1,27 +1,32 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React from "react";
-import axios from "axios";
-import { getAllUsers } from "../Redux/actions";
+import { useState, useEffect } from "react";
+import "./Admin.css";
+
+import { getAllUsers, saveMailData } from "../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, FormGroup, FormCheck, FormControl } from "react-bootstrap";
+import { Form, FormGroup, FormControl } from "react-bootstrap";
 
 function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
-
-  const [allUsers, setAllUsers] = React.useState(true);
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedOptions, setSelectedOptions] = React.useState([]);
+  const [allUsers, setAllUsers] = useState(true);
   const userData = useSelector((state) => state.getAllUsers.data);
-  React.useEffect(() => {
-    functionDispatch();
+
+  const [mailData, setMailData] = useState({
+    mailSubject: "",
+    mailTitle: "",
+    mailDescription: "",
+  });
+
+  useEffect(() => {
+    dispatch(getAllUsers());
   }, []);
 
-  function functionDispatch() {
-    dispatch(getAllUsers());
-  }
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  function CheckboxList(props) {
+    const [searchQuery, setSearchQuery] = useState("");
 
-  function CheckboxList() {
     const handleOptionChange = (option) => {
       if (selectedOptions.includes(option)) {
         setSelectedOptions(
@@ -32,15 +37,18 @@ function MyVerticallyCenteredModal(props) {
       }
     };
 
-    const filteredOptions = Object.keys(userData).filter(
-      (option) =>
-        // console.log(userData[option]["firstname"])
-        userData[option]["firstname"]
+    const datas = Object.keys(userData).map((user) => {
+      return userData[user];
+    });
+
+    const filteredOptions = datas.filter((option) => {
+      return (
+        (option["firstname"] + " " + option["lastname"])
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
-        selectedOptions.includes(userData[option]["firstname"])
-    );
-    console.log(filteredOptions);
+        selectedOptions.includes(option["firstname"] + option["lastname"])
+      );
+    });
     return (
       <div>
         <FormControl
@@ -50,24 +58,24 @@ function MyVerticallyCenteredModal(props) {
           }}
           value={searchQuery}
         />
-        {/* <div style={{ maxHeight: "200px", overflowY: "scroll" }}>
+
+        <div style={{ maxHeight: "200px", overflowY: "scroll" }}>
           <Form>
             <FormGroup>
               {filteredOptions.map((option) => (
-                <>
-                  <FormCheck
+                <div id="send_mail">
+                  <Form.Check
                     key={option}
-                    label={userData[option]["firstname"]}
+                    label={option["firstname"] + " " + option["lastname"]}
                     checked={selectedOptions.includes(option)}
-                    onChange={() =>
-                      handleOptionChange(userData[option]["firstname"])
-                    }
+                    // disabled={selectedOptions.pop(option)}
+                    onChange={() => handleOptionChange(option)}
                   />
-                </>
+                </div>
               ))}
             </FormGroup>
           </Form>
-        </div> */}
+        </div>
       </div>
     );
   }
@@ -88,15 +96,33 @@ function MyVerticallyCenteredModal(props) {
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Mail Subject</Form.Label>
-            <Form.Control type="text" placeholder="new mail subject" />
+            <Form.Control
+              type="text"
+              placeholder="new mail subject"
+              onChange={(e) => {
+                setMailData({ ...mailData, mailSubject: e.target.value });
+              }}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Mail Title</Form.Label>
-            <Form.Control type="text" placeholder="new mail title" />
+            <Form.Control
+              type="text"
+              placeholder="new mail title"
+              onChange={(e) => {
+                setMailData({ ...mailData, mailTitle: e.target.value });
+              }}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Mail Description</Form.Label>
-            <Form.Control as="textarea" placeholder="new mail description" />
+            <Form.Control
+              as="textarea"
+              placeholder="new mail description"
+              onChange={(e) => {
+                setMailData({ ...mailData, mailDescription: e.target.value });
+              }}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Check
@@ -104,13 +130,13 @@ function MyVerticallyCenteredModal(props) {
               type="checkbox"
               label="All Alumni"
               onChange={(e) => {
-                console.log(setAllUsers(e.target.checked));
+                setAllUsers(e.target.checked);
                 // functionDispatch();
               }}
             />
             {!allUsers && (
               <>
-                <CheckboxList />
+                <CheckboxList mailSelectedUsers={props.mailSelectedUsers} />
               </>
             )}
           </Form.Group>
@@ -121,7 +147,11 @@ function MyVerticallyCenteredModal(props) {
           onClick={() => {
             props.onHide();
             props.onShow();
+            !allUsers && dispatch(saveMailData({ mailData, selectedOptions }));
+            allUsers &&
+              dispatch(saveMailData({ mailData, selectedOptions: [] }));
           }}
+          disabled={!allUsers && selectedOptions.length === 0 ? true : false}
         >
           Save
         </Button>
@@ -133,7 +163,6 @@ function MyVerticallyCenteredModal(props) {
 function SendMail(props) {
   const [modalShow, setModalShow] = React.useState(false);
   const [checked, setCheckbox] = React.useState(false);
-
   return (
     <>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
