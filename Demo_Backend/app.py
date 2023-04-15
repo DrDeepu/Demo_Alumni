@@ -198,7 +198,8 @@ def all_users():
     for i in User.query.all():
         if i.email == 'admin@email.com':
             continue
-        user_data[i.email]={'firstname':i.firstname,'lastname':i.lastname,'email':i.email,'phone':i.phone,
+        user_data[i.email] = {'firstname': i.firstname, 'lastname': i.lastname, 'email': i.email, 'phone': i.phone,
+
         # 'password':i.password,
         'instaid':i.instaid,
         'gitid':i.gitid,
@@ -216,23 +217,23 @@ def all_users():
 # @jwt_required()
 def user_count():
     # if get_jwt_identity() == 'admin@email.com':
-        print(True)
-        user_data = {}
-        total_users = 0
-        valid_users = 0
-        not_valid_users = 0
-        for i in User.query.all():
-            if i.email == 'admin@email.com':
-                continue
-            if i.valid == 'false':
-                not_valid_users+=1
-            if i.valid == 'true':
-                valid_users+=1
-            total_users += 1
-        user_data['total_users']=total_users
-        user_data['valid_users']=valid_users
-        user_data['not_valid_users']=not_valid_users
-        return user_data
+    print(True)
+    user_data = {}
+    total_users = 0
+    valid_users = 0
+    not_valid_users = 0
+    for i in User.query.all():
+        if i.email == 'admin@email.com':
+            continue
+        if i.valid == 'false':
+            not_valid_users += 1
+        if i.valid == 'true':
+            valid_users += 1
+        total_users += 1
+    user_data['total_users'] = total_users
+    user_data['valid_users'] = valid_users
+    user_data['not_valid_users'] = not_valid_users
+    return user_data
     # else:
     #     return Http404
 
@@ -241,7 +242,7 @@ app.register_blueprint(approve_delete_disapprove_users)
 
 
 # Add Admin Post Data in AdminPost Table and Add Image to Cloudinary to Admin_Posts folder
-@app.route('/upload_admin_post',methods=['GET','POST'])
+@app.route('/upload_admin_post',methods=['GET', 'POST'])
 def upload_admin_post():
 
     file = request.files['file']
