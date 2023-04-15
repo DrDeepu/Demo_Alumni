@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function Example(props) {
-// console.log('=======APPORVECARD',props);
+  // console.log('=======APPORVECARD',props);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

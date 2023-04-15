@@ -8,12 +8,18 @@ import PeopleIcon from "@mui/icons-material/People";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import HomeIcon from "@mui/icons-material/Home";
 import { useSelector } from "react-redux";
-
-
+import { useNavigate } from "react-router";
+import ReactAnimations from "../React-Animations/ReactAnimations";
 import Badge from "@mui/material/Badge";
+
 function AdminNavBar(props) {
   const [user_data, setUser_data] = useState({});
+  const [user, setUser] = useState(false);
+  const [loader, setloader] = useState(true);
+
+  const navigate = useNavigate();
   const access_token = useSelector((state) => state.access_token.access_token);
+  const user_email = useSelector((state) => state.set_user_data.user_email);
 
   useEffect(() => {
     // if (user === "false" || user === false) {
@@ -23,7 +29,15 @@ function AdminNavBar(props) {
     //   console.log("Admin Else condition", user);
     //   navigate("/admin");
     // }
-    
+    if (localStorage.getItem("access_token")) {
+      if (user_email === "admin@email.com") {
+        // navigate("/admindashboard");
+        setUser(true);
+      }
+    } else {
+      navigate("/login");
+    }
+
     async function func() {
       await axios.get("http://127.0.0.1:5000/user_count").then((res) => {
         // console.log(res.data.total_users);
@@ -36,21 +50,8 @@ function AdminNavBar(props) {
     func();
     //   setTimeout(setActive(false), 5000);
   }, []);
-async function authenticaiton() {
-  await axios
-    .get("http://127.0.0.1:5000/admin", {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    })
-    .then((res) => {
-      localStorage.setItem("access_token", res.data.access_token);
-    })
-    .catch((res) => {
-      // console.log(res);
-    });
-}
-  return (
+
+  return user === true || user === "true" ? (
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
@@ -93,6 +94,8 @@ async function authenticaiton() {
 
       <hr></hr>
     </>
+  ) : (
+    navigate("/login")
   );
 }
 

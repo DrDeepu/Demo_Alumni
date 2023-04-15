@@ -13,13 +13,7 @@ export default function AdminPosts() {
     // setLoader(true);
     fetchAllPosts();
   }, [reFetch]);
-  // }, []);
-
-  // const deletePost = () => {
-  //  state.filter(s)
-  // };
-
-  async function fetchAllPosts() {
+    async function fetchAllPosts() {
     await axios
       .get("http://localhost:5000/fetch_all_admin_post")
       .then((res) => {

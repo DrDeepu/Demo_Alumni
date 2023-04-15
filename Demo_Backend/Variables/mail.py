@@ -9,12 +9,12 @@ from email.mime.application import MIMEApplication
 from .variables import MAIL_ID,MAIL_PASSWORD
 
 email = EmailMessage()
-def mail(image_url='',mail_recipient_email='',recipient_name='',event_title='',event_description='',event_start_date='',event_start_time='',event_end_date='',event_end_time=''):
+def mail(image_url='',mail_recipient_email='',event_subject='',recipient_name='',event_title='',event_description='',event_start_date='',event_start_time='',event_end_date='',event_end_time=''):
     # Email configuration
     sender_email = MAIL_ID
     sender_password = MAIL_PASSWORD
     recipient_email = mail_recipient_email
-    subject = event_title
+    subject = event_subject
 
     # Calendar event configuration
     event_title = event_title

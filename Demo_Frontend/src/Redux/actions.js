@@ -28,6 +28,6 @@ export function getAllUsers() {
 }
 
 export function saveMailData(mailData) {
-  console.log('ACTIONS======',mailData)
+  // console.log('ACTIONS======',mailData)
   return { type: "setMailData", mailData };
 }

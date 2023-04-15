@@ -242,7 +242,7 @@ app.register_blueprint(approve_delete_disapprove_users)
 
 
 # Add Admin Post Data in AdminPost Table and Add Image to Cloudinary to Admin_Posts folder
-@app.route('/upload_admin_post',methods=['GET', 'POST'])
+@app.route('/upload_admin_post', methods=['GET', 'POST'])
 def upload_admin_post():
 
     file = request.files['file']
@@ -254,32 +254,40 @@ def upload_admin_post():
     event_end_time = request.form['event_end_time']
     insta_check = request.form['insta_check']
     mail_check = request.form['mail_check']
-    print(post_title,type(post_title))
-    print(post_description,type(post_description))
-    print(event_start_date,type(event_start_date))
-    print(event_start_time,type(event_start_time))
-    print(event_end_date,type(event_end_date))
-    print(event_end_time,type(event_end_time))
-    print(insta_check,type(insta_check))
-    print(mail_check,type(mail_check))
-    # print(insta_check,type(insta_check))
-    # print(mail_check,type(mail_check))
+
 
     admin_image_url = cloudinary.uploader.upload(file,folder='/Admin_Posts')
     # print(admin_image_url['url'])
-    date_time  = datetime.datetime.now()
+    date_time = datetime.datetime.now()
     post_image_url = admin_image_url['url']
-    post = AdminPosts(post_title=post_title,post_description=post_description,post_date=date_time,post_image_url=post_image_url,post_event_start_date=event_start_date,post_event_start_time=event_start_time,post_event_end_date = event_end_date,post_event_end_time= event_end_time)
+    post = AdminPosts(post_title=post_title, post_description=post_description, post_date=date_time, post_image_url= post_image_url, post_event_start_date=event_start_date, post_event_start_time=event_start_time, post_event_end_date = event_end_date, post_event_end_time= event_end_time)
     db.session.add(post)
     db.session.commit()
-    # if(mail_check=='true' ):
-    #     users = User.query.all()    
-    #     for i in users:
-    #         if i.email == 'admin@email.com':
-    #             continue
-    #         mail(image_url=post_image_url,mail_recipient_email=i.email,recipient_name =i.firstname+' '+i.lastname,event_title=post_title,event_description=post_description,event_start_date=event_start_date,event_start_time=event_start_time,event_end_date=event_end_date,event_end_time=event_end_time)
-    # mail(mail_recipient='deepukumarpu@outlook.com',event_title=post_title,event_description=post_description,event_start_date=event_start_date,event_start_time=event_start_time,event_end_date=event_end_date,event_end_time=event_end_time)
-            
+    if mail_check == 'true':
+        mail_data = json.loads(request.form['mailData'])
+        mail_subject = mail_data['mailSubject']
+        mail_title = mail_data['mailTitle']
+        mail_description = mail_data['mailDescription']
+        alumni = mail_data['alumni']
+        if len(alumni) == 0:
+            users = User.query.all()
+            for i in users:
+                if i.email == 'admin@email.com':
+                    continue
+                mail(image_url=post_image_url, mail_recipient_email=i.email,
+                     recipient_name=i.firstname + ' ' + i.lastname, event_title=mail_title,
+                     event_subject = mail_subject,
+                     event_description=mail_description, event_start_date=event_start_date,
+                     event_start_time=event_start_time, event_end_date=event_end_date, event_end_time=event_end_time)
+
+        elif len(alumni) > 0:
+            for i in alumni:
+                mail(image_url=post_image_url, mail_recipient_email=i['email'],
+                     recipient_name = i['firstname']+' '+i['lastname'], event_title=post_title,
+                     event_description=post_description, event_start_date=event_start_date,
+                     event_subject=mail_subject,
+                     event_start_time=event_start_time, event_end_date=event_end_date, event_end_time=event_end_time)
+
     return Response("Successfully Created The Post")
 
 

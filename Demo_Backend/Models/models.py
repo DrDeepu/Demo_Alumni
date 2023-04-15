@@ -35,6 +35,12 @@ class User(db.Model):
         self.website = website
         self.user_profile_image_url = user_profile_image_url
 
+    def __repr__(self):
+        return f'<User Email: {self.email}>'
+
+
+
+
 
 class AdminPosts(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
@@ -46,8 +52,7 @@ class AdminPosts(db.Model):
     post_event_start_time = db.Column(db.String(100),nullable=False)
     post_event_end_date = db.Column(db.String(100),nullable=False)
     post_event_end_time = db.Column(db.String(100),nullable=False)
-    # post_in_insta = 
-
+    accepted_users = db.relationship("PostAcceptUsers", backref='users', lazy=True)
 
     def __init__(self, post_title, post_description, post_date, post_image_url,post_event_start_time ,post_event_start_date,post_event_end_date,post_event_end_time):
         self.post_title = post_title
@@ -59,12 +64,17 @@ class AdminPosts(db.Model):
         self.post_event_end_date = post_event_end_date
         self.post_event_end_time = post_event_end_time
 
+    def __repr__(self):
+        return f'<Admin Post id : {self.id}, Admin Title : {self.post_title}>'
+
+
+
 class PostComments(db.Model):
-    id = db.Column('id',db.Integer,primary_key=True)
-    comment_text = db.Column(db.String(150),nullable=False)
-    user_email = db.Column(db.String(150),nullable=False)
-    post_id = db.Column(db.String(150),nullable=False)
-    post_time = db.Column(db.String(100),nullable=False)
+    id = db.Column('id', db.Integer, primary_key=True)
+    comment_text = db.Column(db.String(150), nullable=False)
+    user_email = db.Column(db.String(150), nullable=False)
+    post_id = db.Column(db.String(150), nullable=False)
+    post_time = db.Column(db.String(100), nullable=False)
     
     def __init__(self,comment_text,user_email,post_id,post_time):
         self.comment_text = comment_text
@@ -72,18 +82,19 @@ class PostComments(db.Model):
         self.post_id = post_id
         self.post_time = post_time
 
+    def __repr__(self):
+        return f'<PostComments Email: {self.email}>'
 
 class PostAcceptUsers(db.Model):
-    id = db.Column('id',db.Integer,primary_key=True)
+    id = db.Column('id', db.Integer,primary_key=True)
     user_id = db.Column(db.String(150),nullable=False)
-    post_id = db.Column(db.String(150),nullable=False)
-    accept = db.Column(db.String(10),nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('admin_posts.id'))
 
-
-    def __init__(self,user_id,post_id,accept):
+    def __init__(self, user_id):
         self.user_id = user_id
-        self.post_id = post_id
-        self.accept = accept
+
+    def __repr__(self):
+        return f'<User Id : {self.user_id}>'
 
 # class Chat(db.Model):
 #     id = db.Column('id',db.Integer,primary_key=True)

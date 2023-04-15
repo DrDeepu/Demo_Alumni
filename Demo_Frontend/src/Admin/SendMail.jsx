@@ -150,8 +150,16 @@ function MyVerticallyCenteredModal(props) {
             !allUsers && dispatch(saveMailData({ mailData, selectedOptions }));
             allUsers &&
               dispatch(saveMailData({ mailData, selectedOptions: [] }));
+            props.mailTrue();
           }}
-          disabled={!allUsers && selectedOptions.length === 0 ? true : false}
+          disabled={
+            mailData.mailSubject === "" ||
+            mailData.mailTitle === "" ||
+            mailData.mailDescription === "" ||
+            (!allUsers && selectedOptions.length === 0)
+              ? true
+              : false
+          }
         >
           Save
         </Button>
@@ -163,6 +171,7 @@ function MyVerticallyCenteredModal(props) {
 function SendMail(props) {
   const [modalShow, setModalShow] = React.useState(false);
   const [checked, setCheckbox] = React.useState(false);
+  // console.log(props);
   return (
     <>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -170,9 +179,10 @@ function SendMail(props) {
           type="checkbox"
           checked={checked}
           label="Mail Alumni"
-          onClick={() => setCheckbox(!checked)}
           onChange={(e) => {
+            setCheckbox(Boolean(e.target.checked));
             e.target.checked && setModalShow(true);
+            // props.mailFalse();
           }}
         />
       </Form.Group>
@@ -181,9 +191,11 @@ function SendMail(props) {
         onHide={() => {
           setModalShow(false);
           setCheckbox(false);
+          // props.mailFalse();
         }}
         onShow={() => setCheckbox(true)}
         mail={() => props.mail()}
+        mailTrue={() => props.mailTrue()}
       />
     </>
   );

@@ -18,19 +18,20 @@ function AdminNavBar(props) {
 
   // const [user_data, setUser_data] = useState({});
   const [userData, setUserData] = useState({});
+  const [user, setUser] = useState(localStorage.getItem("user"));
   const access_token = useSelector((state) => state.access_token.access_token);
+  const user_email = useSelector((state) => state.set_user_data.user_email);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // async function func() {
-    //   await axios.get("http://127.0.0.1:5000/user_count").then((res) => {
-    //     console.log(res.data.total_users);
-    //     setUser_data({
-    //       not_valid_users: res.data.not_valid_users,
-    //     });
-    //   });
-    // }
-    // func();
+    if (localStorage.getItem("access_token")) {
+      if (user_email !== "admin@email.com") {
+        setUser(true);
+      }
+    } else {
+      navigate("/login");
+    }
+
     profile();
   }, []);
 
@@ -69,7 +70,7 @@ function AdminNavBar(props) {
   }
   dispatch(store_user_profile_data(userData));
 
-  return (
+  return user === "true" || user === true ? (
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
@@ -123,6 +124,8 @@ function AdminNavBar(props) {
 
       <hr></hr>
     </>
+  ) : (
+    navigate("/login")
   );
 }
 

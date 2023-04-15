@@ -23,9 +23,8 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
   const [endTime, setEndTime] = useState("");
   const [instaCheck, setInstaCheck] = useState(false);
   const [mailCheck, setMailCheck] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
   const mailData = useSelector((state) => state.saveMailData);
-  console.log("========MAILDATA IN ADD POST PAGE=====", mailData);
+  // console.log("========MAILDATA IN ADD POST PAGE=====", mailData);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -51,13 +50,14 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     formData.append("event_end_time", endTime);
     formData.append("insta_check", instaCheck);
     formData.append("mail_check", mailCheck);
-    formData.append("mailData", mailData);
+    mailCheck === true && formData.append("mailData", JSON.stringify(mailData));
 
     await axios
       .post("http://localhost:5000/upload_admin_post", formData)
       .then((res) => {
         setRefetch();
-        navigate("/adminposts");
+        // navigate("/adminposts");
+        setMailCheck(false);
       });
   };
   async function uploadPostImage() {
@@ -78,17 +78,17 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     let dates = [];
 
     Object.keys(postsData).map((value) => {
-      console.log(postsData[value]["post_event_start_date"]);
-      console.log(postsData[value]["post_event_end_date"]);
+      // console.log(postsData[value]["post_event_start_date"]);
+      // console.log(postsData[value]["post_event_end_date"]);
       dates.push({
         start: postsData[value]["post_event_start_date"],
         end: postsData[value]["post_event_end_date"],
       });
     });
     Object.keys(dates).map((values) => {
-      console.log(dates[values]);
+      // console.log(dates[values]);
     });
-    console.log(dates);
+    // console.log(dates);
   }
 
   return (
@@ -213,42 +213,22 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Event End Date</Form.Label>
-                {/* <Form.Control
-                  type="date"
-                  placeholder="new post description"
-                  rows={2}
-                  min={startDate}
-                  onChange={(e) => {
-                    // handleDateChange(e);
-                    // setEndDate(e.target.value);
-                    console.log("==========FIRST ONE==========", e);
-                    console.log(
-                      "==========SECOND ONE==========",
-                      e.target.value
-                    );
-                  }}
-                /> */}
                 <DatePicker
                   selected={endDate < startDate ? startDate : endDate}
                   onChange={(e) => {
                     setEndDate(e);
                   }}
                   minDate={startDate}
-                  // value={selectedDate}
-                  // filterDate={isDateBlocked}
                   dateFormat="dd/MM/yyyy"
                   className="form-control"
                 />
 
-                {
-                  // new Date(endDate).getTime() <= new Date().getTime() &&
-                  new Date(endDate).getTime() <
-                    new Date(startDate).getTime() && (
-                    <Form.Text className="text-danger">
-                      Please enter a valid date.
-                    </Form.Text>
-                  )
-                }
+                {new Date(endDate).getTime() <
+                  new Date(startDate).getTime() && (
+                  <Form.Text className="text-danger">
+                    Please enter a valid date.
+                  </Form.Text>
+                )}
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -281,23 +261,18 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                {/* <Form.Check
-                  type="checkbox"
-                  label="Mail all alumni"
-                  onChange={() => {
-                    setMailCheck(!mailCheck);
-                  }}
-                /> */}
                 <SendMail
                   mailTrue={() => {
                     setMailCheck(true);
+                    // console.log("TRUE");
                   }}
                   mailFalse={() => {
                     setMailCheck(false);
+                    // console.log("FALSE");
                   }}
                 />
               </Form.Group>
-              {console.log(mailCheck)}
+              {/* {console.log(mailCheck)} */}
             </div>
           </Form>
         </Modal.Body>
