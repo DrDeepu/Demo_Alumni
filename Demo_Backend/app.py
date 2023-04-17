@@ -15,7 +15,7 @@ from Variables.variables import (CLOUDINARY_API_KEY,CLOUDINARY_CLOUD_NAME
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from Models.models import db,User,AdminPosts,PostComments,PostAcceptUsers
+from Models.models import db,User,AdminPosts,PostComments
 from flask_jwt_extended import JWTManager
 from Admin.upload_fetch_admin_post_image import bp as upload_fetch_admin_post_image
 from Admin.approve_delete_disapprove_users import bp as approve_delete_disapprove_users
@@ -352,7 +352,7 @@ def update_admin_post():
     db.session.commit()
     return Response("Successfully Updated")
 
-
+#
 app.register_blueprint(accept_decline)
 
 

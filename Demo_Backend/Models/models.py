@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
+accepted_users = db.Table('accepted_users', db.Column('post_id', db.Integer, db.ForeignKey('admin_posts.id')),
+                          db.Column('user_id', db.Integer, db.ForeignKey('user.id')))
 class User(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     firstname = db.Column(db.String(200),nullable = False)
@@ -52,7 +55,7 @@ class AdminPosts(db.Model):
     post_event_start_time = db.Column(db.String(100),nullable=False)
     post_event_end_date = db.Column(db.String(100),nullable=False)
     post_event_end_time = db.Column(db.String(100),nullable=False)
-    accepted_users = db.relationship("PostAcceptUsers", backref='users', lazy=True)
+    accepted_users = db.relationship("User", secondary = accepted_users, backref='accepted_posts')
 
     def __init__(self, post_title, post_description, post_date, post_image_url,post_event_start_time ,post_event_start_date,post_event_end_date,post_event_end_time):
         self.post_title = post_title
@@ -83,18 +86,7 @@ class PostComments(db.Model):
         self.post_time = post_time
 
     def __repr__(self):
-        return f'<PostComments Email: {self.email}>'
-
-class PostAcceptUsers(db.Model):
-    id = db.Column('id', db.Integer,primary_key=True)
-    user_id = db.Column(db.String(150),nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('admin_posts.id'))
-
-    def __init__(self, user_id):
-        self.user_id = user_id
-
-    def __repr__(self):
-        return f'<User Id : {self.user_id}>'
+        return f'<PostComments Email: {self.user_email}>'
 
 # class Chat(db.Model):
 #     id = db.Column('id',db.Integer,primary_key=True)

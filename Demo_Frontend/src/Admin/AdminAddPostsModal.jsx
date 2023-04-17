@@ -237,8 +237,8 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 <Form.Label>Event End Time</Form.Label>
                 <Form.Control
                   type="time"
-                  placeholder="new post description"
                   rows={2}
+                  minTim={startTime}
                   onChange={(e) => {
                     setEndTime(e.target.value);
                   }}

@@ -109,7 +109,7 @@ export default function Login() {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value.toLowerCase())}
                       required
                     />
                   </Grid>

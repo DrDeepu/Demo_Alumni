@@ -4,8 +4,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import ReactAnimations from "../React-Animations/ReactAnimations";
-// import "./Admin.css";
 import { Container, Row } from "react-bootstrap";
+
 
 const UserShowPosts = () => {
   const [postsData, setPostsData] = useState({});
@@ -27,6 +27,7 @@ const UserShowPosts = () => {
         setLoader(true);
       });
   }
+  
 
   return loader ? (
     <div

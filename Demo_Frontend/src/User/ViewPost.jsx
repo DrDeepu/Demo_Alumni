@@ -13,7 +13,6 @@ import {
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBCardHeader,
   MDBCardBody,
   MDBCardFooter,
   MDBIcon,
@@ -23,14 +22,23 @@ import {
 import { Alert } from "../Alerts/Toast";
 import AcceptedUsers from "./AcceptedUsers";
 
-export default function ViewPosts({ title, img_url, post_id, description }) {
+export default function ViewPosts({
+  title,
+  img_url,
+  post_id,
+  description,
+  post_accept,
+  post_decline,
+  get_accept_decline,
+  accept,
+  setAccept,
+}) {
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(img_url);
   const [comments, setComments] = useState(null);
   const [imageLoader, setImageLoader] = useState(false);
   const [refresher, setRefresher] = useState(true);
-  const [accept, setAccept] = useState(true);
   const [acceptedUsers, setAcceptedUsers] = useState({});
   const userData = useSelector((state) => state.set_user_profile_data);
 
@@ -44,7 +52,7 @@ export default function ViewPosts({ title, img_url, post_id, description }) {
     }
     get_comment();
     get_accept_decline();
-  }, [uploadImage, refresher]);
+  }, [uploadImage, refresher, accept]);
 
   const handleClose = () => {
     setShow(false);
@@ -67,24 +75,9 @@ export default function ViewPosts({ title, img_url, post_id, description }) {
       setComments(res.data);
     });
   }
-  async function post_accept_decline() {
-    await axios
-      .post(`${LOCALHOST_URL}/accept_decline`, {
-        post_id: data.post_id,
-        email: userData.email,
-        accept: accept,
-      })
-      .then((res) => {
-        get_accept_decline();
-      });
-  }
 
-  async function get_accept_decline() {
-    await axios.get(`${LOCALHOST_URL}/accept_decline`).then((res) => {
-      // console.log(res.data);
-      setAcceptedUsers(res.data);
-    });
-  }
+  // get_accept_decline();
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -136,12 +129,12 @@ export default function ViewPosts({ title, img_url, post_id, description }) {
             </div>
           </Form>
           <div className="grid grid-cols-8 ">
-            {accept ? (
+            {accept !== true ? (
               <Button
                 className="primary"
                 onClick={() => {
+                  post_accept();
                   setAccept(false);
-                  post_accept_decline();
                 }}
               >
                 Accept
@@ -150,8 +143,8 @@ export default function ViewPosts({ title, img_url, post_id, description }) {
               <Button
                 className="secondary"
                 onClick={() => {
+                  post_decline();
                   setAccept(true);
-                  post_accept_decline();
                 }}
               >
                 Decline

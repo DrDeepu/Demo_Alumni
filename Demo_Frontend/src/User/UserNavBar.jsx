@@ -15,13 +15,15 @@ import { useNavigate } from "react-router";
 
 function AdminNavBar(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const [userData, setUserData] = useState({});
+  // dispatch(store_user_profile_data(userData));
+  // dispatch(store_user_profile_data(userData));
 
   // const [user_data, setUser_data] = useState({});
-  const [userData, setUserData] = useState({});
   const [user, setUser] = useState(localStorage.getItem("user"));
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -44,21 +46,39 @@ function AdminNavBar(props) {
       })
       .then((res) => {
         // dispatch(store_user_profile_data(userData));
-        setUserData({
-          firstName: res.data.firstname,
-          lastName: res.data.lastname,
-          email: res.data.email,
-          phone: res.data.phone,
-          // password: res.data.password,
-          instaId: res.data.instaid,
-          linkedinId: res.data.linkedinid,
-          githubId: res.data.gitid,
-          domain: res.data.domain,
-          profession: res.data.profession,
-          company: res.data.company,
-          websiteUrl: res.data.website,
-          imageUrl: res.data.user_profile_image_url,
-        });
+        // setUserData({
+        //   firstName: res.data.firstname,
+        //   lastName: res.data.lastname,
+        //   email: res.data.email,
+        //   phone: res.data.phone,
+        //   // password: res.data.password,
+        //   instaId: res.data.instaid,
+        //   linkedinId: res.data.linkedinid,
+        //   githubId: res.data.gitid,
+        //   domain: res.data.domain,
+        //   profession: res.data.profession,
+        //   company: res.data.company,
+        //   websiteUrl: res.data.website,
+        //   imageUrl: res.data.user_profile_image_url,
+        // });
+        dispatch(
+          store_user_profile_data({
+            firstName: res.data.firstname,
+            lastName: res.data.lastname,
+            email: res.data.email,
+            phone: res.data.phone,
+            // password: res.data.password,
+            instaId: res.data.instaid,
+            linkedinId: res.data.linkedinid,
+            githubId: res.data.gitid,
+            domain: res.data.domain,
+            profession: res.data.profession,
+            company: res.data.company,
+            websiteUrl: res.data.website,
+            imageUrl: res.data.user_profile_image_url,
+          })
+        );
+
         // setLoader(false);
         // setImageUrl(res.data.user_profile_image_url);
         // console.log("DATA ------------", res);
@@ -68,7 +88,7 @@ function AdminNavBar(props) {
         navigate("/login");
       });
   }
-  dispatch(store_user_profile_data(userData));
+  // dispatch(store_user_profile_data(userData));
 
   return user === "true" || user === true ? (
     <>
