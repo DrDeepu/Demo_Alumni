@@ -72,6 +72,7 @@ export default function VerticalEditApp(props) {
       {props.edit ? (
         <Button
           variant="danger"
+          style={{ height: "50px" }}
           onClick={() => {
             setModalShow(true);
           }}
@@ -81,6 +82,7 @@ export default function VerticalEditApp(props) {
       ) : (
         <Button
           variant="primary"
+          style={{ height: "50px" }}
           onClick={() => {
             props.setEdit();
           }}

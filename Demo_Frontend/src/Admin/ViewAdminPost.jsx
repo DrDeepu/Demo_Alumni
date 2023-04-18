@@ -21,6 +21,7 @@ import {
 } from "mdb-react-ui-kit";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AttendingUsers from "./AttendingUsers";
 export default function ViewAdminPosts({
   title,
   img_url,
@@ -119,9 +120,11 @@ export default function ViewAdminPosts({
         View
       </Button>
 
-      <Modal show={show} onHide={handleClose} fullscreen>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
-          {/* <Modal.Title>{"Post Title"}</Modal.Title> */}
+          <Modal.Title>
+            Edit: <b>{title}</b>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -132,8 +135,8 @@ export default function ViewAdminPosts({
                   align="center"
                   style={{
                     backgroundColor: "gray",
-                    width: "200px",
-                    height: "200px",
+                    width: "100%",
+                    height: "20%x",
                   }}
                 >
                   <ImageLoaderAnimation />
@@ -142,7 +145,7 @@ export default function ViewAdminPosts({
                 <Image
                   src={imageUrl !== null ? imageUrl : ""}
                   //   src={image_url !== null ? image_url : ""}
-                  style={{ width: "200px", height: "200px" }}
+                  style={{ width: "100%", height: "20%" }}
                 />
               )}
             </Form.Group>
@@ -289,20 +292,23 @@ export default function ViewAdminPosts({
                 />
               </Form.Group>
             </div>
-            <VerticalEditApp
-              title={postTitle}
-              description={postDescription}
-              image_url={imageUrl}
-              post_id={post_id}
-              post_event_start_date={startDate}
-              post_event_start_time={startTime}
-              post_event_end_date={endDate}
-              post_event_end_time={endTime}
-              setEdit={() => {
-                setEditFunction();
-              }}
-              edit={edit}
-            />
+            <div style={{ display: "flex" }}>
+              <VerticalEditApp
+                title={postTitle}
+                description={postDescription}
+                image_url={imageUrl}
+                post_id={post_id}
+                post_event_start_date={startDate}
+                post_event_start_time={startTime}
+                post_event_end_date={endDate}
+                post_event_end_time={endTime}
+                setEdit={() => {
+                  setEditFunction();
+                }}
+                edit={edit}
+              />
+              <AttendingUsers />
+            </div>
           </Form>
           <hr />
           <p>Comments</p>
@@ -314,7 +320,7 @@ export default function ViewAdminPosts({
                   "https://res.cloudinary.com/dy59sbjqc/image/upload/v1681198081/Users/person-donald-900x1080_ctmwek.jpg"
                 }
                 alt="avatar 3"
-                style={{ width: "45px", height: "100%" }}
+                style={{ width: "45px", height: "100%",marginRight: "5%", }}
               />
               <input
                 type="text"
@@ -346,7 +352,7 @@ export default function ViewAdminPosts({
                   <MDBCard id="chat1" style={{ borderRadius: "15px" }}>
                     <MDBScrollspy
                       // suppressScrollX
-                      style={{ position: "relative", height: "400px" }}
+                      style={{ position: "relative" }}
                     >
                       <MDBCardBody>
                         {Object.keys(comments)
@@ -357,7 +363,11 @@ export default function ViewAdminPosts({
                                 <img
                                   src={comments[item]["image_url"]}
                                   alt="avatar 1"
-                                  style={{ width: "45px", height: "45px" }}
+                                  style={{
+                                    width: "45px",
+                                    height: "45px",
+                                    
+                                  }}
                                 />
                                 <div
                                   className="p-3 ms-3"

@@ -48,3 +48,7 @@ def accept_decline():
     accepted = user in post.accepted_users
     print('post_id : ',post_id,accepted,type(accepted))
     return {'accepted':accepted}
+
+@bp.route('/get_attending_users',methods=['GET'])
+def attending_users():
+    post_id = json.loads(request.data)['post_id']

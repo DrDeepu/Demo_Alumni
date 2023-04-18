@@ -368,7 +368,7 @@ app.register_blueprint(post_comments)
 def uploadimage():
 
     print(request.files['file'])
-    file =request.files['file']
+    file = request.files['file']
     global url
     # value = 'Admin_Image_Preview/kzsgvupe8ooitbik8d1l'.split('/')[1]
     value = 'kzsgvupe8ooitbik8d1l'
