@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
+import { createChatUser } from "../User/Chat/chat_api";
 
 const theme = createTheme();
 
@@ -47,6 +48,7 @@ export default function SignUp() {
       })
       .then((res) => {
         console.log(res);
+        createChatUser(email, password, firstname, lastname);
         navigate("/Login");
       })
       .catch((res) => {

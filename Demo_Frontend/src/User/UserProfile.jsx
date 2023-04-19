@@ -61,7 +61,7 @@ export default function ProfilePage() {
           lastName: res.data.lastname,
           email: res.data.email,
           phone: res.data.phone,
-          // password: res.data.password,
+          password: res.data.password,
           instaId: res.data.instaid,
           linkedinId: res.data.linkedinid,
           githubId: res.data.gitid,

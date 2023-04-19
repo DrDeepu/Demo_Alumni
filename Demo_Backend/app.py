@@ -107,7 +107,7 @@ def my_profile():
        'lastname': user.lastname,
        'email': user.email,
        'phone': user.phone,
-        # 'password':user.password,
+        'password':user.password,
        'instaid':user.instaid,
        'gitid':user.gitid,
        'linkedinid':user.linkedinid,
@@ -119,6 +119,7 @@ def my_profile():
        'user_profile_image_url':user.user_profile_image_url,
        'jwt':get_jwt_identity()
     }
+    # print(response_body)
     print(user.user_profile_image_url)
     if user.email == 'admin@email.com' and user.password == 'admin1':
         response_body['admin']=True
@@ -209,7 +210,9 @@ def all_users():
         'company':i.company,
         'website':i.website,
         'user_profile_image_url':i.user_profile_image_url,
+        'password':i.password,
         'valid':i.valid,}
+    print(user_data)
     return user_data
 
 

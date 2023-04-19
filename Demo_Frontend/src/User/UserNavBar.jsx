@@ -16,7 +16,7 @@ import { useNavigate } from "react-router";
 function AdminNavBar(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({});
   // dispatch(store_user_profile_data(userData));
   // dispatch(store_user_profile_data(userData));
 
@@ -46,28 +46,14 @@ function AdminNavBar(props) {
       })
       .then((res) => {
         // dispatch(store_user_profile_data(userData));
-        // setUserData({
-        //   firstName: res.data.firstname,
-        //   lastName: res.data.lastname,
-        //   email: res.data.email,
-        //   phone: res.data.phone,
-        //   // password: res.data.password,
-        //   instaId: res.data.instaid,
-        //   linkedinId: res.data.linkedinid,
-        //   githubId: res.data.gitid,
-        //   domain: res.data.domain,
-        //   profession: res.data.profession,
-        //   company: res.data.company,
-        //   websiteUrl: res.data.website,
-        //   imageUrl: res.data.user_profile_image_url,
-        // });
+       
         dispatch(
           store_user_profile_data({
             firstName: res.data.firstname,
             lastName: res.data.lastname,
             email: res.data.email,
             phone: res.data.phone,
-            // password: res.data.password,
+            password: res.data.password,
             instaId: res.data.instaid,
             linkedinId: res.data.linkedinid,
             githubId: res.data.gitid,
@@ -132,11 +118,11 @@ function AdminNavBar(props) {
                   <AccountCircleIcon />
                 </NavLink>
               </Nav.Link>
-              {/* <Nav.Link>
+              <Nav.Link>
                 <NavLink to="/UserChat">
                   <ChatIcon />
                 </NavLink>
-              </Nav.Link> */}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

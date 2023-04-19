@@ -37,13 +37,29 @@ const Dashboard = () => {
       })
       .then((res) => {
         setUser(true);
-        dispatch(store_user_profile_data(userData));
+        dispatch(
+          store_user_profile_data({
+            firstName: res.data.firstname,
+            lastName: res.data.lastname,
+            email: res.data.email,
+            phone: res.data.phone,
+            password: res.data.password,
+            instaId: res.data.instaid,
+            linkedinId: res.data.linkedinid,
+            githubId: res.data.gitid,
+            domain: res.data.domain,
+            profession: res.data.profession,
+            company: res.data.company,
+            websiteUrl: res.data.website,
+            imageUrl: res.data.user_profile_image_url,
+          })
+        );
         setUserData({
           firstName: res.data.firstname,
           lastName: res.data.lastname,
           email: res.data.email,
           phone: res.data.phone,
-          // password: res.data.password,
+          password: res.data.password,
           instaId: res.data.instaid,
           linkedinId: res.data.linkedinid,
           githubId: res.data.gitid,
