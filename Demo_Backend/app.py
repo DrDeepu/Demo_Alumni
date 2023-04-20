@@ -21,6 +21,7 @@ from Admin.upload_fetch_admin_post_image import bp as upload_fetch_admin_post_im
 from Admin.approve_delete_disapprove_users import bp as approve_delete_disapprove_users
 from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
+from Users.send_otp import bp as send_otp
 from Variables.mail import mail
 
 
@@ -56,13 +57,13 @@ jwt = JWTManager(app)
 # SIGN UP API ROUTE
 @app.route('/create_user',methods=['POST'])
 def create_user():
-    firstname = json.loads(request.data)['data']['firstname']
-    lastname = json.loads(request.data)['data']['lastname']
+    firstname = json.loads(request.data)['data']['firstName']
+    lastname = json.loads(request.data)['data']['lastName']
     email= json.loads(request.data)['data']['email']
     password = json.loads(request.data)['data']['password']
-    phone = json.loads(request.data)['data']['phone']
+    # phone = json.loads(request.data)['data']['phone']
     image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1681290246/Users/Blank-Avatar_ava9yt.png'
-    user = User(firstname=firstname,lastname=lastname,email=email,phone=phone, password=password,user_profile_image_url=image_url)
+    user = User(firstname=firstname,lastname=lastname,email=email, password=password,user_profile_image_url=image_url)
     db.session.add(user)
     db.session.commit()
     return Response(['Data added Successfully'])
@@ -364,6 +365,9 @@ app.register_blueprint(upload_fetch_admin_post_image)
 
 
 app.register_blueprint(post_comments)
+
+
+app.register_blueprint(send_otp)
 
 
 # Upload User Image to Cloudinary

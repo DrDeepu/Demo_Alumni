@@ -1,5 +1,6 @@
 import "../BlurAnimation.css";
 import "./Login.css";
+import "mdb-ui-kit/css/mdb.min.css";
 import * as React from "react";
 import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
@@ -15,11 +16,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import "./ImageUpload.css";
+// import "./ImageUpload.css";
 import { useSelector, useDispatch } from "react-redux";
 import { store_access_token, store_user_email } from "../Redux/actions";
 import { LOCALHOST_URL } from "../config";
 import jwt_decode from "jwt-decode";
+import LoginVideo from "./LoginVideo";
+import Paper from "@mui/material/Paper";
 
 const theme = createTheme();
 
@@ -78,97 +81,115 @@ export default function Login() {
 
   return (
     <>
-      <div id={10 < 15 && "login_blur_animation"}>
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+      <LoginVideo>
+        <div>
+          <div id={"login_blur_animation"}>
+            {/* <ThemeProvider theme={theme}> */}
             <Box
               sx={{
-                marginTop: 8,
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                "& > :not(style)": {
+                  m: 1,
+                  width: 500,
+                  height: 550,
+                },
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Login
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      onChange={(e) => setEmail(e.target.value.toLowerCase())}
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      onSubmit={() => alert("Hey there")}
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </Grid>
-                </Grid>
-                {emailValid.test(email) && password.length > 5 ? (
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    onClick={validationFunction}
+              <Paper elevation={6}>
+                <Container component="main" maxWidth="xs">
+                  <CssBaseline />
+                  <Box
+                    sx={{
+                      marginTop: 8,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
                   >
-                    Login
-                  </Button>
-                ) : (
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    onClick={validationFunction}
-                    disabled
-                  >
-                    Login
-                  </Button>
-                )}
-                <div className="grid grid-cols-2">
-                  <Grid item>
-                    <NavLink to="/ForgetPassword" variant="body2">
-                      Forget Password
-                    </NavLink>
-                  </Grid>
-                  <Grid item>
-                    <NavLink to="/SignUp" variant="body2">
-                      Join Alumni Network
-                    </NavLink>
-                  </Grid>
-                </div>
-              </Box>
+                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                      <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                      Login
+                    </Typography>
+                    <Box
+                      component="form"
+                      noValidate
+                      onSubmit={handleSubmit}
+                      sx={{ mt: 3 }}
+                    >
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            onChange={(e) =>
+                              setEmail(e.target.value.toLowerCase())
+                            }
+                            required
+                          />
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            onSubmit={() => alert("Hey there")}
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="new-password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                          />
+                        </Grid>
+                      </Grid>
+                      {emailValid.test(email) && password.length > 5 ? (
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          onClick={validationFunction}
+                        >
+                          Login
+                        </Button>
+                      ) : (
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          onClick={validationFunction}
+                          disabled
+                        >
+                          Login
+                        </Button>
+                      )}
+                      <div className="grid grid-cols-2">
+                        <Grid item>
+                          <NavLink to="/ForgetPassword" variant="body2">
+                            Forget Password
+                          </NavLink>
+                        </Grid>
+                        <Grid item>
+                          <NavLink to="/SignUp" variant="body2">
+                            Join Alumni Network
+                          </NavLink>
+                        </Grid>
+                      </div>
+                    </Box>
+                  </Box>
+                </Container>
+              </Paper>
             </Box>
-          </Container>
-        </ThemeProvider>
-      </div>
-
-      <div />
+            {/* </ThemeProvider> */}
+            {/* //   </div> */}
+          </div>
+        </div>
+      </LoginVideo>
     </>
   );
 }

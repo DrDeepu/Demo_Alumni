@@ -10,9 +10,9 @@ class User(db.Model):
     firstname = db.Column(db.String(200),nullable = False)
     lastname = db.Column(db.String(200),nullable = False)
     email = db.Column(db.String(255),unique=True,nullable = False)
-    phone = db.Column(db.String(15),nullable = False)
     password = db.Column(db.String(200),nullable = False)
     valid = db.Column(db.String(20),default=False)
+    phone = db.Column(db.String(15))
     instaid = db.Column(db.String(200))
     gitid = db.Column(db.String(200))
     linkedinid = db.Column(db.String(200))
@@ -22,12 +22,11 @@ class User(db.Model):
     website = db.Column(db.String(200))
     user_profile_image_url = db.Column(db.String(300))
 
-    def __init__(self, firstname, lastname, email, password,phone,valid='false',instaid='',gitid='',linkedinid='',domain='',profession='',company='',website='',user_profile_image_url=''):
+    def __init__(self, firstname, lastname, email, password,valid='false',instaid='',gitid='',linkedinid='',domain='',profession='',company='',website='',user_profile_image_url=''):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.password = password
-        self.phone = phone
         self.valid = valid
         self.instaid = instaid
         self.gitid = gitid

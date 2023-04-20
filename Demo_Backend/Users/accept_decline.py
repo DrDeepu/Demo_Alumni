@@ -1,10 +1,6 @@
 import json
 from flask import Blueprint
-from flask import Response
 from flask import Flask,request,jsonify
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 from Models.models import db,User,AdminPosts
 

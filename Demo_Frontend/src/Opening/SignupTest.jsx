@@ -249,11 +249,9 @@ function LoginTest() {
                   <span style={{ color: "hsl(218, 81%, 75%)" }}>
                     Already have an account
                   </span>
-                  <NavLink to="/login">
-                    <MDBBtn className="w-100 mb-4" size="md">
-                      login
-                    </MDBBtn>
-                  </NavLink>
+                  <MDBBtn className="w-100 mb-4" size="md">
+                    login
+                  </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

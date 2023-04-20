@@ -25,6 +25,7 @@ import PageNotFound from "../404/PageNotFound";
 
 // MainRoute Files
 import MainWebsite from "./MainHomePage/MainHomePage";
+import TestHome from "./MainHomePage/TestHome";
 
 // TestFolder files
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -44,7 +45,8 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<MainWebsite />}></Route>
+            {/* <Route exact path="/" element={<MainWebsite />}></Route> */}
+            <Route exact path="/" element={<TestHome />}></Route>
             <Route exact path="/Login" element={<Login />}></Route>
             <Route exact path="/SignUp" element={<SignUp />}></Route>
             <Route
