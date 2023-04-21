@@ -61,7 +61,6 @@ def create_user():
     lastname = json.loads(request.data)['data']['lastName']
     email= json.loads(request.data)['data']['email']
     password = json.loads(request.data)['data']['password']
-    # phone = json.loads(request.data)['data']['phone']
     image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1681290246/Users/Blank-Avatar_ava9yt.png'
     user = User(firstname=firstname,lastname=lastname,email=email, password=password,user_profile_image_url=image_url)
     db.session.add(user)

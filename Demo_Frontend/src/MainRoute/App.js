@@ -14,6 +14,7 @@ import UserProfile from "../User/UserProfile";
 import UserPostsPage from "../User/UserPostsPage";
 import UserSearchPage from "../User/UserSearchPage";
 import UserChat from "../User/UserChat";
+import ChangePassword from "../Opening/ChangePassword";
 
 // Admin Folder Files
 import AdminDashboard from "../Admin/AdminDashboard";
@@ -24,8 +25,8 @@ import AdminPosts from "../Admin/AdminPosts";
 import PageNotFound from "../404/PageNotFound";
 
 // MainRoute Files
-import MainWebsite from "./MainHomePage/MainHomePage";
 import TestHome from "./MainHomePage/TestHome";
+import MainWebsite from "./MainHomePage/MainHomePage";
 
 // TestFolder files
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -71,6 +72,11 @@ function App() {
               element={<UserSearchPage />}
             ></Route>
             <Route exact path="/UserChat" element={<UserChat />}></Route>
+            <Route
+              exact
+              path="/reset_password"
+              element={<ChangePassword />}
+            ></Route>
             <Route
               exact
               path="/AdminDashboard"

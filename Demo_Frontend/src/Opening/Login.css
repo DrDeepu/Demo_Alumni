@@ -22,4 +22,6 @@
     filter: blur(0px);
   }
 }
-
+.MuiInputBase-root {
+  margin-bottom: 5%;
+}

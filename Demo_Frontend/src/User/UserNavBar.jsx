@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
 import { useNavigate } from "react-router";
 
-function AdminNavBar(props) {
+function UserNavBar(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({});
@@ -46,7 +46,7 @@ function AdminNavBar(props) {
       })
       .then((res) => {
         // dispatch(store_user_profile_data(userData));
-       
+
         dispatch(
           store_user_profile_data({
             firstName: res.data.firstname,
@@ -115,7 +115,7 @@ function AdminNavBar(props) {
                 <PersonSearchIcon /> */}
               <Nav.Link>
                 <NavLink to="/UserSearchPage">
-                  <AccountCircleIcon />
+                  <PersonSearchIcon />
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
@@ -135,4 +135,4 @@ function AdminNavBar(props) {
   );
 }
 
-export default AdminNavBar;
+export default UserNavBar;

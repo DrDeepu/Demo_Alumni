@@ -1,11 +1,10 @@
-import NavBar from "./UserNavBar";
+import UserNavBar from "./UserNavBar";
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Container, Row } from "react-bootstrap";
-
 
 const UserShowPosts = () => {
   const [postsData, setPostsData] = useState({});
@@ -27,24 +26,24 @@ const UserShowPosts = () => {
         setLoader(true);
       });
   }
-  
 
-  return loader ? (
-    <div
-      align="center"
-      style={{
-        left: "50%",
-        height: "100vh",
-        width: "100%",
-        paddingTop: "20%",
-      }}
-    >
-      <ReactAnimations />
-    </div>
-  ) : (
+  return (
+    // loader ? (
+    //   <div
+    //     align="center"
+    //     style={{
+    //       left: "50%",
+    //       height: "100vh",
+    //       width: "100%",
+    //       paddingTop: "20%",
+    //     }}
+    //   >
+    //     <ReactAnimations />
+    //   </div>
+    // ) : (
     <>
       <div className="main_blur_div_animation">
-        <NavBar />
+        <UserNavBar />
         <div id="card-container" align="center">
           <Container>
             <Row xs={1} sm={2} md={3} style={{ gap: "10px" }}>
