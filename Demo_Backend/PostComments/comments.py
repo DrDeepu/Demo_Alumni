@@ -3,8 +3,8 @@ from urllib.error import HTTPError
 from Models.models import PostComments,db,User
 import json
 from flask import Blueprint,Response,request
-from profanity_check import predict, predict_prob
-from profanity import profanity 
+# from profanity_check import predict, predict_prob
+# from profanity import profanity 
 import flask
 from sqlalchemy import desc
 from datetime import datetime
@@ -20,17 +20,17 @@ def post_comment():
     # print(post_id,type(post_id))
     # print(email,type(email))
     # print(comment,type(comment))
-    sentence = profanity.censor(comment)
-    if comment==sentence:
+    # sentence = profanity.censor(comment)
+    # if comment==sentence:
     
-        comment = PostComments(comment_text=comment,user_email=email,post_id=post_id,post_time=datetime.now())
-        db.session.add(comment)
-        db.session.commit()
-        return "Successfully added comment"
-    elif comment!=sentence:
-        return flask.abort(400,sentence)
-    else:
-        return "Something else went wrong"
+    comment = PostComments(comment_text=comment,user_email=email,post_id=post_id,post_time=datetime.now())
+    db.session.add(comment)
+    db.session.commit()
+    return "Successfully added comment"
+    # elif comment!=sentence:
+    #     return flask.abort(400,sentence)
+    # else:
+    #     return "Something else went wrong"
 
 
     

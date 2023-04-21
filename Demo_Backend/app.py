@@ -6,8 +6,6 @@ from flask import Flask,request
 from flask import Response
 from flask_cors import CORS
 from flask import jsonify
-from flask_admin import Admin
-from flask_admin.contrib.sqla  import ModelView
 from flask_jwt_extended import (JWTManager,jwt_required,
 get_jwt_identity,create_access_token)
 from Variables.variables import (CLOUDINARY_API_KEY,CLOUDINARY_CLOUD_NAME
@@ -31,14 +29,14 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
 app.secret_key = 'Something-Is-Not-Right'
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 
-# db = SQLAlchemy(app)
 db.init_app(app)
 
-admin = Admin(app)
+
 
 cloudinary.config(
   cloud_name=CLOUDINARY_CLOUD_NAME,
@@ -47,10 +45,9 @@ cloudinary.config(
 )
 
 
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+app.config["JWT_SECRET_KEY"] = "super-secret" 
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 60*180
 jwt = JWTManager(app)
-# jwt.init_app(app)
 
 
 
@@ -181,10 +178,7 @@ def dashboard():
 @app.route('/admin',methods=['GET','POST'])
 @jwt_required()
 def admin_panel():
-    # print(User.query.all())
-    # print(get_jwt_identity())
     users = User.query.all()
-    # all_users()
     return users
 
 
@@ -193,15 +187,11 @@ def admin_panel():
 @app.route('/all_users',methods=['GET','POST'])
 # @jwt_required()
 def all_users():
-    # print (User.query.all())
-    # print(get_jwt_identity())
     user_data = {}
     for i in User.query.all():
         if i.email == 'admin@email.com':
             continue
         user_data[i.email] = {'firstname': i.firstname, 'lastname': i.lastname, 'email': i.email, 'phone': i.phone,
-
-        # 'password':i.password,
         'instaid':i.instaid,
         'gitid':i.gitid,
         'linkedinid':i.linkedinid,
@@ -219,7 +209,6 @@ def all_users():
 @app.route('/user_count',methods=['GET'])
 # @jwt_required()
 def user_count():
-    # if get_jwt_identity() == 'admin@email.com':
     print(True)
     user_data = {}
     total_users = 0
@@ -237,9 +226,6 @@ def user_count():
     user_data['valid_users'] = valid_users
     user_data['not_valid_users'] = not_valid_users
     return user_data
-    # else:
-    #     return Http404
-
 
 app.register_blueprint(approve_delete_disapprove_users)
 
@@ -312,7 +298,6 @@ def fetch_admin_post():
             'post_image_url':i.post_image_url
         }
     return post_data
-    # return Response(result_image)
 
 @app.route('/delete_admin_post',methods=['GET','POST'])
 def delete_admin_post_image():
@@ -422,7 +407,7 @@ def fetchimage():
 
 
 
-admin.add_view(ModelView(User,db.session))
+# admin.add_view(ModelView(User,db.session))
 
 if __name__=='__main__':
     app.run()
