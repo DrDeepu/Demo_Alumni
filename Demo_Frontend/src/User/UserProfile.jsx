@@ -240,7 +240,7 @@ export default function ProfilePage() {
                       </MDBRow>
                       <hr />
                     </MDBCardBody>
-                    <UserEditProfile userData={userData} />
+                    <UserEditProfile userData={userData} setLoader = {()=>{setLoader(true)}} />
                   </MDBCard>
                 </MDBCol>
               </MDBRow>

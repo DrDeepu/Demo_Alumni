@@ -19,12 +19,7 @@ import { createChatUser } from "../User/Chat/chat_api";
 
 function LoginTest() {
   // const [phone, setPhone] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState(false);
-  const [firstname, setFirstname] = React.useState("");
-  const [lastname, setLastname] = React.useState("");
-  const [blur_count, setBlur_Count] = React.useState(10);
+  
   const [passwordError, setPasswordError] = React.useState(false);
 
   const [signUpData, setSignUpData] = useState({
@@ -40,9 +35,7 @@ function LoginTest() {
   const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  useEffect(() => {
-    setTimeout(blur_count > 0 && setBlur_Count(blur_count - 0.5), 1000);
-  }, [blur_count]);
+  
   async function buttonClick() {
     await axios
       .post("http://127.0.0.1:5000/create_user", {
@@ -195,7 +188,7 @@ function LoginTest() {
                         password: e.target.value,
                       });
                       if (
-                        e.target.value.length > 0 &&
+                        e.target.value.length > 0 &&signUpData.confirmPassword!==''&&
                         signUpData.confirmPassword !== e.target.value
                       ) {
                         setPasswordError(true);
@@ -215,7 +208,7 @@ function LoginTest() {
                         confirmPassword: e.target.value,
                       });
                       if (
-                        e.target.value.length > 0 &&
+                        e.target.value.length > 0 &&signUpData.password!==''&&
                         signUpData.password !== e.target.value
                       ) {
                         setPasswordError(true);

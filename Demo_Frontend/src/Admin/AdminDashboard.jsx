@@ -7,6 +7,7 @@ import "../BlurAnimation.css";
 import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
+import toast, { Toaster } from "react-hot-toast";
 
 // import Chart from "chart.js/auto";
 
@@ -66,6 +67,7 @@ const Admin = () => {
       </div>
     ) : (
       <>
+      <Toaster position={"top-center"} reverseOrder={false} />
         <div id="admin_blur_animation">
           <AdminNavBar />
           <div

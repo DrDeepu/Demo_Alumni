@@ -70,19 +70,28 @@ def create_user():
 def login():
     email= json.loads(request.data)['data']['email']
     password = json.loads(request.data)['data']['password']
-    user = db.one_or_404(db.select(User).filter_by(email=email,password=password))
-    print(user.email)
-    if user.email == 'admin@email.com':
-        access_token = create_access_token(identity=email)
-        return {'user':user.firstname,'user_email':email,'admin':True,'access_token':access_token}
-    elif user.valid == 'true':
-        access_token = create_access_token(identity=email)
-        response = {'user':user.firstname,'user_email':email,'admin':False,'access_token':access_token}
-        return response
-    elif user.valid == 'true':
-        return Http404({'error':'Admin is yet to approve your Account. Please wait till then.'})
+    # user = db.one_or_404(db.select(User).filter_by(email=email,password=password))
+    user_count = User.query.filter_by(email=email).count()
+    # print(user.email)
+    if user_count!=0 :
+        user = User.query.filter_by(email=email).first()
+        if user.email == 'admin@email.com':
+            if user.password == password:
+                access_token = create_access_token(identity=email)
+                return {'user':user.firstname,'user_email':email,'admin':True,'access_token':access_token,'status':200}
+            else:
+                return {'status':400,'error':'Invalid Password'}
+        
+        elif user.valid == 'true':
+            if user.password == password:
+                access_token = create_access_token(identity=email)
+                return {'status':200,'user':user.firstname,'user_email':email,'admin':False,'access_token':access_token}
+            else:
+                return {'error':'Invalid Password'}
+        elif user.valid == 'false':
+            return {'status':400,'error':'Admin is yet to approve your Account. Please wait till then.'}
     else:
-        return Http404({'error':'User not Found'})
+        return {'status':400,'error':'User not Found'}
     # return response
 
 @app.route('/access_user_validation',methods=['GET'])
@@ -131,18 +140,26 @@ def save_profile_data():
     
     email = json.loads(request.data)['data']['email']
     user = User.query.filter_by(email=email).first()
+    print('DB IMAGE URL',user.user_profile_image_url)
     url = ''
     IMAGE_URL= json.loads(request.data)['data']['imageUrl']
+    print('JSON IMAGE URL',IMAGE_URL)
     print(user.user_profile_image_url)
     print(IMAGE_URL)
     if not user.user_profile_image_url:
         print('not present')
-        url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
+        if IMAGE_URL!=user.user_profile_image_url:
+            print('HUH')
+            url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
+            user.user_profile_image_url=url
         # print(url)
     else:
-        print('present')
-        public_id = user.user_profile_image_url.split('/Users/')[1].split('.')[0]
-        url = cloudinary.uploader.upload(IMAGE_URL,public_id=public_id,folder='/Users')['url']
+        if IMAGE_URL!=user.user_profile_image_url:
+            # print('HUH')
+            print('present')
+            public_id = user.user_profile_image_url.split('/Users/')[1].split('.')[0]
+            url = cloudinary.uploader.upload(IMAGE_URL,public_id=public_id,folder='/Users')['url']
+            user.user_profile_image_url=url
         # print(url)
     print(json.loads(request.data)["data"]["websiteUrl"])
     user.firstname = json.loads(request.data)['data']['firstName']
@@ -156,7 +173,7 @@ def save_profile_data():
 
     user.profession = json.loads(request.data)['data']['profession']
     user.company = json.loads(request.data)['data']['companyName']
-    user.user_profile_image_url=url
+    
     # print(user.user_profile_image_url)
     db.session.commit()
     print(user.user_profile_image_url)

@@ -73,6 +73,8 @@ export default function User(props) {
       .post(`${LOCALHOST_URL}/save_profile_data`, { data })
       .then((res) => {
         console.log(res);
+        handleClose();
+        props.setLoader();
       });
   }
   return (

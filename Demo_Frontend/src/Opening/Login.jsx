@@ -23,12 +23,13 @@ import { LOCALHOST_URL } from "../config";
 import jwt_decode from "jwt-decode";
 import LoginVideo from "./LoginVideo";
 import Paper from "@mui/material/Paper";
+import toast, { Toaster } from "react-hot-toast";
 
-const theme = createTheme();
 
 export default function Login() {
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
+  console.log(access_token,user_email)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ export default function Login() {
         else navigate("/userdashboard");
       }
     }
-  }, []);
+  }, [access_token,user_email]);
 
   // useEffect(() => {}, [access_token]);
   const emailValid =
@@ -70,19 +71,26 @@ export default function Login() {
         data: { email, password },
       })
       .then((res) => {
-        dispatch(store_access_token(res.data.access_token));
-        dispatch(store_user_email(res.data.access_token));
-        window.location.reload();
-      });
+        console.log(res.data)
+        if(res.data.status===400)
+        {
+          toast.error(res.data.error)
+        }
+else{
+  
+  dispatch(store_access_token(res.data.access_token));
+  dispatch(store_user_email(res.data.access_token));
     if (user_email === "admin@email.com") {
       navigate("/admindashboard");
     } else navigate("/userdashboard");
+}
+      })
   }
 
   return (
     <>
       <LoginVideo>
-        <div>
+      <Toaster position={"top-center"} reverseOrder={false} />
           <div id={"login_blur_animation"}>
             {/* <ThemeProvider theme={theme}> */}
             <Box
@@ -188,7 +196,7 @@ export default function Login() {
             {/* </ThemeProvider> */}
             {/* //   </div> */}
           </div>
-        </div>
+        
       </LoginVideo>
     </>
   );

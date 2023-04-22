@@ -1,7 +1,11 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { LOCALHOST_URL } from "../config";
-const token = localStorage.getItem("access_token");
+const token = localStorage.getItem("access_token")?localStorage.getItem("access_token"):null;
+if(token===undefined||token==='undefined'||token===null)
+{
+  localStorage.removeItem('access_token')
+}
 const access_token_initialState = {
   access_token: token ? token : null,
   // access_token: localStorage.getItem("access_token"),
@@ -11,8 +15,15 @@ export const access_token = (state = access_token_initialState, action) => {
   // console.log("Payload in reducers file", action);
   switch (action.type) {
     case "store_token":
-      localStorage.setItem("access_token", action.payload);
-      return { access_token: localStorage.getItem(action.payload) };
+      if(action.payload===undefined||action.payload==='undefined'||action.payload===null)
+{
+  localStorage.removeItem('access_token')
+}
+else{
+
+  localStorage.setItem("access_token", action.payload);
+}
+      return { access_token: localStorage.getItem('access_token') };
     default:
       return state;
   }
@@ -27,7 +38,7 @@ export const set_user_data = (state = set_user_data_initialState, action) => {
   switch (action.type) {
     case "store_user_email":
       const user_email =
-        localStorage.getItem("access_token") !== ""
+        localStorage.getItem("access_token") !== ""||localStorage.getItem("access_token") !== "undefined"||localStorage.getItem("access_token")
           ? jwt_decode(localStorage.getItem("access_token")).sub
           : "";
       return { user_email: user_email };
