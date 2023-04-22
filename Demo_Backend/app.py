@@ -135,7 +135,7 @@ def my_profile():
 
 
 @app.route('/save_profile_data',methods=["POST"])
-# @jwt_required
+@jwt_required()
 def save_profile_data():
     
     email = json.loads(request.data)['data']['email']

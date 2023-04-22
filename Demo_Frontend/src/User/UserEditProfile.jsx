@@ -7,7 +7,12 @@ import axios from "axios";
 import ImageLoaderAnimation from "../React-Animations/ImageLoaderAnimation";
 import UserProfileSaveModal from "./UserProfileSaveModal";
 import { LOCALHOST_URL } from "../config";
+import { useSelector } from "react-redux";
+
+
+
 export default function User(props) {
+  const access_token = useSelector((state) => state.access_token.access_token);
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
   const [imageLoader, setImageLoader] = useState(false);
@@ -70,7 +75,9 @@ export default function User(props) {
     };
     await axios
       // .post(`${LOCALHOST_URL}/save_profile_data`, formData)
-      .post(`${LOCALHOST_URL}/save_profile_data`, { data })
+      .post(`${LOCALHOST_URL}/save_profile_data`, {data}, {headers:{
+        Authorization: `Bearer ${access_token}`,
+      }})
       .then((res) => {
         console.log(res);
         handleClose();
