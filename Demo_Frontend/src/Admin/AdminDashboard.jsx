@@ -8,6 +8,7 @@ import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import toast, { Toaster } from "react-hot-toast";
+import AdminReport from "./AdminReport"
 
 // import Chart from "chart.js/auto";
 
@@ -97,6 +98,7 @@ const Admin = () => {
                 <h2>{user_data.not_valid_users}</h2>
               </div>
             </div>
+            <AdminReport/>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {
