@@ -245,7 +245,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 />
               </Form.Group>
 
-              <Form.Group
+              {/* <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
@@ -256,7 +256,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                     setInstaCheck(!instaCheck);
                   }}
                 />
-              </Form.Group>
+              </Form.Group> */}
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"

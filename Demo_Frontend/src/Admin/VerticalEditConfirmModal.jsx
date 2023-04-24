@@ -12,6 +12,7 @@ export default function VerticalEditApp(props) {
   function VerticalEditConfirmModal(props) {
     return (
       <Modal
+        style={{ background: "rgba(0,0,0,0.3)" }}
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"

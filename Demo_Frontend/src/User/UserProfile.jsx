@@ -62,6 +62,8 @@ export default function ProfilePage() {
           email: res.data.email,
           phone: res.data.phone,
           password: res.data.password,
+          batch:res.data.batch,
+          department:res.data.department,
           instaId: res.data.instaid,
           linkedinId: res.data.linkedinid,
           githubId: res.data.gitid,
@@ -211,6 +213,30 @@ export default function ProfilePage() {
                         <MDBCol sm="9">
                           <MDBCardText className="text-muted">
                             {userData.phone}
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      {/* Batch */}
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Batch</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText className="text-muted">
+                            {userData.batch}
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      {/* Department */}
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Department</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText className="text-muted">
+                            {userData.department}
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>

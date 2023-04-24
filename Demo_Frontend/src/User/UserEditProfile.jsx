@@ -9,8 +9,6 @@ import UserProfileSaveModal from "./UserProfileSaveModal";
 import { LOCALHOST_URL } from "../config";
 import { useSelector } from "react-redux";
 
-
-
 export default function User(props) {
   const access_token = useSelector((state) => state.access_token.access_token);
   const [show, setShow] = useState(false);
@@ -22,6 +20,8 @@ export default function User(props) {
     lastName: props.userData.lastName,
     email: props.userData.email,
     phoneNumber: props.userData.phone,
+    batch: props.userData.batch,
+    department: props.userData.department,
     instagramId: props.userData.instaId,
     linkedinId: props.userData.linkedinId,
     githubId: props.userData.githubId,
@@ -75,9 +75,15 @@ export default function User(props) {
     };
     await axios
       // .post(`${LOCALHOST_URL}/save_profile_data`, formData)
-      .post(`${LOCALHOST_URL}/save_profile_data`, {data}, {headers:{
-        Authorization: `Bearer ${access_token}`,
-      }})
+      .post(
+        `${LOCALHOST_URL}/save_profile_data`,
+        { data },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         handleClose();
@@ -174,6 +180,38 @@ export default function User(props) {
                   rows={2}
                   onChange={(e) => {
                     setUserData({ ...userData, phoneNumber: e.target.value });
+                  }}
+                />
+              </Form.Group>
+              {/* Batch */}
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Batch</Form.Label>
+                <Form.Control
+                  disabled
+                  type="date"
+                  defaultValue={userData.batch}
+                  rows={2}
+                  min="2000-01-01"
+                  onChange={(e) => {
+                    setUserData({ ...userData, batch: e.target.value });
+                  }}
+                />
+              </Form.Group>
+              {/* Department */}
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Department</Form.Label>
+                <Form.Control
+                  type="text"
+                  defaultValue={userData.department}
+                  rows={2}
+                  onChange={(e) => {
+                    setUserData({ ...userData, department: e.target.value });
                   }}
                 />
               </Form.Group>

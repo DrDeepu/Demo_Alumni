@@ -75,9 +75,33 @@ card-container {
   box-shadow: 0px 5px 10px gray;
 }
 
-
-#send_mail{
+#send_mail {
   border-radius: 10px black;
-  box-shadow: 10px ;
+  box-shadow: 10px;
   margin-bottom: 1px;
+}
+#bar_div {
+  height: 50vh;
+  position: relative;
+  margin-bottom: 1%;
+  padding: 1%;
+}
+.nav-link {
+  transition: border-bottom 0.5s ease-in-out;
+}
+.nav-link.active {
+  /* background-color: var(--bg); */
+  color: var(--color-text);
+  border-bottom: black 3px solid;
+  animation: bottom_width 0.2s;
+}
+
+@keyframes bottom_width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+    /* border-right: black 2px solid; */
+  }
 }

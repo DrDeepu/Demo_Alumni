@@ -13,7 +13,7 @@ export default function AdminPosts() {
     // setLoader(true);
     fetchAllPosts();
   }, [reFetch]);
-    async function fetchAllPosts() {
+  async function fetchAllPosts() {
     await axios
       .get("http://localhost:5000/fetch_all_admin_post")
       .then((res) => {
@@ -27,25 +27,27 @@ export default function AdminPosts() {
       });
   }
   return (
-    <div id="admin_add_post_blur_animation">
+    <>
       <AdminNavBar />
-      <div align="center">
-        <AdminAddPostsModal
-          setRefetch={() => setReFetch(!reFetch)}
+      <div id="admin_add_post_blur_animation">
+        <div align="center">
+          <AdminAddPostsModal
+            setRefetch={() => setReFetch(!reFetch)}
+            postsData={postsData}
+          />
+        </div>
+        <hr />
+        <AdminAllPosts
           postsData={postsData}
+          fetchAllPosts={() => {
+            fetchAllPosts();
+          }}
+          loader={loader}
+          setRefetch={() => {
+            setReFetch(!reFetch);
+          }}
         />
       </div>
-      <hr />
-      <AdminAllPosts
-        postsData={postsData}
-        fetchAllPosts={() => {
-          fetchAllPosts();
-        }}
-        loader={loader}
-        setRefetch={() => {
-          setReFetch(!reFetch);
-        }}
-      />
-    </div>
+    </>
   );
 }

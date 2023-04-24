@@ -224,6 +224,7 @@ function LoginTest() {
                   signUpData.firstName.length > 2 &&
                   signUpData.lastName.length > 2 &&
                   signUpData.password.length > 5 &&
+                  signUpData.confirmPassword.length > 5 &&
                   passwordError === false ? (
                     <MDBBtn
                       className="w-100 mb-4"

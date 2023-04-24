@@ -294,6 +294,7 @@ export default function ViewAdminPosts({
             </div>
             <div style={{ display: "flex" }}>
               <VerticalEditApp
+
                 title={postTitle}
                 description={postDescription}
                 image_url={imageUrl}
@@ -320,7 +321,7 @@ export default function ViewAdminPosts({
                   "https://res.cloudinary.com/dy59sbjqc/image/upload/v1681198081/Users/person-donald-900x1080_ctmwek.jpg"
                 }
                 alt="avatar 3"
-                style={{ width: "45px", height: "100%",marginRight: "5%", }}
+                style={{ width: "45px", height: "100%", marginRight: "5%" }}
               />
               <input
                 type="text"
@@ -366,7 +367,6 @@ export default function ViewAdminPosts({
                                   style={{
                                     width: "45px",
                                     height: "45px",
-                                    
                                   }}
                                 />
                                 <div

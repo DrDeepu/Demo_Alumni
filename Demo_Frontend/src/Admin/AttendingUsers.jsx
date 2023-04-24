@@ -23,7 +23,7 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Edit Mail Subject
+          Total Alumni : 0
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -58,7 +58,7 @@ function AttendingUsers(props) {
             setModalShow(true);
           }}
         >
-          Attending Users
+          Attending Alumni
         </Button>
       </Form.Group>
       <MyVerticallyCenteredModal

@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import Badge from "@mui/material/Badge";
+import "./Admin.css";
 
 function AdminNavBar(props) {
   const [user_data, setUser_data] = useState({});
@@ -20,7 +21,6 @@ function AdminNavBar(props) {
   const navigate = useNavigate();
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-
   useEffect(() => {
     // if (user === "false" || user === false) {
     //   console.log("Admin IF condition", user);
@@ -63,28 +63,31 @@ function AdminNavBar(props) {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link style={{}}>
-                <NavLink to="/admindashboard">
+              <Nav.Link>
+                <NavLink className="nav-link" to="/admindashboard">
                   {/* Home */}
                   {/* <HomeIcon /> */}
-                  Home
+
+                  <span>Home</span>
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
                 <Badge badgeContent={user_data.not_valid_users} color="primary">
-                  <NavLink to="/adminusers">
+                  <NavLink className="nav-link" to="/adminusers">
                     {/* Users */}
                     {/* <PeopleIcon /> */}
-                    Users
+
+                    <span>Users</span>
                   </NavLink>
                 </Badge>
               </Nav.Link>
               {/* <MailIcon color="action" /> */}
               <Nav.Link>
-                <NavLink to="/adminposts">
+                <NavLink className="nav-link" to="/adminposts">
                   {/* Posts */}
                   {/* <PostAddIcon /> */}
-                  Posts
+
+                  <span>Posts</span>
                 </NavLink>
               </Nav.Link>
             </Nav>

@@ -8,8 +8,8 @@ import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import toast, { Toaster } from "react-hot-toast";
-import AdminReport from "./AdminReport"
-
+import AdminReport from "./AdminReport";
+import { LOCALHOST_URL } from "../config";
 // import Chart from "chart.js/auto";
 
 const Admin = () => {
@@ -35,7 +35,7 @@ const Admin = () => {
     }
     async function func() {
       await axios
-        .get("http://127.0.0.1:5000/user_count", {
+        .get(`${LOCALHOST_URL}/user_count`, {
           headers: { Authorization: `Bearer ${access_token}` },
         })
         .then((res) => {
@@ -46,6 +46,7 @@ const Admin = () => {
           });
         });
     }
+   
     func();
     setloader(false);
   }, [loader, user]);
@@ -68,9 +69,9 @@ const Admin = () => {
       </div>
     ) : (
       <>
-      <Toaster position={"top-center"} reverseOrder={false} />
+        <Toaster position={"top-center"} reverseOrder={false} />
+        <AdminNavBar />
         <div id="admin_blur_animation">
-          <AdminNavBar />
           <div
             style={{
               width: "1080",
@@ -98,7 +99,7 @@ const Admin = () => {
                 <h2>{user_data.not_valid_users}</h2>
               </div>
             </div>
-            <AdminReport/>
+            <AdminReport />
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {

@@ -46,8 +46,8 @@ const AdminUsers = () => {
 
   return (
     <>
+      <AdminNavBar />
       <div id="admin_users_blur_animation">
-        <AdminNavBar />
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
           {Object.keys(userdata).map((value) => {
             return (

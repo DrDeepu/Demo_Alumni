@@ -29,8 +29,8 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
 app.secret_key = 'Something-Is-Not-Right'
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 
@@ -58,8 +58,11 @@ def create_user():
     lastname = json.loads(request.data)['data']['lastName']
     email= json.loads(request.data)['data']['email']
     password = json.loads(request.data)['data']['password']
+    batch = json.loads(request.data)['data']['batch']
+    department = json.loads(request.data)['data']['department']
+    join_date = datetime.datetime.now()
     image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1681290246/Users/Blank-Avatar_ava9yt.png'
-    user = User(firstname=firstname,lastname=lastname,email=email, password=password,user_profile_image_url=image_url)
+    user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=password,user_profile_image_url=image_url)
     db.session.add(user)
     db.session.commit()
     return Response(['Data added Successfully'])
@@ -114,6 +117,8 @@ def my_profile():
        'email': user.email,
        'phone': user.phone,
         'password':user.password,
+        'batch':user.batch,
+        'department':user.department,
        'instaid':user.instaid,
        'gitid':user.gitid,
        'linkedinid':user.linkedinid,
@@ -134,6 +139,33 @@ def my_profile():
     return response_body
 
 
+@app.route('/get_registered_report',methods=['GET'])
+def get_registered_report():
+    batch_list = []
+    year_wise_data = {}
+    for i in User.query.all():
+        if i.email == "admin@email.com":
+            continue
+        date = i.batch.split('-')
+        batch_list.append({'year':date[0],'month':date[1],'date':date[2]})
+        year_wise_data[date[0]]=[
+        ]
+    for i in batch_list:
+            year_wise_data[i['year']].append(i['month'])
+    f = {}
+    t={}
+    for i in year_wise_data:
+        t[i] = f
+        for j in year_wise_data[i]:
+            print(i)
+            try:
+                f[j]= f[j]+1
+            except:
+                f[j]= 1
+            return f
+    print(t)
+    return year_wise_data
+#
 @app.route('/save_profile_data',methods=["POST"])
 @jwt_required()
 def save_profile_data():
@@ -165,6 +197,8 @@ def save_profile_data():
     user.firstname = json.loads(request.data)['data']['firstName']
     user.lastname = json.loads(request.data)['data']['lastName']
     user.phone = json.loads(request.data)['data']['phoneNumber']
+    # user.batch = json.loads(request.data)['data']['batch']
+    user.department = json.loads(request.data)['data']['department']
     user.instaid = json.loads(request.data)['data']['instagramId']
     user.linkedinid = json.loads(request.data)['data']['linkedinId']
     user.gitid = json.loads(request.data)['data']['githubId']
@@ -209,6 +243,8 @@ def all_users():
         if i.email == 'admin@email.com':
             continue
         user_data[i.email] = {'firstname': i.firstname, 'lastname': i.lastname, 'email': i.email, 'phone': i.phone,
+        'batch':i.batch,
+        'department':i.department,
         'instaid':i.instaid,
         'gitid':i.gitid,
         'linkedinid':i.linkedinid,
