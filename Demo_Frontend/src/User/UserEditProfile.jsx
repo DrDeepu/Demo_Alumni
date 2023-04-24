@@ -98,7 +98,7 @@ export default function User(props) {
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Post</Modal.Title>
+          <Modal.Title>Edit Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

@@ -87,8 +87,8 @@ export default function ProfilePage() {
     ) : (
       <>
       
-        <div id="user_profile_blur_animation">
           <NavBar />
+        <div id="user_profile_blur_animation">
           <section style={{ backgroundColor: "#eee" }}>
             <MDBContainer className="py-5">
               {/* <MDBRow> </MDBRow> */}

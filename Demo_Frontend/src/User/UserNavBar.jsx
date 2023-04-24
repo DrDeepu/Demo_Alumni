@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
 import { useNavigate } from "react-router";
-
+import './User.css'
 function UserNavBar(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -90,37 +90,42 @@ function UserNavBar(props) {
             >
               {/* <Nav.Link href="/userdashboard" style={{}}> */}
               {/* <HomeIcon /> */}
-              <Nav.Link>
-                <NavLink to="/userdashboard">
-                  <HomeIcon />
+              <Nav.Link >
+                <NavLink to="/userdashboard" className="nav-link">
+                  {/* <HomeIcon /> */}
+                  Home
                 </NavLink>
               </Nav.Link>
               {/* <Nav.Link href="/profile" style={{}}> */}
-              <Nav.Link>
+              <Nav.Link >
                 {/* <AccountCircleIcon /> */}
-                <NavLink to="/profile">
-                  <AccountCircleIcon />
+                <NavLink to="/profile" className="nav-link">
+                  {/* <AccountCircleIcon /> */}
+                  Profile
                 </NavLink>
               </Nav.Link>
 
               {/* <Nav.Link href="/UserPostsPage">
                 <PostAddIcon /> */}
-              <Nav.Link>
-                <NavLink to="/userpostspage">
+              <Nav.Link >
+                <NavLink to="/userpostspage" className="nav-link">
                   {/* <AccountCircleIcon /> */}
-                  <PostAddIcon />
+                  {/* <PostAddIcon /> */}
+                  Posts
                 </NavLink>
               </Nav.Link>
               {/* <Nav.Link href="/UserSearchPage">
                 <PersonSearchIcon /> */}
               <Nav.Link>
-                <NavLink to="/UserSearchPage">
-                  <PersonSearchIcon />
+                <NavLink to="/UserSearchPage" className="nav-link">
+                  {/* <PersonSearchIcon /> */}
+                  Search
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink to="/UserChat">
-                  <ChatIcon />
+                <NavLink to="/UserChat" className="nav-link">
+                  {/* <ChatIcon /> */}
+                  Chat
                 </NavLink>
               </Nav.Link>
             </Nav>

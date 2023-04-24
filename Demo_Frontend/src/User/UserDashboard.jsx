@@ -85,8 +85,8 @@ const Dashboard = () => {
   };
   return user === "true" || user === true ? (
     <>
-      <div id="dashboard_blur_animation">
         <NavBar />
+      <div id="dashboard_blur_animation">
         <div align="center">
           <button
             className={

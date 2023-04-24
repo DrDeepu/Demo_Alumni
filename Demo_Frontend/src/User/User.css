@@ -96,3 +96,23 @@
   transition-duration: 0.5s;
   box-shadow: 0px 5px 10px gray;
 }
+
+.nav-link {
+  transition: border-bottom 0.5s ease-in-out;
+}
+.nav-link.active {
+  /* background-color: var(--bg); */
+  color: var(--color-text);
+  border-bottom: black 3px solid;
+  animation: bottom_width 0.2s;
+}
+
+@keyframes bottom_width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+    /* border-right: black 2px solid; */
+  }
+}

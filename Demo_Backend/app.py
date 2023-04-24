@@ -29,8 +29,8 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
 app.secret_key = 'Something-Is-Not-Right'
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 
