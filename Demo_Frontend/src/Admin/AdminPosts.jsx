@@ -22,7 +22,7 @@ export default function AdminPosts() {
         setLoader(false);
       })
       .catch((res) => {
-        console.log(res);
+        // console.log(res);
         setLoader(true);
       });
   }

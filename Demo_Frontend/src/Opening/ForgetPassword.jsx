@@ -109,7 +109,7 @@ export default function ForgetPassword() {
                             sendOtp();
                           }}
                         >
-                          Send Otp
+                          Confirm
                         </Button>
                       ) : (
                         <Button
@@ -119,7 +119,7 @@ export default function ForgetPassword() {
                           sx={{ mt: 3, mb: 2 }}
                           disabled
                         >
-                          Send Otp
+                          Confirm
                         </Button>
                       )}
                       <Grid container justifyContent="flex-end">

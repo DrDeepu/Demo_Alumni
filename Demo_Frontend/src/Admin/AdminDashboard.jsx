@@ -46,7 +46,7 @@ const Admin = () => {
           });
         });
     }
-   
+
     func();
     setloader(false);
   }, [loader, user]);
@@ -99,7 +99,7 @@ const Admin = () => {
                 <h2>{user_data.not_valid_users}</h2>
               </div>
             </div>
-            <AdminReport />
+            {/* <AdminReport /> */}
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {

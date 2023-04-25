@@ -51,7 +51,7 @@ function LoginTest() {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         createChatUser(
           signUpData.email,
           signUpData.password,
@@ -61,7 +61,7 @@ function LoginTest() {
         navigate("/Login");
       })
       .catch((res) => {
-        console.log(res);
+        // console.log(res);
       });
   }
 

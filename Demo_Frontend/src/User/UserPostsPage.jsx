@@ -17,7 +17,7 @@ const UserShowPosts = () => {
     await axios
       .get("http://localhost:5000/fetch_all_admin_post")
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setPostsData(res.data);
         setLoader(false);
       })
@@ -42,8 +42,8 @@ const UserShowPosts = () => {
     //   </div>
     // ) : (
     <>
+      <UserNavBar />
       <div className="main_blur_div_animation">
-        <UserNavBar />
         <div id="card-container" align="center">
           <Container>
             <Row xs={1} sm={2} md={3} style={{ gap: "10px" }}>
@@ -56,6 +56,10 @@ const UserShowPosts = () => {
                       description={postsData[post]["post_description"]}
                       img_url={postsData[post]["post_image_url"]}
                       post_id={postsData[post]["post_id"]}
+                      start_date={postsData[post]["post_event_start_date"]}
+                      start_time={postsData[post]["post_event_start_time"]}
+                      end_date={postsData[post]["post_event_end_date"]}
+                      end_time={postsData[post]["post_event_end_time"]}
                     />
                   </>
                 );

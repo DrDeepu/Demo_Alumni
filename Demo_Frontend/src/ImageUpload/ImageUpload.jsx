@@ -25,7 +25,7 @@ const ImageUpload = () => {
         });
       });
 
-    console.log(fetchimage);
+    // console.log(fetchimage);
   }
   return (
     <div>
@@ -33,7 +33,7 @@ const ImageUpload = () => {
         type="file"
         onChange={(e) => {
           setuploadImage(e.target.files[0]);
-          console.log(uploadimage);
+          // console.log(uploadimage);
           // buttonHandle();
           // setLoader(true);
         }}

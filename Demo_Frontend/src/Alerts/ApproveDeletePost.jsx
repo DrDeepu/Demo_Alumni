@@ -18,11 +18,11 @@ function ApproveDeletePost({
   const handleShow = () => setShow(true);
 
   async function approveDeletePost(post_id) {
-    console.log(post_id);
+    // console.log(post_id);
     await axios
       .post("http://localhost:5000/delete_admin_post", { data: { post_id } })
       .then((cl) => {
-        console.log(cl);
+        // console.log(cl);
         // window.location.reload();
         // navigate("/adminposts");
         fetchAllPosts();

@@ -32,6 +32,10 @@ export default function ViewPosts({
   get_accept_decline,
   accept,
   setAccept,
+  start_date,
+  end_date,
+  start_time,
+  end_time,
 }) {
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
@@ -125,6 +129,28 @@ export default function ViewPosts({
                 <Form.Label>Post Description :</Form.Label>
 
                 {" " + description}
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Start Date :</Form.Label>
+
+                {" " +
+                  new Date(start_date).toLocaleDateString() +
+                  " at " +
+                  start_time}
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>End Date :</Form.Label>
+
+                {" " +
+                  new Date(end_date).toLocaleDateString() +
+                  " at " +
+                  end_time}
               </Form.Group>
             </div>
           </Form>

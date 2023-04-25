@@ -25,11 +25,10 @@ import LoginVideo from "./LoginVideo";
 import Paper from "@mui/material/Paper";
 import toast, { Toaster } from "react-hot-toast";
 
-
 export default function Login() {
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-  console.log(access_token,user_email)
+  // console.log(access_token, user_email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,7 +47,7 @@ export default function Login() {
         else navigate("/userdashboard");
       }
     }
-  }, [access_token,user_email]);
+  }, [access_token, user_email]);
 
   // useEffect(() => {}, [access_token]);
   const emailValid =
@@ -71,132 +70,128 @@ export default function Login() {
         data: { email, password },
       })
       .then((res) => {
-        console.log(res.data)
-        if(res.data.status===400)
-        {
-          toast.error(res.data.error)
+        // console.log(res.data);
+        if (res.data.status === 400) {
+          toast.error(res.data.error);
+        } else {
+          dispatch(store_access_token(res.data.access_token));
+          dispatch(store_user_email(res.data.access_token));
+          if (user_email === "admin@email.com") {
+            navigate("/admindashboard");
+          } else navigate("/userdashboard");
         }
-else{
-  
-  dispatch(store_access_token(res.data.access_token));
-  dispatch(store_user_email(res.data.access_token));
-    if (user_email === "admin@email.com") {
-      navigate("/admindashboard");
-    } else navigate("/userdashboard");
-}
-      })
+      });
   }
 
   return (
     <>
       <LoginVideo>
-      <Toaster position={"top-center"} reverseOrder={false} />
-          <div id={"login_blur_animation"}>
-            {/* <ThemeProvider theme={theme}> */}
-            <Box
-              sx={{
-                display: "flex",
-                "& > :not(style)": {
-                  m: 1,
-                  width: 500,
-                  height: 550,
-                },
-              }}
-            >
-              <Paper elevation={6}>
-                <Container component="main" maxWidth="xs">
-                  <CssBaseline />
+        <Toaster position={"top-center"} reverseOrder={false} />
+        <div id={"login_blur_animation"}>
+          {/* <ThemeProvider theme={theme}> */}
+          <Box
+            sx={{
+              display: "flex",
+              "& > :not(style)": {
+                m: 1,
+                width: 500,
+                height: 550,
+              },
+            }}
+          >
+            <Paper elevation={6}>
+              <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                  sx={{
+                    marginTop: 8,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                  <Typography component="h1" variant="h5">
+                    Login
+                  </Typography>
                   <Box
-                    sx={{
-                      marginTop: 8,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
+                    component="form"
+                    noValidate
+                    onSubmit={handleSubmit}
+                    sx={{ mt: 3 }}
                   >
-                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                      <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                      Login
-                    </Typography>
-                    <Box
-                      component="form"
-                      noValidate
-                      onSubmit={handleSubmit}
-                      sx={{ mt: 3 }}
-                    >
-                      <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <TextField
-                            fullWidth
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            onChange={(e) =>
-                              setEmail(e.target.value.toLowerCase())
-                            }
-                            required
-                          />
-                        </Grid>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            onSubmit={() => alert("Hey there")}
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="new-password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                          />
-                        </Grid>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          label="Email Address"
+                          name="email"
+                          autoComplete="email"
+                          onChange={(e) =>
+                            setEmail(e.target.value.toLowerCase())
+                          }
+                          required
+                        />
                       </Grid>
-                      {emailValid.test(email) && password.length > 5 ? (
-                        <Button
-                          type="submit"
+                      <Grid item xs={2}></Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          onSubmit={() => alert("Hey there")}
                           fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          onClick={validationFunction}
-                        >
-                          Login
-                        </Button>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          onClick={validationFunction}
-                          disabled
-                        >
-                          Login
-                        </Button>
-                      )}
-                      <div className="grid grid-cols-2">
-                        <Grid item>
-                          <NavLink to="/ForgetPassword" variant="body2">
-                            Forget Password
-                          </NavLink>
-                        </Grid>
-                        <Grid item>
-                          <NavLink to="/SignUp" variant="body2">
-                            Join Alumni Network
-                          </NavLink>
-                        </Grid>
-                      </div>
-                    </Box>
+                          name="password"
+                          label="Password"
+                          type="password"
+                          id="password"
+                          autoComplete="new-password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </Grid>
+                    </Grid>
+                    {emailValid.test(email) && password.length > 5 ? (
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={validationFunction}
+                      >
+                        Login
+                      </Button>
+                    ) : (
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={validationFunction}
+                        disabled
+                      >
+                        Login
+                      </Button>
+                    )}
+                    <div className="grid grid-cols-2">
+                      <Grid item>
+                        <NavLink to="/ForgetPassword" variant="body2">
+                          Forget Password ?
+                        </NavLink>
+                      </Grid>
+                      <Grid item>
+                        <NavLink to="/SignUp" variant="body2">
+                          Join Alumni Network
+                        </NavLink>
+                      </Grid>
+                    </div>
                   </Box>
-                </Container>
-              </Paper>
-            </Box>
-            {/* </ThemeProvider> */}
-            {/* //   </div> */}
-          </div>
-        
+                </Box>
+              </Container>
+            </Paper>
+          </Box>
+          {/* </ThemeProvider> */}
+          {/* //   </div> */}
+        </div>
       </LoginVideo>
     </>
   );

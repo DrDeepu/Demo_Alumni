@@ -8,7 +8,16 @@ import "./User.css";
 import ViewPost from "./ViewPost";
 import { useSelector, useDispatch } from "react-redux";
 
-function PostCard({ title, description, img_url, post_id }) {
+function PostCard({
+  title,
+  description,
+  img_url,
+  post_id,
+  start_date,
+  start_time,
+  end_date,
+  end_time,
+}) {
   const userData = useSelector((state) => state.set_user_profile_data);
   const user_email = useSelector((state) => state.set_user_data.user_email);
 
@@ -58,6 +67,10 @@ function PostCard({ title, description, img_url, post_id }) {
               description={description}
               img_url={img_url}
               post_id={post_id}
+              start_date={start_date}
+              start_time={start_time}
+              end_date={end_date}
+              end_time={end_time}
               post_accept={() => post_accept()}
               post_decline={() => post_decline()}
               get_accept_decline={() => {

@@ -51,7 +51,7 @@ export default function User(props) {
         await axios
           .get("http://localhost:5000/fetch_admin_post_image")
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             setUserData({ ...userData, imageUrl: res.data });
             setImageLoader(false);
           });
@@ -85,7 +85,7 @@ export default function User(props) {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         handleClose();
         props.setLoader();
       });

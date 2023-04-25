@@ -86,13 +86,6 @@ const AdminReport = () => {
   }, [year]);
   // console.log(reportData);
 
-  console.log(
-    reportData["2018"] !== undefined
-      ? Object.keys(reportData["2018"]).map((values, keys) => {
-          return reportData["2018"][values];
-        })
-      : "None"
-  );
   const handleYearChange = (e) => {
     setYear(e.target.value);
   };
@@ -100,8 +93,12 @@ const AdminReport = () => {
     <div>
       <h2>Student Registration Chart</h2>
       <select value={year} onChange={handleYearChange}>
-        {Object.keys(year_wise_data).map((years) => {
-          return <option value={years}>{years}</option>;
+        {Object.keys(year_wise_data).map((years, key) => {
+          return (
+            <option value={years} key={key}>
+              {years}
+            </option>
+          );
         })}
       </select>
       <div id="bar_div">

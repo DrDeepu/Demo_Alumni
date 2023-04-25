@@ -12,18 +12,18 @@ function MyVerticallyCenteredModal(props) {
   const [acceptedUsers, setAcceptedUsers] = useState([]);
   async function get_accepted_users() {
     await axios.get(`${LOCALHOST_URL}/accept_decline`).then((res) => {
-      console.log(
-        "================ACCEPTED DECLINE MODAL=================",
-        res
-      );
+      // console.log(
+      //   "================ACCEPTED DECLINE MODAL=================",
+      //   res
+      // );
       setAcceptedUsers(res.data);
     });
   }
-  console.log(props.props.post_id);
+  // console.log(props.props.post_id);
   Object.keys(acceptedUsers).map((users) => {
     // acceptedUsers[users]["post_id"] == props.props.post_id &&
     //   console.log(acceptedUsers[users]["user_id"]);
-      console.log(users);
+      // console.log(users);
   });
   return (
     <Modal

@@ -29,8 +29,18 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
 app.secret_key = 'Something-Is-Not-Right'
+
+
+# Elephant SQL URI
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
+
+# PosgreSQL URI
 # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
+
+# Sqlite URI
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
+
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 
@@ -61,7 +71,7 @@ def create_user():
     batch = json.loads(request.data)['data']['batch']
     department = json.loads(request.data)['data']['department']
     join_date = datetime.datetime.now()
-    image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1681290246/Users/Blank-Avatar_ava9yt.png'
+    image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1682411013/Users/guest-user_hicyp0.webp'
     user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=password,user_profile_image_url=image_url)
     db.session.add(user)
     db.session.commit()
