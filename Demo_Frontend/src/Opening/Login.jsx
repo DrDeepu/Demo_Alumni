@@ -140,6 +140,7 @@ export default function Login() {
                         <TextField
                           onSubmit={() => alert("Hey there")}
                           fullWidth
+<<<<<<< Updated upstream
                           name="password"
                           label="Password"
                           type="password"
@@ -184,6 +185,39 @@ export default function Login() {
                         </NavLink>
                       </Grid>
                     </div>
+=======
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          onClick={validationFunction}
+                        >
+                          Login
+                        </Button>
+                      ) : (
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          onClick={validationFunction}
+                          disabled
+                        >
+                          Login
+                        </Button>
+                      )}
+                      <div className="grid grid-cols-2">
+                        <Grid item>
+                          <NavLink to="/ForgetPassword" variant="body2">
+                            Forget Password ?
+                          </NavLink>
+                        </Grid>
+                        <Grid item>
+                          <NavLink to="/SignUp" variant="body2">
+                            Join Alumni Network
+                          </NavLink>
+                        </Grid>
+                      </div>
+                    </Box>
+>>>>>>> Stashed changes
                   </Box>
                 </Box>
               </Container>

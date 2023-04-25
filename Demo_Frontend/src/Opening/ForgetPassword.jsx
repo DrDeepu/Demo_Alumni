@@ -83,7 +83,7 @@ export default function ForgetPassword() {
                       <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                      Forget Password
+                      Reset Password
                     </Typography>
                     <Box
                       component="form"
@@ -109,7 +109,11 @@ export default function ForgetPassword() {
                             sendOtp();
                           }}
                         >
+<<<<<<< Updated upstream
                           Confirm
+=======
+                          Send Mail
+>>>>>>> Stashed changes
                         </Button>
                       ) : (
                         <Button
@@ -119,7 +123,11 @@ export default function ForgetPassword() {
                           sx={{ mt: 3, mb: 2 }}
                           disabled
                         >
+<<<<<<< Updated upstream
                           Confirm
+=======
+                          Send Mail
+>>>>>>> Stashed changes
                         </Button>
                       )}
                       <Grid container justifyContent="flex-end">
