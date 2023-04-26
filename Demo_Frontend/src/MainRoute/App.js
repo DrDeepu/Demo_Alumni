@@ -22,7 +22,7 @@ import AdminUsers from "../Admin/AdminUsers";
 import AdminPosts from "../Admin/AdminPosts";
 
 // 404 Folder Files
-import PageNotFound from "../404/PageNotFound";
+import PageNotFound from "../404/Pentagon404/Pentagon404";
 
 // MainRoute Files
 import TestHome from "./MainHomePage/TestHome";
@@ -36,9 +36,9 @@ import { Provider } from "react-redux";
 import store from "../Redux/store";
 
 // TestPages files
-import Users from "../TestPages/Users_Hover_Effect";
+// import Users from "../TestPages/Users_Hover_Effect";
 import SingleUsers from "../TestPages/Single_User_Hover_Effect";
-import USER_TEST_PROFILE from "../User/UserEditProfile";
+// import Html from "../TestPages/CoffeForm/Html"
 
 function App() {
   return (
@@ -85,16 +85,10 @@ function App() {
             <Route exact path="/AdminUsers" element={<AdminUsers />}></Route>
             <Route exact path="/AdminPosts" element={<AdminPosts />}></Route>
             <Route exact path="/ImageUpload" element={<ImageUpload />}></Route>
-            <Route exact path="/Users" element={<Users />}></Route>
             <Route exact path="/SingleUsers" element={<SingleUsers />}></Route>
-            <Route
-              exact
-              path="/User_Test_Profile"
-              element={<USER_TEST_PROFILE />}
-            ></Route>
+            {/* <Route exact path="/Html" element={<Html />}></Route> */}
 
-            {/* <Route path="*" element={<PageNotFound />} /> */}
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound />} /> 
           </Routes>
         </BrowserRouter>
       </Provider>

@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import ImageLoaderAnimation from "../React-Animations/ImageLoaderAnimation";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { LOCALHOST_URL } from "../config";
 import "./User.css";
@@ -15,12 +15,10 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardFooter,
-  MDBIcon,
-  MDBBtn,
   MDBScrollspy,
 } from "mdb-react-ui-kit";
-import { Alert } from "../Alerts/Toast";
-import AcceptedUsers from "./AcceptedUsers";
+
+import AttendingUsers from "../Admin/AttendingUsers";
 
 export default function ViewPosts({
   title,
@@ -38,12 +36,16 @@ export default function ViewPosts({
   end_time,
 }) {
   const [show, setShow] = useState(false);
+  // eslint-disable-next-line
   const [uploadImage, setUploadImage] = useState(null);
+  // eslint-disable-next-line
   const [imageUrl, setImageUrl] = useState(img_url);
+
   const [comments, setComments] = useState(null);
   const [imageLoader, setImageLoader] = useState(false);
   const [refresher, setRefresher] = useState(true);
-  const [acceptedUsers, setAcceptedUsers] = useState({});
+  // eslint-disable-next-line
+  const [attendingUsers, setAttendingUsers] = React.useState([]);
   const userData = useSelector((state) => state.set_user_profile_data);
 
   const [data, setData] = useState({
@@ -56,8 +58,19 @@ export default function ViewPosts({
     }
     get_comment();
     get_accept_decline();
+    getAttendingUsers();
+    // eslint-disable-next-line
   }, [uploadImage, refresher, accept]);
-
+  async function getAttendingUsers() {
+    await axios
+      .post(`${LOCALHOST_URL}/get_attending_users`, {
+        post_id: post_id,
+      })
+      .then((res) => {
+        setAttendingUsers(res.data[0]);
+        // console.log(res.data[0]);
+      });
+  }
   const handleClose = () => {
     setShow(false);
   };
@@ -68,11 +81,8 @@ export default function ViewPosts({
       .post(`${LOCALHOST_URL}/post_comment`, { data, email: userData.email })
       .then((res) => {
         setRefresher(!refresher);
-        // console.log(res);
       })
-      .catch((res) => {
-        // console.log("ERRORR ");
-      });
+      .catch((res) => {});
   }
   async function get_comment() {
     await axios.post(`${LOCALHOST_URL}/get_comment`, data).then((res) => {
@@ -84,11 +94,11 @@ export default function ViewPosts({
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow} style={{borderRadius:'0px' ,}}>
         View
       </Button>
 
-      <Modal show={show} onHide={handleClose} fullscreen>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton></Modal.Header>
         {/* {error && } */}
 
@@ -109,7 +119,7 @@ export default function ViewPosts({
               ) : (
                 <Image
                   src={imageUrl !== null ? imageUrl : ""}
-                  style={{ width: "200px", height: "200px" }}
+                  style={{ width: "100%", height: "50%" }}
                 />
               )}
             </Form.Group>
@@ -119,14 +129,18 @@ export default function ViewPosts({
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Post Title : </Form.Label>
+                <Form.Label>
+                  <b>Post Title</b> :{" "}
+                </Form.Label>
                 {" " + title}
               </Form.Group>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Post Description :</Form.Label>
+                <Form.Label>
+                  <b>Post Description</b> :
+                </Form.Label>
 
                 {" " + description}
               </Form.Group>
@@ -134,7 +148,9 @@ export default function ViewPosts({
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Start Date :</Form.Label>
+                <Form.Label>
+                  <b>Start Date</b> :
+                </Form.Label>
 
                 {" " +
                   new Date(start_date).toLocaleDateString() +
@@ -145,7 +161,9 @@ export default function ViewPosts({
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>End Date :</Form.Label>
+                <Form.Label>
+                  <b>End Date</b> :
+                </Form.Label>
 
                 {" " +
                   new Date(end_date).toLocaleDateString() +
@@ -154,35 +172,45 @@ export default function ViewPosts({
               </Form.Group>
             </div>
           </Form>
-          <div className="grid grid-cols-8 ">
+          <div style={{ display: "flex" }}>
             {accept !== true ? (
               <Button
-                className="primary"
+                variant="primary"
                 onClick={() => {
                   post_accept();
                   setAccept(false);
                 }}
+                style={{ height: "50px" }}
               >
                 Accept
               </Button>
             ) : (
               <Button
-                className="secondary"
+                variant="danger"
                 onClick={() => {
                   post_decline();
+
                   setAccept(true);
                 }}
+                style={{ height: "50px" }}
               >
                 Decline
               </Button>
             )}
 
-            {Object.keys(acceptedUsers).length > 0 && (
-              <AcceptedUsers post_id={data.post_id} />
-            )}
+            {/* {Object.keys(acceptedUsers).length > 0 && (
+              )} */}
+            <AttendingUsers
+              post_id={data.post_id}
+              attendingUsers={attendingUsers}
+              getAttendingUsers={() => getAttendingUsers()}
+            />
+            {/* {console.log("__POST__ID__",data.post_id)} */}
           </div>
           <hr />
-          <p>Comments</p>
+          <p>
+            <b>Comments</b>
+          </p>
 
           <MDBContainer>
             <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
@@ -223,7 +251,7 @@ export default function ViewPosts({
                   <MDBCard id="chat1" style={{ borderRadius: "15px" }}>
                     <MDBScrollspy
                       // suppressScrollX
-                      style={{ position: "relative", height: "400px" }}
+                      style={{ position: "relative" }}
                     >
                       <MDBCardBody>
                         {Object.keys(comments).map((item, index) => {

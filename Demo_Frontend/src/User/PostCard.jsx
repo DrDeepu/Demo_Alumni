@@ -6,7 +6,7 @@ import Image from "react-bootstrap/esm/Image";
 import { LOCALHOST_URL } from "../config";
 import "./User.css";
 import ViewPost from "./ViewPost";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function PostCard({
   title,
@@ -22,9 +22,14 @@ function PostCard({
   const user_email = useSelector((state) => state.set_user_data.user_email);
 
   const [accept, setAccept] = useState(false);
-  useEffect(() => {
-    get_accept_decline();
-  }, [accept]);
+  useEffect(
+    () => {
+      get_accept_decline();
+    },
+
+    // eslint - disable - next - line;
+    [accept]
+  );
 
   async function post_accept() {
     await axios
@@ -56,9 +61,14 @@ function PostCard({
   }
   return (
     <>
-      <Card id="card_hover_posts" style={{ width: "18rem" }}>
-        <Image src={img_url} style={{ height: "200px" }} />
+      <Card id="user_card_hover_posts" style={{ width: "18rem" }}>
+        <div id="container">
+          <Image
+            // style={{ height: "200px" }}
 
+            src={img_url}
+          />
+        </div>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <div className="grid grid-cols-1">

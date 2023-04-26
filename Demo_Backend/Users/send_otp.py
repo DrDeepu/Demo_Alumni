@@ -20,7 +20,7 @@ bp = Blueprint('send_otp',__name__)
 @bp.route('/send_otp',methods=['GET','POST'])
 def send_otp():
     email = json.loads(request.data)['email']
-    # print(email)
+    # # print(email)
     # email = 'deepu2946@email.com'
     if (User.query.filter_by(email=email).count()) != 0:
         date_format = '%Y-%m-%d %H:%M:%S'
@@ -45,10 +45,10 @@ def send_otp():
         smtp_connect.login(my_mail_id, my_password)
         smtp_connect.sendmail(my_mail_id, email, msg.as_string())
         smtp_connect.quit()
-        print('OTP Send')
+        # # print('OTP Send')
         return 'Otp Send'
     else:
-        print('OTP not Send')
+        # # print('OTP not Send')
         return Response(status=400)
 
 # @bp.route('/verify_otp',methods=['POST'])
@@ -73,9 +73,9 @@ def change_password():
     if (current_time-token_time).total_seconds()<=600:
         email = serializer.loads(token)['email']
         password = json.loads(request.data)['password']
-        print(email,password)
+        # # print(email,password)
         user = User.query.filter_by(email=email).first()
-        print(user)
+        # print(user)
         user.password = password
         db.session.add(user)
         db.session.commit()

@@ -25,6 +25,7 @@ from Variables.mail import mail
 
 # bot = Bot()
 # bot.login(username = '',password='')
+# Test
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
@@ -32,10 +33,10 @@ app.secret_key = 'Something-Is-Not-Right'
 
 
 # Elephant SQL URI
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
 
 # PosgreSQL URI
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
 
 # Sqlite URI
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
@@ -85,7 +86,7 @@ def login():
     password = json.loads(request.data)['data']['password']
     # user = db.one_or_404(db.select(User).filter_by(email=email,password=password))
     user_count = User.query.filter_by(email=email).count()
-    # print(user.email)
+    # # print(user.email)
     if user_count!=0 :
         user = User.query.filter_by(email=email).first()
         if user.email == 'admin@email.com':
@@ -111,7 +112,7 @@ def login():
 @jwt_required()
 def access_user_validation():
     access_user = get_jwt_identity()
-    print('Acess User ',access_user)
+    # # print('Access User ',access_user)
     return {'access_user':access_user}
 
 
@@ -120,7 +121,7 @@ def access_user_validation():
 def my_profile():
     user_email =  get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
-    # print(user.website)
+    # # print(user.website)
     response_body = {
        'firstname': user.firstname,
        'lastname': user.lastname,
@@ -140,8 +141,8 @@ def my_profile():
        'user_profile_image_url':user.user_profile_image_url,
        'jwt':get_jwt_identity()
     }
-    # print(response_body)
-    print(user.user_profile_image_url)
+    # # print(response_body)
+    # # print(user.user_profile_image_url)
     if user.email == 'admin@email.com' and user.password == 'admin1':
         response_body['admin']=True
     else:
@@ -167,13 +168,13 @@ def get_registered_report():
     for i in year_wise_data:
         t[i] = f
         for j in year_wise_data[i]:
-            print(i)
+            # # print(i)
             try:
                 f[j]= f[j]+1
             except:
                 f[j]= 1
             return f
-    print(t)
+    # # print(t)
     return year_wise_data
 #
 @app.route('/save_profile_data',methods=["POST"])
@@ -182,28 +183,28 @@ def save_profile_data():
     
     email = json.loads(request.data)['data']['email']
     user = User.query.filter_by(email=email).first()
-    print('DB IMAGE URL',user.user_profile_image_url)
+    # # print('DB IMAGE URL',user.user_profile_image_url)
     url = ''
     IMAGE_URL= json.loads(request.data)['data']['imageUrl']
-    print('JSON IMAGE URL',IMAGE_URL)
-    print(user.user_profile_image_url)
-    print(IMAGE_URL)
+    # print('JSON IMAGE URL',IMAGE_URL)
+    # print(user.user_profile_image_url)
+    # print(IMAGE_URL)
     if not user.user_profile_image_url:
-        print('not present')
-        if IMAGE_URL!=user.user_profile_image_url:
-            print('HUH')
-            url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
-            user.user_profile_image_url=url
-        # print(url)
-    else:
+        # print('not present')
         if IMAGE_URL!=user.user_profile_image_url:
             # print('HUH')
-            print('present')
+            url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
+            user.user_profile_image_url=url
+        # # print(url)
+    else:
+        if IMAGE_URL!=user.user_profile_image_url:
+            # # print('HUH')
+            # print('present')
             public_id = user.user_profile_image_url.split('/Users/')[1].split('.')[0]
             url = cloudinary.uploader.upload(IMAGE_URL,public_id=public_id,folder='/Users')['url']
             user.user_profile_image_url=url
-        # print(url)
-    print(json.loads(request.data)["data"]["websiteUrl"])
+        # # print(url)
+    # print(json.loads(request.data)["data"]["websiteUrl"])
     user.firstname = json.loads(request.data)['data']['firstName']
     user.lastname = json.loads(request.data)['data']['lastName']
     user.phone = json.loads(request.data)['data']['phoneNumber']
@@ -218,11 +219,11 @@ def save_profile_data():
     user.profession = json.loads(request.data)['data']['profession']
     user.company = json.loads(request.data)['data']['companyName']
     
-    # print(user.user_profile_image_url)
+    # # print(user.user_profile_image_url)
     db.session.commit()
-    print(user.user_profile_image_url)
-    print(url)
-    # print(user.firstname)
+    # print(user.user_profile_image_url)
+    # print(url)
+    # # print(user.firstname)
     return Response({'Updated Successfully'})
 
     # user = User.query
@@ -265,14 +266,14 @@ def all_users():
         'user_profile_image_url':i.user_profile_image_url,
         'password':i.password,
         'valid':i.valid,}
-    print(user_data)
+    # print(user_data)
     return user_data
 
 
 @app.route('/user_count',methods=['GET'])
 # @jwt_required()
 def user_count():
-    print(True)
+    # print(True)
     user_data = {}
     total_users = 0
     valid_users = 0
@@ -309,7 +310,7 @@ def upload_admin_post():
 
 
     admin_image_url = cloudinary.uploader.upload(file,folder='/Admin_Posts')
-    # print(admin_image_url['url'])
+    # # print(admin_image_url['url'])
     date_time = datetime.datetime.now()
     post_image_url = admin_image_url['url']
     post = AdminPosts(post_title=post_title, post_description=post_description, post_date=date_time, post_image_url= post_image_url, post_event_start_date=event_start_date, post_event_start_time=event_start_time, post_event_end_date = event_end_date, post_event_end_time= event_end_time)
@@ -365,7 +366,7 @@ def fetch_admin_post():
 @app.route('/delete_admin_post',methods=['GET','POST'])
 def delete_admin_post_image():
     post_id = json.loads(request.data)['data']['post_id']
-    print(post_id)
+    # print(post_id)
     post_object = AdminPosts.query.get(post_id)
     image_url = post_object.post_image_url
     publicid = cloudinary.utils.cloudinary_url(image_url, type='upload')[0].split('/')[-1].split('.')[0]
@@ -375,7 +376,7 @@ def delete_admin_post_image():
     db.session.delete(post_object)
     db.session.commit()
     response = cloudinary.uploader.destroy('Admin_Posts/'+publicid)
-    print(image_url)
+    # print(image_url)
     return response
 
 
@@ -421,7 +422,7 @@ app.register_blueprint(send_otp)
 @app.route('/uploadimage',methods=['GET','POST'])
 def uploadimage():
 
-    print(request.files['file'])
+    # print(request.files['file'])
     file = request.files['file']
     global url
     # value = 'Admin_Image_Preview/kzsgvupe8ooitbik8d1l'.split('/')[1]
@@ -429,12 +430,12 @@ def uploadimage():
     url = 'http://res.cloudinary.com/dy59sbjqc/image/upload/v1680858857/Users/kzsgvupe8ooitbik8d1l.jpg'
     # url = cloudinary.uploader.upload(file,public_id=value,folder='/Users')['url']
     public_id = url.split('/Users/')[1].split('.')[0]
-    print(public_id)
+    # print(public_id)
     response = cloudinary.uploader.upload(file,public_id=public_id,folder='/Users')
-    print(response)
+    # print(response)
 
 
-    # print(image_url)
+    # # print(image_url)
     # url =cloudinary.uploader.upload(image_url,public_id=value,folder='/Admin_Image_Preview')
 
     return Response("Successfully Uploaded Image")
@@ -445,16 +446,16 @@ def uploadimage():
 def fetchimage():
     # image_url = cloudinary.CloudinaryImage('my_custom_names').build_url()
     # image_url = cloudinary.api.resource("/Users/my_custom_name",transformation={"width": 300, "height": 300})['url']
-    # print('URL',url)
+    # # print('URL',url)
     value = 'kzsgvupe8ooitbik8d1l'
     # image_url = cloudinary.api.resource(public_id=value,folder='/Users')
-    # print(image_url)
+    # # print(image_url)
     # image_url = cloudinary.api.resource("/Users/my_custom_name")['url']
     # image_url = cloudinary.api.resource("/Users/my_custom_name")['public_id']
     # i_image_url = cloudinary.api.resource("/Users/my_custom_name",transformation={"width": 300, "height": 300})
     # result_image =cloudinary.utils.cloudinary_url("my_custom_name", width = 200, height = 200)[0]
-    # print(image_url)
-    # print(i_image_url)
+    # # print(image_url)
+    # # print(i_image_url)
     return Response('image_url')
     # return Response(result_image)
 

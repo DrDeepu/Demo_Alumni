@@ -90,6 +90,14 @@ function AdminNavBar(props) {
                   <span>Posts</span>
                 </NavLink>
               </Nav.Link>
+              <Nav.Link>
+                <NavLink className="nav-link" to="/logout">
+                  {/* Posts */}
+                  {/* <PostAddIcon /> */}
+
+                  <span>Logout</span>
+                </NavLink>
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

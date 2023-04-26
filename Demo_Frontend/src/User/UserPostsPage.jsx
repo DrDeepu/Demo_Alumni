@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
-import ReactAnimations from "../React-Animations/ReactAnimations";
+// import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Container, Row } from "react-bootstrap";
 
 const UserShowPosts = () => {
@@ -17,7 +17,6 @@ const UserShowPosts = () => {
     await axios
       .get("http://localhost:5000/fetch_all_admin_post")
       .then((res) => {
-        console.log(res.data);
         setPostsData(res.data);
         setLoader(false);
       })
@@ -51,7 +50,7 @@ const UserShowPosts = () => {
                 return (
                   <>
                     <PostCard
-                      className="card"
+                      // className="card"
                       title={postsData[post]["post_title"]}
                       description={postsData[post]["post_description"]}
                       img_url={postsData[post]["post_image_url"]}

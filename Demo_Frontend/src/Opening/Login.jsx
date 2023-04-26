@@ -12,11 +12,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-// import "./ImageUpload.css";
 import { useSelector, useDispatch } from "react-redux";
 import { store_access_token, store_user_email } from "../Redux/actions";
 import { LOCALHOST_URL } from "../config";
@@ -47,6 +45,7 @@ export default function Login() {
         else navigate("/userdashboard");
       }
     }
+    // eslint-disable-next-line
   }, [access_token, user_email]);
 
   // useEffect(() => {}, [access_token]);
@@ -140,7 +139,6 @@ export default function Login() {
                         <TextField
                           onSubmit={() => alert("Hey there")}
                           fullWidth
-<<<<<<< Updated upstream
                           name="password"
                           label="Password"
                           type="password"
@@ -185,39 +183,6 @@ export default function Login() {
                         </NavLink>
                       </Grid>
                     </div>
-=======
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          onClick={validationFunction}
-                        >
-                          Login
-                        </Button>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          onClick={validationFunction}
-                          disabled
-                        >
-                          Login
-                        </Button>
-                      )}
-                      <div className="grid grid-cols-2">
-                        <Grid item>
-                          <NavLink to="/ForgetPassword" variant="body2">
-                            Forget Password ?
-                          </NavLink>
-                        </Grid>
-                        <Grid item>
-                          <NavLink to="/SignUp" variant="body2">
-                            Join Alumni Network
-                          </NavLink>
-                        </Grid>
-                      </div>
-                    </Box>
->>>>>>> Stashed changes
                   </Box>
                 </Box>
               </Container>

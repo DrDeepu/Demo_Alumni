@@ -12,11 +12,8 @@ import {
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBCardHeader,
   MDBCardBody,
   MDBCardFooter,
-  MDBIcon,
-  MDBBtn,
   MDBScrollspy,
 } from "mdb-react-ui-kit";
 import DatePicker from "react-datepicker";
@@ -31,6 +28,7 @@ export default function ViewAdminPosts({
   post_event_start_time,
   post_event_end_date,
   post_event_end_time,
+  fetchAllPosts,
 }) {
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
@@ -56,29 +54,23 @@ export default function ViewAdminPosts({
       uploadPostImage();
     }
     get_comment();
+    // eslint-disable-next-line
   }, [uploadImage, refresher]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const uploadPost = async () => {
-    const formData = new FormData();
-    formData.append("file", uploadImage);
-    formData.append("post_title", postTitle);
-    formData.append("post_description", postDescription);
-    formData.append("post_event_start_date", startDate);
-    formData.append("post_event_start_time", startTime);
-    formData.append("post_event_end_date", endDate);
-    formData.append("post_event_end_time", endTime);
+  // const uploadPost = async () => {
+  //   const formData = new FormData();
+  //   formData.append("file", uploadImage);
+  //   formData.append("post_title", postTitle);
+  //   formData.append("post_description", postDescription);
+  //   formData.append("post_event_start_date", startDate);
+  //   formData.append("post_event_start_time", startTime);
+  //   formData.append("post_event_end_date", endDate);
+  //   formData.append("post_event_end_time", endTime);
 
-    await axios.post("http://localhost:5000/upload_admin_post", formData);
-    //   .then(async () => {
-    //     await axios
-    //       .get("http://localhost:5000/fetch_admin_post")
-    //       .then((res) => {
-    //         setImageUrl(res.data);
-    //       });
-    //   });
-  };
+  //   await axios.post("http://localhost:5000/upload_admin_post", formData);
+  // };
 
   async function uploadPostImage() {
     const formData = new FormData();
@@ -102,11 +94,8 @@ export default function ViewAdminPosts({
       .post(`${LOCALHOST_URL}/post_comment`, { data, email: "admin@email.com" })
       .then((res) => {
         setRefresher(!refresher);
-        // console.log(res);
       })
-      .catch((res) => {
-        // console.log("ERRORR ");
-      });
+      .catch((res) => {});
   }
   async function get_comment() {
     await axios.post(`${LOCALHOST_URL}/get_comment`, data).then((res) => {
@@ -194,24 +183,12 @@ export default function ViewAdminPosts({
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Event Start Date</Form.Label>
-                {/* <Form.Control
-                  type="date"
-                  defaultValue={startDate}
-                  placeholder="new post description"
-                  rows={2}
-                  min={new Date().toISOString().split("T")[0]}
-                  onChange={(e) => {
-                    // handleDateChange(e);
-                    setStartDate(e.target.value);
-                  }}
-                /> */}
                 <DatePicker
                   selected={startDate}
                   onChange={(e) => {
                     setStartDate(e);
                   }}
                   minDate={new Date()}
-                  // filterDate={isDateBlocked}
                   dateFormat="dd/MM/yyyy"
                   className="form-control"
                 />
@@ -243,25 +220,12 @@ export default function ViewAdminPosts({
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Event End Date</Form.Label>
-                {/* <Form.Control
-                  type="date"
-                  defaultValue={endDate}
-                  placeholder="new post description"
-                  rows={2}
-                  min={startDate}
-                  onChange={(e) => {
-                    // handleDateChange(e);
-                    setEndDate(e.target.value);
-                  }}
-                /> */}
                 <DatePicker
                   selected={endDate < startDate ? startDate : endDate}
                   onChange={(e) => {
                     setEndDate(e);
                   }}
                   minDate={startDate}
-                  // value={selectedDate}
-                  // filterDate={isDateBlocked}
                   dateFormat="dd/MM/yyyy"
                   className="form-control"
                 />
@@ -294,7 +258,6 @@ export default function ViewAdminPosts({
             </div>
             <div style={{ display: "flex" }}>
               <VerticalEditApp
-
                 title={postTitle}
                 description={postDescription}
                 image_url={imageUrl}
@@ -306,9 +269,12 @@ export default function ViewAdminPosts({
                 setEdit={() => {
                   setEditFunction();
                 }}
+                fetchAllPosts={() => {
+                  fetchAllPosts();
+                }}
                 edit={edit}
               />
-              <AttendingUsers />
+              <AttendingUsers post_id={post_id} />
             </div>
           </Form>
           <hr />

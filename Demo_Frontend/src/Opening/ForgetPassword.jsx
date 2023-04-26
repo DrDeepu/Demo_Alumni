@@ -13,13 +13,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./ImageUpload.css";
 import LoginVideo from "./LoginVideo";
 import Paper from "@mui/material/Paper";
 import toast, { Toaster } from "react-hot-toast";
 import { LOCALHOST_URL } from "../config";
-// import { set_user_data } from "../Redux/reducers";
 
 const theme = createTheme();
 
@@ -27,8 +26,8 @@ export default function ForgetPassword() {
   const success_toast = () => {
     toast.success("Mail Sent.");
   };
+  // eslint-disable-next-line
   const [result, setSetResult] = React.useState(false);
-  const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [email, setEmail] = useState("");
@@ -43,7 +42,7 @@ export default function ForgetPassword() {
       data: { email },
     })
       .then(() => {
-        setSetResult(true);
+        // setSetResult(true);
         setEmail("");
         success_toast();
       })
@@ -109,11 +108,7 @@ export default function ForgetPassword() {
                             sendOtp();
                           }}
                         >
-<<<<<<< Updated upstream
                           Confirm
-=======
-                          Send Mail
->>>>>>> Stashed changes
                         </Button>
                       ) : (
                         <Button
@@ -123,11 +118,7 @@ export default function ForgetPassword() {
                           sx={{ mt: 3, mb: 2 }}
                           disabled
                         >
-<<<<<<< Updated upstream
                           Confirm
-=======
-                          Send Mail
->>>>>>> Stashed changes
                         </Button>
                       )}
                       <Grid container justifyContent="flex-end">

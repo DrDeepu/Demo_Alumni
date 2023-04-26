@@ -62,8 +62,8 @@ export default function ProfilePage() {
           email: res.data.email,
           phone: res.data.phone,
           password: res.data.password,
-          batch:res.data.batch,
-          department:res.data.department,
+          batch: res.data.batch,
+          department: res.data.department,
           instaId: res.data.instaid,
           linkedinId: res.data.linkedinid,
           githubId: res.data.gitid,
@@ -86,8 +86,7 @@ export default function ProfilePage() {
       <Loader />
     ) : (
       <>
-      
-          <NavBar />
+        <NavBar />
         <div id="user_profile_blur_animation">
           <section style={{ backgroundColor: "#eee" }}>
             <MDBContainer className="py-5">
@@ -172,10 +171,12 @@ export default function ProfilePage() {
                       {/* First Name */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>First Name</MDBCardText>
+                          <MDBCardText>
+                            <b>First Name</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.firstName}
                           </MDBCardText>
                         </MDBCol>
@@ -184,10 +185,12 @@ export default function ProfilePage() {
                       {/* Last Name */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Last Name</MDBCardText>
+                          <MDBCardText>
+                            <b>Last Name</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.lastName}
                           </MDBCardText>
                         </MDBCol>
@@ -196,10 +199,12 @@ export default function ProfilePage() {
                       {/* Email */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Email</MDBCardText>
+                          <MDBCardText>
+                            <b>Email</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.email}
                           </MDBCardText>
                         </MDBCol>
@@ -208,10 +213,12 @@ export default function ProfilePage() {
                       {/* Phone No */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Phone No</MDBCardText>
+                          <MDBCardText>
+                            <b>Phone No</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.phone}
                           </MDBCardText>
                         </MDBCol>
@@ -220,10 +227,12 @@ export default function ProfilePage() {
                       {/* Batch */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Batch</MDBCardText>
+                          <MDBCardText>
+                            <b>Batch</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.batch}
                           </MDBCardText>
                         </MDBCol>
@@ -232,10 +241,12 @@ export default function ProfilePage() {
                       {/* Department */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Department</MDBCardText>
+                          <MDBCardText>
+                            <b>Department</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.department}
                           </MDBCardText>
                         </MDBCol>
@@ -244,10 +255,12 @@ export default function ProfilePage() {
                       {/* Intrested Domain */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Interested Domain</MDBCardText>
+                          <MDBCardText>
+                            <b>Interested Domain</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.domain}
                           </MDBCardText>
                         </MDBCol>
@@ -256,17 +269,24 @@ export default function ProfilePage() {
                       {/* Current Company */}
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Current Company</MDBCardText>
+                          <MDBCardText>
+                            <b>Current Company</b>
+                          </MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
+                          <MDBCardText >
                             {userData.company}
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
                     </MDBCardBody>
-                    <UserEditProfile userData={userData} setLoader = {()=>{setLoader(true)}} />
+                    <UserEditProfile
+                      userData={userData}
+                      setLoader={() => {
+                        setLoader(true);
+                      }}
+                    />
                   </MDBCard>
                 </MDBCol>
               </MDBRow>

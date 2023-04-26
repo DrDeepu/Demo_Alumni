@@ -175,7 +175,7 @@ export default function User(props) {
               >
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   defaultValue={userData.phoneNumber}
                   rows={2}
                   onChange={(e) => {

@@ -64,7 +64,7 @@ export default function VerticalEditApp(props) {
         },
       })
       .then((res) => {
-        // console.log(res);
+        props.fetchAllPosts();
       });
   }
 

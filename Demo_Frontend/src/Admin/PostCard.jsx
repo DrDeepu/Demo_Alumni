@@ -39,6 +39,9 @@ function PostCard({
               post_event_start_time={post_event_start_time}
               post_event_end_date={post_event_end_date}
               post_event_end_time={post_event_end_time}
+              fetchAllPosts={() => {
+                fetchAllPosts();
+              }}
             />
             <ApproveDeletePost
               fetchAllPosts={() => {
