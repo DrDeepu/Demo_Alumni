@@ -1,5 +1,6 @@
 import json
 import datetime
+import bcrypt
 from django.http import Http404
 
 from flask import Flask,request
@@ -9,7 +10,7 @@ from flask import jsonify
 from flask_jwt_extended import (JWTManager,jwt_required,
 get_jwt_identity,create_access_token)
 from Variables.variables import (CLOUDINARY_API_KEY,CLOUDINARY_CLOUD_NAME
-,CLOUDINARY_API_SECRET)
+,CLOUDINARY_API_SECRET,PASSWORD_SECRET_KEY)
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -21,7 +22,8 @@ from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
 from Users.send_otp import bp as send_otp
 from Variables.mail import mail
-
+from itsdangerous import URLSafeSerializer
+from itsdangerous.serializer import Serializer
 
 # bot = Bot()
 # bot.login(username = '',password='')
@@ -67,13 +69,16 @@ jwt = JWTManager(app)
 def create_user():
     firstname = json.loads(request.data)['data']['firstName']
     lastname = json.loads(request.data)['data']['lastName']
-    email= json.loads(request.data)['data']['email']
+    email= (json.loads(request.data)['data']['email']).lower()
     password = json.loads(request.data)['data']['password']
     batch = json.loads(request.data)['data']['batch']
     department = json.loads(request.data)['data']['department']
     join_date = datetime.datetime.now()
     image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1682411013/Users/guest-user_hicyp0.webp'
-    user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=password,user_profile_image_url=image_url)
+    salt = bcrypt.gensalt()
+    pw_encode = password.encode('utf-8')
+    hash_pw = bcrypt.hashpw(pw_encode,salt)
+    user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=hash_pw,user_profile_image_url=image_url)
     db.session.add(user)
     db.session.commit()
     return Response(['Data added Successfully'])
@@ -82,31 +87,35 @@ def create_user():
 # LOGIN API ROUTE
 @app.route('/login',methods=['GET','POST'])
 def login():
-    email= json.loads(request.data)['data']['email']
+    email= (json.loads(request.data)['data']['email']).lower()
     password = json.loads(request.data)['data']['password']
     # user = db.one_or_404(db.select(User).filter_by(email=email,password=password))
     user_count = User.query.filter_by(email=email).count()
-    # # print(user.email)
+    pw_encode = password.encode('utf-8')
     if user_count!=0 :
         user = User.query.filter_by(email=email).first()
+    #         if user.password == password:
         if user.email == 'admin@email.com':
-            if user.password == password:
+            if bcrypt.checkpw(pw_encode,user.password):
                 access_token = create_access_token(identity=email)
                 return {'user':user.firstname,'user_email':email,'admin':True,'access_token':access_token,'status':200}
             else:
                 return {'status':400,'error':'Invalid Password'}
-        
+
         elif user.valid == 'true':
-            if user.password == password:
+            # if user.password == password:
+            if bcrypt.checkpw(pw_encode,user.password):
+                print('_____CHECK____',bcrypt.checkpw(pw_encode,user.password))
                 access_token = create_access_token(identity=email)
                 return {'status':200,'user':user.firstname,'user_email':email,'admin':False,'access_token':access_token}
             else:
-                return {'error':'Invalid Password'}
+                print('____INVALID_PASSWORD____')
+                return {'status':400,'error':'Invalid Password'}
         elif user.valid == 'false':
             return {'status':400,'error':'Admin is yet to approve your Account. Please wait till then.'}
     else:
         return {'status':400,'error':'User not Found'}
-    # return response
+    return 'response'
 
 @app.route('/access_user_validation',methods=['GET'])
 @jwt_required()
@@ -127,7 +136,7 @@ def my_profile():
        'lastname': user.lastname,
        'email': user.email,
        'phone': user.phone,
-        'password':user.password,
+        # 'password':user.password.,
         'batch':user.batch,
         'department':user.department,
        'instaid':user.instaid,
@@ -143,7 +152,7 @@ def my_profile():
     }
     # # print(response_body)
     # # print(user.user_profile_image_url)
-    if user.email == 'admin@email.com' and user.password == 'admin1':
+    if user.email == 'admin@email.com' and bcrypt.checkpw('admin1'.encode('utf-8'),user.password):
         response_body['admin']=True
     else:
         response_body['admin']=False
@@ -181,7 +190,7 @@ def get_registered_report():
 @jwt_required()
 def save_profile_data():
     
-    email = json.loads(request.data)['data']['email']
+    email = (json.loads(request.data)['data']['email']).lower()
     user = User.query.filter_by(email=email).first()
     # # print('DB IMAGE URL',user.user_profile_image_url)
     url = ''
@@ -264,7 +273,7 @@ def all_users():
         'company':i.company,
         'website':i.website,
         'user_profile_image_url':i.user_profile_image_url,
-        'password':i.password,
+        # 'password':i.password,
         'valid':i.valid,}
     # print(user_data)
     return user_data

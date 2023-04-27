@@ -13,13 +13,13 @@ import "mdb-ui-kit/css/mdb.min.css";
 import "./SignupTest.css";
 import "../BlurAnimation.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { createChatUser } from "../User/Chat/chat_api";
 
 function LoginTest() {
   // const [phone, setPhone] = React.useState("");
-  
+
   const [passwordError, setPasswordError] = React.useState(false);
 
   const [signUpData, setSignUpData] = useState({
@@ -35,7 +35,7 @@ function LoginTest() {
   const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  
+
   async function buttonClick() {
     await axios
       .post("http://127.0.0.1:5000/create_user", {
@@ -47,7 +47,7 @@ function LoginTest() {
         // console.log(res);
         createChatUser(
           signUpData.email,
-          signUpData.password,
+          signUpData.lastName + signUpData.lastName,
           signUpData.firstName,
           signUpData.lastName
         );
@@ -188,7 +188,8 @@ function LoginTest() {
                         password: e.target.value,
                       });
                       if (
-                        e.target.value.length > 0 &&signUpData.confirmPassword!==''&&
+                        e.target.value.length > 0 &&
+                        signUpData.confirmPassword !== "" &&
                         signUpData.confirmPassword !== e.target.value
                       ) {
                         setPasswordError(true);
@@ -208,7 +209,8 @@ function LoginTest() {
                         confirmPassword: e.target.value,
                       });
                       if (
-                        e.target.value.length > 0 &&signUpData.password!==''&&
+                        e.target.value.length > 0 &&
+                        signUpData.password !== "" &&
                         signUpData.password !== e.target.value
                       ) {
                         setPasswordError(true);

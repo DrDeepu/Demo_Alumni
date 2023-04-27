@@ -4,22 +4,22 @@ import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import PeopleIcon from "@mui/icons-material/People";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import HomeIcon from "@mui/icons-material/Home";
+// import PeopleIcon from "@mui/icons-material/People";
+// import PostAddIcon from "@mui/icons-material/PostAdd";
+// import HomeIcon from "@mui/icons-material/Home";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import ReactAnimations from "../React-Animations/ReactAnimations";
+// import ReactAnimations from "../React-Animations/ReactAnimations";
 import Badge from "@mui/material/Badge";
 import "./Admin.css";
 
 function AdminNavBar(props) {
   const [user_data, setUser_data] = useState({});
   const [user, setUser] = useState(false);
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
   const navigate = useNavigate();
-  const access_token = useSelector((state) => state.access_token.access_token);
+  // const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
   useEffect(() => {
     // if (user === "false" || user === false) {
@@ -48,14 +48,16 @@ function AdminNavBar(props) {
       });
     }
     func();
-    //   setTimeout(setActive(false), 5000);
-  }, []);
+    // eslint-disable-next-line
+  }, [user]);
 
   return user === true || user === "true" ? (
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="/admindashboard">Admin Panel</Navbar.Brand>
+          <Navbar.Brand href="/admindashboard">
+            <NavLink to="/admindashboard">Admin Panel</NavLink>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -91,11 +93,18 @@ function AdminNavBar(props) {
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink className="nav-link" to="/logout">
+                <NavLink className="nav-link-logout" to="#">
                   {/* Posts */}
                   {/* <PostAddIcon /> */}
 
-                  <span>Logout</span>
+                  <span
+                    onClick={() => {
+                      setUser(false);
+                      localStorage.removeItem("access_token");
+                    }}
+                  >
+                    Logout
+                  </span>
                 </NavLink>
               </Nav.Link>
             </Nav>

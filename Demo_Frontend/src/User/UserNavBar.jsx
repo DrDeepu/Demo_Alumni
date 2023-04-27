@@ -3,25 +3,28 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import HomeIcon from "@mui/icons-material/Home";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import ChatIcon from "@mui/icons-material/Chat";
+// import PostAddIcon from "@mui/icons-material/PostAdd";
+// import HomeIcon from "@mui/icons-material/Home";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+// import ChatIcon from "@mui/icons-material/Chat";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
 import { useNavigate } from "react-router";
-import './User.css'
+import "./User.css";
+import { ChatEngine } from "react-chat-engine";
+
 function UserNavBar(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
   // dispatch(store_user_profile_data(userData));
   // dispatch(store_user_profile_data(userData));
 
   // const [user_data, setUser_data] = useState({});
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  // const [user, setUser] = useState(localStorage.getItem("user"));
+  const [user, setUser] = useState(false);
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
 
@@ -35,7 +38,8 @@ function UserNavBar(props) {
     }
 
     profile();
-  }, []);
+    // eslint-disable-next-line
+  }, [user]);
 
   async function profile() {
     await axios
@@ -45,8 +49,6 @@ function UserNavBar(props) {
         },
       })
       .then((res) => {
-        // dispatch(store_user_profile_data(userData));
-
         dispatch(
           store_user_profile_data({
             firstName: res.data.firstname,
@@ -76,7 +78,8 @@ function UserNavBar(props) {
   }
   // dispatch(store_user_profile_data(userData));
 
-  return user === "true" || user === true ? (
+  // user === "true" || user === true ? (
+  return (
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
@@ -90,14 +93,14 @@ function UserNavBar(props) {
             >
               {/* <Nav.Link href="/userdashboard" style={{}}> */}
               {/* <HomeIcon /> */}
-              <Nav.Link >
+              <Nav.Link>
                 <NavLink to="/userdashboard" className="nav-link">
                   {/* <HomeIcon /> */}
                   Home
                 </NavLink>
               </Nav.Link>
               {/* <Nav.Link href="/profile" style={{}}> */}
-              <Nav.Link >
+              <Nav.Link>
                 {/* <AccountCircleIcon /> */}
                 <NavLink to="/profile" className="nav-link">
                   {/* <AccountCircleIcon /> */}
@@ -107,7 +110,7 @@ function UserNavBar(props) {
 
               {/* <Nav.Link href="/UserPostsPage">
                 <PostAddIcon /> */}
-              <Nav.Link >
+              <Nav.Link>
                 <NavLink to="/userpostspage" className="nav-link">
                   {/* <AccountCircleIcon /> */}
                   {/* <PostAddIcon /> */}
@@ -128,6 +131,18 @@ function UserNavBar(props) {
                   Chat
                 </NavLink>
               </Nav.Link>
+
+              {/* <ChatIcon /> */}
+              <button
+                onClick={() => {
+                  setUser(false);
+                  // ChatEngine.disconnect();
+
+                  localStorage.removeItem("access_token");
+                }}
+              >
+                logout
+              </button>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -135,9 +150,10 @@ function UserNavBar(props) {
 
       <hr></hr>
     </>
-  ) : (
-    navigate("/login")
   );
+  // ) : (
+  //   navigate("/login")
+  // );
 }
 
 export default UserNavBar;

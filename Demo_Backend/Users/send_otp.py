@@ -1,5 +1,6 @@
 import json
 import random
+import bcrypt
 from flask import Blueprint,Flask,request,jsonify,Response
 from itsdangerous import URLSafeSerializer
 from Models.models import db,User,AdminPosts
@@ -76,7 +77,10 @@ def change_password():
         # # print(email,password)
         user = User.query.filter_by(email=email).first()
         # print(user)
-        user.password = password
+        salt = bcrypt.gensalt()
+        pw_encode = password.encode('utf-8')
+        hash_pw = bcrypt.hashpw(pw_encode, salt)
+        user.password = hash_pw
         db.session.add(user)
         db.session.commit()
         return 'Password Changed Successfully'

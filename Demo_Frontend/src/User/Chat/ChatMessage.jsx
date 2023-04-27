@@ -11,10 +11,11 @@ import "./chat.css";
 import Form from "react-bootstrap/Form";
 
 const DirectChatPage = ({ value }) => {
+  console.log(value);
   const [username, setUsername] = React.useState("");
   const [userData, setUserData] = React.useState({
     username: value.email,
-    password: value.password,
+    password: value.firstName + value.lastName,
   });
 
   React.useEffect(() => {
@@ -47,7 +48,8 @@ const DirectChatPage = ({ value }) => {
 
   return (
     <>
-      {userData.username && userData.password && (
+      {console.log(userData)}
+      {userData.username && (
         <ChatEngine
           height="100vh"
           userName={userData.username}

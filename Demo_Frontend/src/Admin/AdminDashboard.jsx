@@ -7,8 +7,8 @@ import "../BlurAnimation.css";
 import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
-import toast, { Toaster } from "react-hot-toast";
-import AdminReport from "./AdminReport";
+import { Toaster } from "react-hot-toast";
+// import AdminReport from "./AdminReport";
 import { LOCALHOST_URL } from "../config";
 // import Chart from "chart.js/auto";
 
@@ -49,6 +49,7 @@ const Admin = () => {
 
     func();
     setloader(false);
+    //eslint-disable-next-line
   }, [loader, user]);
   // window.onload = () => {
   //   setloader(false);
@@ -100,7 +101,7 @@ const Admin = () => {
               </div>
             </div>
             {/* <AdminReport /> */}
-            <button
+            {/* <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {
                 setUser(false);
@@ -108,7 +109,7 @@ const Admin = () => {
               }}
             >
               logout
-            </button>
+            </button> */}
           </div>
         </div>
       </>

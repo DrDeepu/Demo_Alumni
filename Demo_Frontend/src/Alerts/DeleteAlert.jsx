@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { deleteMyAccount } from "../User/Chat/chat_api";
 
 function Example(props) {
   const [show, setShow] = useState(false);
@@ -52,6 +53,10 @@ function Example(props) {
               handleClose();
               deleteUser();
               props.setRefetch();
+              deleteMyAccount(
+                props.data.email,
+                props.data.firstname + props.data.lastname
+              );
             }}
           >
             Delete
