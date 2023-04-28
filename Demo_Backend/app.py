@@ -67,22 +67,24 @@ jwt = JWTManager(app)
 # SIGN UP API ROUTE
 @app.route('/create_user',methods=['POST'])
 def create_user():
-    firstname = json.loads(request.data)['data']['firstName']
-    lastname = json.loads(request.data)['data']['lastName']
     email= (json.loads(request.data)['data']['email']).lower()
-    password = json.loads(request.data)['data']['password']
-    batch = json.loads(request.data)['data']['batch']
-    department = json.loads(request.data)['data']['department']
-    join_date = datetime.datetime.now()
-    image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1682411013/Users/guest-user_hicyp0.webp'
-    salt = bcrypt.gensalt()
-    pw_encode = password.encode('utf-8')
-    hash_pw = bcrypt.hashpw(pw_encode,salt)
-    user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=hash_pw,user_profile_image_url=image_url)
-    db.session.add(user)
-    db.session.commit()
-    return Response(['Data added Successfully'])
-
+    if not User.query.filter_by(email=email).count():
+        firstname = json.loads(request.data)['data']['firstName']
+        lastname = json.loads(request.data)['data']['lastName']
+        password = json.loads(request.data)['data']['password']
+        batch = json.loads(request.data)['data']['batch']
+        department = json.loads(request.data)['data']['department']
+        join_date = datetime.datetime.now()
+        image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1682411013/Users/guest-user_hicyp0.webp'
+        salt = bcrypt.gensalt()
+        pw_encode = password.encode('utf-8')
+        hash_pw = bcrypt.hashpw(pw_encode,salt)
+        user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=hash_pw,user_profile_image_url=image_url)
+        db.session.add(user)
+        db.session.commit()
+        return {'status':200,'message':'User Registered Successfully'}
+    else:
+        return {'status':400,'message':'User email already exists'}
 
 # LOGIN API ROUTE
 @app.route('/login',methods=['GET','POST'])
