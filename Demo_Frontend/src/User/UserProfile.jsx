@@ -172,6 +172,27 @@ export default function ProfilePage() {
                       <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                         <MDBIcon
                           fab
+                          icon="fab fa-linkedin"
+                          style={{ color: "#ac2bac" }}
+                        />
+                        <MDBCardText
+                          className={userData.instaId ? "pointer" : ""}
+                        >
+                          {userData.linkedinId ? (
+                            <NavLink
+                              to={`https://linkedin.com/in/${userData.linkedinId}`}
+                              target="_blank"
+                            >
+                              {userData.linkedinId}
+                            </NavLink>
+                          ) : (
+                            "no linkedin_id"
+                          )}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBIcon
+                          fab
                           icon="instagram fa-lg"
                           style={{ color: "#ac2bac" }}
                         />
@@ -243,7 +264,10 @@ export default function ProfilePage() {
                         </MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText>{userData.phone}</MDBCardText>
+                        <MDBCardText>{
+                        userData.phone?userData.phone:
+                        "No Phone Number Added"
+                        }</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
