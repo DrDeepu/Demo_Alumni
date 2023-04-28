@@ -12,7 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import NavBar from "./UserNavBar";
 import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
@@ -129,11 +129,21 @@ export default function ProfilePage() {
                       {/* Website Url */}
                       <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                         {/* <MDBIcon fas icon="globe fa-lg text-warning" /> */}
-                        <MDBCardText>
-                          {userData.websiteUrl !== null &&
-                          userData.websiteUrl !== ""
-                            ? userData.websiteUrl
-                            : "https://www.website.org"}
+
+                        <i class="fas fa-globe"></i>
+                        <MDBCardText
+                          className={userData.websiteUrl ? "pointer" : ""}
+                        >
+                          {userData.websiteUrl ? (
+                            <NavLink
+                              to={`http://www.${userData.websiteUrl}.com`}
+                              target="_blank"
+                            >
+                              http://www.{userData.websiteUrl}.com
+                            </NavLink>
+                          ) : (
+                            "www.website.org"
+                          )}
                         </MDBCardText>
                       </MDBListGroupItem>
                       {/* Git Hub Id */}
@@ -143,8 +153,19 @@ export default function ProfilePage() {
                           icon="github fa-lg"
                           style={{ color: "#333333" }}
                         />
-                        <MDBCardText>
-                          {userData.githubId ? userData.githubId : "no git_id"}
+                        <MDBCardText
+                          className={userData.githubId ? "pointer" : ""}
+                        >
+                          {userData.githubId ? (
+                            <NavLink
+                              to={`https://github.com/${userData.githubId}`}
+                              target="_blank"
+                            >
+                              {userData.githubId}
+                            </NavLink>
+                          ) : (
+                            "no git_id"
+                          )}
                         </MDBCardText>
                       </MDBListGroupItem>
                       {/* Insta Id */}
@@ -154,8 +175,19 @@ export default function ProfilePage() {
                           icon="instagram fa-lg"
                           style={{ color: "#ac2bac" }}
                         />
-                        <MDBCardText>
-                          {userData.instaId ? userData.instaId : "no insta_id"}
+                        <MDBCardText
+                          className={userData.instaId ? "pointer" : ""}
+                        >
+                          {userData.instaId ? (
+                            <NavLink
+                              to={`https://instagram.com/${userData.instaId}`}
+                              target="_blank"
+                            >
+                              {userData.instaId}
+                            </NavLink>
+                          ) : (
+                            "no insta_id"
+                          )}
                         </MDBCardText>
                       </MDBListGroupItem>
                     </MDBListGroup>
@@ -235,7 +267,11 @@ export default function ProfilePage() {
                         </MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText>{userData.department}</MDBCardText>
+                        <MDBCardText>
+                          {userData.department
+                            ? userData.department
+                            : "No Department Specified"}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -247,7 +283,11 @@ export default function ProfilePage() {
                         </MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText>{userData.domain}</MDBCardText>
+                        <MDBCardText>
+                          {userData.domain
+                            ? userData.domain
+                            : "No Domain Specified"}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -259,7 +299,11 @@ export default function ProfilePage() {
                         </MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText>{userData.company}</MDBCardText>
+                        <MDBCardText>
+                          {userData.company
+                            ? userData.company
+                            : "No Company Specified"}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />

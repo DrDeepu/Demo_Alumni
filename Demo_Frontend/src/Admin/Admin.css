@@ -47,6 +47,7 @@ card-container {
   transition-duration: 0.2s;
   /* border: 0.01px solid black; */
   /* box-shadow: 0px 3px 5px gray; */
+  background: rgba(0,0,0,0.2);
   box-shadow: 0px 0px 5px 1px gray;
 }
 #card_hover_posts:hover {
@@ -58,6 +59,7 @@ card-container {
   transition-duration: 0.4s;
   /* border: 0.01px solid black; */
   /* box-shadow: 0px 3px 10px gray; */
+  background: rgba(0,0,0,0.2);
   box-shadow: 0px 0px 5px 1px gray;
 }
 

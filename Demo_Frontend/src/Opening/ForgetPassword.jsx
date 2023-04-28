@@ -19,11 +19,12 @@ import LoginVideo from "./LoginVideo";
 import Paper from "@mui/material/Paper";
 import toast, { Toaster } from "react-hot-toast";
 import { LOCALHOST_URL } from "../config";
-
+import DoneIcon from "@mui/icons-material/Done";
 const theme = createTheme();
 
 export default function ForgetPassword() {
   const success_toast = () => {
+    toast.dismiss();
     toast.success("Mail Sent.");
   };
   // eslint-disable-next-line
@@ -35,18 +36,33 @@ export default function ForgetPassword() {
     event.preventDefault();
   };
 
+  // React.useEffect(() => {
+  //   toast.dismiss();
+  // }, []);
   async function sendOtp() {
     await axios({
       method: "post",
-      url: `${LOCALHOST_URL}/send_otp`,
+      url: `${LOCALHOST_URL}/valid_user`,
       data: { email },
     })
-      .then(() => {
+      .then((res) => {
         // setSetResult(true);
-        setEmail("");
-        success_toast();
+        toast.dismiss();
+        toast.loading(res.data);
+
+        axios({
+          method: "post",
+          url: `${LOCALHOST_URL}/send_otp`,
+          data: { email },
+        }).then(() => {
+          setEmail("");
+          success_toast();
+          setSetResult(true);
+        });
+        // console.log(res)
       })
       .catch(() => {
+        toast.dismiss();
         toast.error("No user found");
       });
   }
@@ -56,85 +72,154 @@ export default function ForgetPassword() {
       <LoginVideo>
         <Toaster position={"top-center"} reverseOrder={false} />
         <div id={10 < 15 && "login_blur_animation"}>
-          <Box
-            sx={{
-              display: "flex",
-              "& > :not(style)": {
-                m: 1,
-                width: 400,
-                height: 450,
-              },
-            }}
-          >
-            <Paper elevation={6}>
-              <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
-                  <CssBaseline />
-                  <Box
-                    sx={{
-                      marginTop: 8,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                      <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                      Reset Password
-                    </Typography>
+          {/* THIS IS THE INITIAL PAGE */}
+          {!result ? (
+            <Box
+              sx={{
+                display: "flex",
+                "& > :not(style)": {
+                  m: 1,
+                  width: 400,
+                  height: 450,
+                },
+              }}
+            >
+              <Paper elevation={6}>
+                <ThemeProvider theme={theme}>
+                  <Container component="main" maxWidth="xs">
+                    <CssBaseline />
                     <Box
-                      component="form"
-                      noValidate
-                      onSubmit={handleSubmit}
-                      sx={{ mt: 3 }}
+                      sx={{
+                        marginTop: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
                     >
-                      <TextField
-                        fullWidth
-                        label="Email Address"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                      {emailValid.test(email) ? (
-                        <Button
-                          type="submit"
+                      <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                        <LockOutlinedIcon />
+                      </Avatar>
+                      <Typography component="h1" variant="h5">
+                        Reset Password
+                      </Typography>
+                      <Box
+                        component="form"
+                        noValidate
+                        onSubmit={handleSubmit}
+                        sx={{ mt: 3 }}
+                      >
+                        <TextField
                           fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
+                          label="Email Address"
+                          name="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                        {emailValid.test(email) ? (
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={() => {
+                              sendOtp();
+                              // toast.loading("We are fetching you data");
+                            }}
+                          >
+                            Confirm
+                          </Button>
+                        ) : (
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            disabled
+                          >
+                            Confirm
+                          </Button>
+                        )}
+                        <Grid container justifyContent="flex-end">
+                          <Grid item>
+                            <NavLink
+                              to="/login"
+                              variant="body2"
+                              onClick={() => {
+                                toast.dismiss();
+                              }}
+                            >
+                              Back to login
+                            </NavLink>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
+                  </Container>
+                </ThemeProvider>
+                {/* </div> */}
+              </Paper>
+            </Box>
+          ) : (
+            // {/* THIS IS THE SUCCESSFULL PAGE */}
+            <Box
+              sx={{
+                display: "flex",
+                "& > :not(style)": {
+                  m: 1,
+                  width: 400,
+                  height: 450,
+                },
+              }}
+            >
+              <Paper elevation={6}>
+                <ThemeProvider theme={theme}>
+                  <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                      sx={{
+                        marginTop: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
+                        <DoneIcon />
+                      </Avatar>
+                      <Typography component="h1" variant="h5">
+                        Mail Sent
+                      </Typography>
+                      <Box
+                        component="form"
+                        noValidate
+                        onSubmit={handleSubmit}
+                        sx={{ mt: 3 }}
+                      >
+                        <NavLink
+                          to="/login"
+                          variant="body2"
                           onClick={() => {
-                            sendOtp();
+                            toast.dismiss();
                           }}
                         >
-                          Confirm
-                        </Button>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          disabled
-                        >
-                          Confirm
-                        </Button>
-                      )}
-                      <Grid container justifyContent="flex-end">
-                        <Grid item>
-                          <NavLink to="/login" variant="body2">
-                            Back to login
-                          </NavLink>
-                        </Grid>
-                      </Grid>
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="secondary"
+                            sx={{ mt: 3, mb: 2 }}
+                          >
+                            Back to login 
+                          </Button>
+                        </NavLink>
+                      </Box>
                     </Box>
-                  </Box>
-                </Container>
-              </ThemeProvider>
-              {/* </div> */}
-            </Paper>
-          </Box>
+                  </Container>
+                </ThemeProvider>
+                {/* </div> */}
+              </Paper>
+            </Box>
+          )}
         </div>
       </LoginVideo>
     </>

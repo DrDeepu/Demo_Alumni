@@ -74,14 +74,28 @@ function AdminNavBar(props) {
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <Badge badgeContent={user_data.not_valid_users} color="primary">
-                  <NavLink className="nav-link" to="/adminusers">
-                    {/* Users */}
-                    {/* <PeopleIcon /> */}
+                {!props.count ? (
+                  <Badge
+                    badgeContent={user_data.not_valid_users}
+                    color="primary"
+                  >
+                    <NavLink className="nav-link" to="/adminusers">
+                      {/* Users */}
+                      {/* <PeopleIcon /> */}
 
-                    <span>Users</span>
-                  </NavLink>
-                </Badge>
+                      <span>Users</span>
+                    </NavLink>
+                  </Badge>
+                ) : (
+                  <Badge badgeContent={props.count} color="primary">
+                    <NavLink className="nav-link" to="/adminusers">
+                      {/* Users */}
+                      {/* <PeopleIcon /> */}
+
+                      <span>Users</span>
+                    </NavLink>
+                  </Badge>
+                )}
               </Nav.Link>
               {/* <MailIcon color="action" /> */}
               <Nav.Link>

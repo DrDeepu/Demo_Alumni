@@ -146,10 +146,15 @@ export default function User(props) {
                   rows={2}
                   defaultValue={userData.firstName}
                   onChange={(e) => {
-                    setUserData({
-                      ...userData,
-                      firstName: e.target.value,
-                    });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          firstName: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          firstName: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -164,7 +169,15 @@ export default function User(props) {
                   defaultValue={userData.lastName}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, lastName: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          lastName: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          lastName: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -179,7 +192,15 @@ export default function User(props) {
                   defaultValue={userData.phoneNumber}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, phoneNumber: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          phoneNumber: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          phoneNumber: e.target.value.trim(),
+                        });
                   }}
                 />
               </Form.Group>
@@ -196,7 +217,15 @@ export default function User(props) {
                   rows={2}
                   min="2000-01-01"
                   onChange={(e) => {
-                    setUserData({ ...userData, batch: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          batch: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          batch: e.target.value.trim(),
+                        });
                   }}
                 />
               </Form.Group>
@@ -211,7 +240,15 @@ export default function User(props) {
                   defaultValue={userData.department}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, department: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          department: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          department: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -226,7 +263,15 @@ export default function User(props) {
                   defaultValue={userData.instagramId}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, instagramId: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          instagramId: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          instagramId: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -241,7 +286,15 @@ export default function User(props) {
                   defaultValue={userData.githubId}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, githubId: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          githubId: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          githubId: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -256,7 +309,15 @@ export default function User(props) {
                   defaultValue={userData.linkedinId}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, linkedinId: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          linkedinId: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          linkedinId: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -271,7 +332,15 @@ export default function User(props) {
                   defaultValue={userData.domain}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, domain: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          domain: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          domain: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -286,7 +355,15 @@ export default function User(props) {
                   defaultValue={userData.profession}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, profession: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          profession: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          profession: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -301,7 +378,15 @@ export default function User(props) {
                   defaultValue={userData.companyName}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, companyName: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          companyName: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          companyName: "",
+                        });
                   }}
                 />
               </Form.Group>
@@ -316,7 +401,15 @@ export default function User(props) {
                   defaultValue={userData.websiteUrl}
                   rows={2}
                   onChange={(e) => {
-                    setUserData({ ...userData, websiteUrl: e.target.value });
+                    e.target.value.trim() !== ""
+                      ? setUserData({
+                          ...userData,
+                          websiteUrl: e.target.value.trim(),
+                        })
+                      : setUserData({
+                          ...userData,
+                          websiteUrl: e.target.value.trim(),
+                        });
                   }}
                 />
               </Form.Group>

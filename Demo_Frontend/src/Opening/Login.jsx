@@ -45,6 +45,7 @@ export default function Login() {
         else navigate("/userdashboard");
       }
     }
+    toast.dismiss();
     // eslint-disable-next-line
   }, [access_token, user_email]);
 
@@ -53,6 +54,7 @@ export default function Login() {
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -71,6 +73,7 @@ export default function Login() {
       .then((res) => {
         // console.log(res.data);
         if (res.data.status === 400) {
+          toast.dismiss();
           toast.error(res.data.error);
         } else {
           dispatch(store_access_token(res.data.access_token));

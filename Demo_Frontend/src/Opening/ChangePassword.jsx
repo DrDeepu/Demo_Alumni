@@ -17,6 +17,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./ImageUpload.css";
 import LoginVideo from "./LoginVideo";
 import Paper from "@mui/material/Paper";
+import toast, { Toaster } from "react-hot-toast";
 
 import { LOCALHOST_URL } from "../config";
 // import { set_user_data } from "../Redux/reducers";
@@ -43,14 +44,24 @@ export default function ChangePassword() {
       method: "post",
       url: `${LOCALHOST_URL}/change_password`,
       data: { password: password.password, token },
-    }).then(() => {
-      navigate("/login");
-    });
+    })
+      .then(() => {
+        toast.dismiss();
+        toast.success("Password Changed. Redirecting to logging page");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      })
+      .catch((res) => {
+        toast.dismiss();
+        toast.error("Invalid user detected");
+      });
   }
 
   return (
     <>
       <LoginVideo>
+        <Toaster position={"top-center"} reverseOrder={false} />
         <div id={10 < 15 && "login_blur_animation"}>
           <Box
             sx={{

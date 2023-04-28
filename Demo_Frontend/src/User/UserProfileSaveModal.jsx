@@ -1,6 +1,5 @@
 // VerticalEditConfirmModal.jsx;
-
-import axios from "axios";
+import "./User.css";
 import React from "react";
 
 import Button from "react-bootstrap/Button";
@@ -16,6 +15,7 @@ export default function VerticalEditApp(props) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="background_dim"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -36,7 +36,7 @@ export default function VerticalEditApp(props) {
           <Button
             onClick={() => {
               props.onHide();
-            //   saveChangesFunction();
+              //   saveChangesFunction();
               //   props.setEdit();
               props.props.saveProfile();
               //   setEdit(false);
@@ -48,24 +48,24 @@ export default function VerticalEditApp(props) {
       </Modal>
     );
   }
-//   async function saveChangesFunction() {
-//     await axios
-//       .post("http://localhost:5000/update_admin_post", {
-//         data: {
-//           post_id: props.post_id,
-//           post_title: props.title,
-//           post_image_url: props.image_url,
-//           post_description: props.description,
-//           post_event_start_date: props.post_event_start_date,
-//           post_event_start_time: props.post_event_start_time,
-//           post_event_end_date: props.post_event_end_date,
-//           post_event_end_time: props.post_event_end_time,
-//         },
-//       })
-//       .then((res) => {
-//         console.log(res);
-//       });
-//   }
+  //   async function saveChangesFunction() {
+  //     await axios
+  //       .post("http://localhost:5000/update_admin_post", {
+  //         data: {
+  //           post_id: props.post_id,
+  //           post_title: props.title,
+  //           post_image_url: props.image_url,
+  //           post_description: props.description,
+  //           post_event_start_date: props.post_event_start_date,
+  //           post_event_start_time: props.post_event_start_time,
+  //           post_event_end_date: props.post_event_end_date,
+  //           post_event_end_time: props.post_event_end_time,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //       });
+  //   }
 
   return (
     <>

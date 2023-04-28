@@ -16,6 +16,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { createChatUser } from "../User/Chat/chat_api";
+import toast, { Toaster } from "react-hot-toast";
 
 function LoginTest() {
   // const [phone, setPhone] = React.useState("");
@@ -45,16 +46,20 @@ function LoginTest() {
       })
       .then((res) => {
         // console.log(res);
-        createChatUser(
-          signUpData.email,
-          signUpData.lastName + signUpData.lastName,
-          signUpData.firstName,
-          signUpData.lastName
-        );
-        navigate("/Login");
-      })
-      .catch((res) => {
-        // console.log(res);
+        if (res.data.status === 200) {
+          toast.success("User registered successfully");
+          setTimeout(() => {
+            createChatUser(
+              signUpData.email.toLowerCase(),
+              signUpData.email.toLowerCase(),
+              signUpData.firstName,
+              signUpData.lastName
+            );
+            navigate("/Login");
+          }, 2000);
+        } else {
+          toast.error("User email already exists");
+        }
       });
   }
 
@@ -64,6 +69,7 @@ function LoginTest() {
         fluid
         className="p-16 background-radial-gradient overflow-hidden "
       >
+        <Toaster position={"top-center"} reverseOrder={false} />
         <div id="signup_blur_animation">
           <MDBRow>
             <MDBCol

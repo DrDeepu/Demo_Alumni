@@ -19,8 +19,7 @@ const DirectChatPage = ({ value }) => {
   });
 
   React.useEffect(() => {
-    if (!userData.username)
-      setUserData({ username: value.email, password: value.password });
+    if (!userData.username) setUserData({ username: value.email });
   }, [userData]);
   function createDirectChat(creds) {
     getOrCreateChat(
@@ -53,7 +52,7 @@ const DirectChatPage = ({ value }) => {
         <ChatEngine
           height="100vh"
           userName={userData.username}
-          userSecret={userData.password}
+          userSecret={userData.username}
           projectID={CHAT_PROJECT_ID}
           renderNewChatForm={(creds) => renderChatForm(creds)}
         />

@@ -149,3 +149,11 @@
     /* border-right: black 2px solid; */
   }
 }
+
+.background_dim {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.pointer {
+  cursor: pointer;
+}

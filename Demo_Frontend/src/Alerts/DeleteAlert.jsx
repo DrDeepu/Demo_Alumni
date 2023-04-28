@@ -53,10 +53,7 @@ function Example(props) {
               handleClose();
               deleteUser();
               props.setRefetch();
-              deleteMyAccount(
-                props.data.email,
-                props.data.firstname + props.data.lastname
-              );
+              deleteMyAccount(props.data.email, props.data.email);
             }}
           >
             Delete

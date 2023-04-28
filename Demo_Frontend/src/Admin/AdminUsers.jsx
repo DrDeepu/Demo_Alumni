@@ -15,6 +15,7 @@ const AdminUsers = () => {
   const [userdata, setUserdata] = useState({});
   const [reFetch, setReFetch] = useState(false);
   const [filter, setFilter] = React.useState(0);
+  const [count, setCount] = React.useState(0);
 
   const handleChange = (event) => {
     setFilter(event.target.value);
@@ -25,20 +26,14 @@ const AdminUsers = () => {
     // authenticaiton();
     //eslint-disable-next-line
   }, [reFetch, filter]);
-  async function authenticaiton() {
-    await axios
-      .get("http://127.0.0.1:5000/admin", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access_token);
-      })
-      .catch((res) => {
-        // console.log(res);
-      });
+  async function func() {
+    await axios.get("http://127.0.0.1:5000/user_count").then((res) => {
+      // console.log(res.data.total_users);
+      setCount(res.data.not_valid_users);
+      // setUser_data(res.data);
+    });
   }
+  func();
 
   async function fetch_all_users() {
     await axios
@@ -58,7 +53,7 @@ const AdminUsers = () => {
 
   return (
     <>
-      <AdminNavBar />
+      <AdminNavBar count={count} />
       <div id="admin_users_blur_animation">
         <Box sx={{ minWidth: 120 }}>
           <FormControl sx={{ width: "10%" }}>
@@ -111,33 +106,6 @@ const AdminUsers = () => {
                     )
                   )
                 ) : (
-                  // filter === false ? (
-                  //   Boolean(userdata[value]["valid"]) === false && (
-                  //     <UserCard
-                  //       fetch_all_users={fetch_all_users}
-                  //       setRefetch={() => {
-                  //         setReFetch(!reFetch);
-                  //       }}
-                  //       key={value}
-                  //       email={value}
-                  //       valid={userdata[value]}
-                  //       data={userdata[value]}
-                  //     />
-                  //   )
-                  // ) : (
-                  //   Boolean(userdata[value]["valid"]) === true && (
-                  //     <UserCard
-                  //       fetch_all_users={fetch_all_users}
-                  //       setRefetch={() => {
-                  //         setReFetch(!reFetch);
-                  //       }}
-                  //       key={value}
-                  //       email={value}
-                  //       valid={userdata[value]}
-                  //       data={userdata[value]}
-                  //     />
-                  //   )
-                  // )
                   <UserCard
                     fetch_all_users={fetch_all_users}
                     setRefetch={() => {
