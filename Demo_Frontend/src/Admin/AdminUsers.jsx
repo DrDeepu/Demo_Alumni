@@ -54,11 +54,12 @@ const AdminUsers = () => {
   return (
     <>
       <AdminNavBar count={count} />
-      <div id="admin_users_blur_animation">
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl sx={{ width: "10%" }}>
-            <InputLabel id="demo-simple-select-label">Filter User</InputLabel>
+      <div id="admin_users_blur_animation" className='admin-users'>
+        <Box sx={{ minWidth: 120 }} >
+          <FormControl sx={{ width: "10%" }} >
+            <InputLabel id="demo-simple-select-label" >Filter User</InputLabel>
             <Select
+            className="admin-filter-box"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={filter}

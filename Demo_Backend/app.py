@@ -35,10 +35,10 @@ app.secret_key = 'Something-Is-Not-Right'
 
 
 # Elephant SQL URI
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
 
 # PosgreSQL URI
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
 
 # Sqlite URI
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'

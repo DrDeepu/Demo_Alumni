@@ -29,7 +29,7 @@ export default function AdminPosts() {
   return (
     <>
       <AdminNavBar />
-      <div id="admin_add_post_blur_animation">
+      <div id="admin_add_post_blur_animation" className="admin-posts">
         <div align="center">
           <AdminAddPostsModal
             setRefetch={() => setReFetch(!reFetch)}

@@ -72,7 +72,7 @@ const Admin = () => {
       <>
         <Toaster position={"top-center"} reverseOrder={false} />
         <AdminNavBar />
-        <div id="admin_blur_animation">
+        <div id="admin_blur_animation" className="admin-dashboard">
           <div
             style={{
               width: "1080",

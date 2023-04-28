@@ -53,7 +53,7 @@ function AdminNavBar(props) {
 
   return user === true || user === "true" ? (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className="admin-navbar">
         <Container fluid>
           <Navbar.Brand href="/admindashboard">
             <NavLink to="/admindashboard">Admin Panel</NavLink>
