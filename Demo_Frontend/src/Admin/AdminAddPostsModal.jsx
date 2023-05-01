@@ -10,6 +10,8 @@ import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SendMail from "./SendMail";
+import {LOCALHOST_URL} from '../config'
+
 export default function AdminAddPosts({ setRefetch, postsData }) {
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
@@ -53,7 +55,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     mailCheck === true && formData.append("mailData", JSON.stringify(mailData));
 
     await axios
-      .post("http://localhost:5000/upload_admin_post", formData)
+      .post(`${LOCALHOST_URL}/upload_admin_post`, formData)
       .then((res) => {
         setRefetch();
         // navigate("/adminposts");
@@ -64,10 +66,10 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     const formData = new FormData();
     formData.append("file", uploadImage);
     await axios
-      .post("http://localhost:5000/upload_admin_post_image", formData)
+      .post(`${LOCALHOST_URL}/upload_admin_post_image`, formData)
       .then(async () => {
         await axios
-          .get("http://localhost:5000/fetch_admin_post_image")
+          .get(`${LOCALHOST_URL}/fetch_admin_post_image`)
           .then((res) => {
             setImageUrl(res.data);
             setImageLoader(false);

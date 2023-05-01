@@ -17,12 +17,22 @@ import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { createChatUser } from "../User/Chat/chat_api";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useSelector, useDispatch } from "react-redux";
+import jwt_decode from "jwt-decode";
+import { store_access_token, store_user_email } from "../Redux/actions";
+import {
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+} from "mdb-react-ui-kit";
 function LoginTest() {
   // const [phone, setPhone] = React.useState("");
 
+  const access_token = useSelector((state) => state.access_token.access_token);
+  const user_email = useSelector((state) => state.set_user_data.user_email);
   const [passwordError, setPasswordError] = React.useState(false);
-
+  const [dateError, setDateError] = React.useState(false);
+  const dispatch = useDispatch();
   const [signUpData, setSignUpData] = useState({
     firstName: "",
     lastName: "",
@@ -36,6 +46,25 @@ function LoginTest() {
   const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  React.useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      // console.log("ACCESS TOKEN", access_token);
+      // console.log("USER EMAIL", user_email);
+      const expired_or_not =
+        new Date(jwt_decode(access_token).exp * 1000) > new Date();
+      if (!expired_or_not) {
+        localStorage.removeItem("access_token");
+      } else {
+        // console.log("JWT DECODE", jwt_decode(access_token));
+        dispatch(store_user_email(access_token));
+        if (user_email === "admin@email.com") navigate("/admindashboard");
+        else navigate("/userdashboard");
+      }
+    }
+    toast.dismiss();
+    // eslint-disable-next-line
+  }, [access_token, user_email, dateError]);
 
   async function buttonClick() {
     await axios
@@ -136,7 +165,7 @@ function LoginTest() {
                   </MDBRow>
 
                   <MDBRow>
-                    <MDBCol col="6">
+                    {/* <MDBCol col="6">
                       <MDBDropdown>
                         <MDBInput
                           select
@@ -154,7 +183,40 @@ function LoginTest() {
                           label="Batch"
                         />
                       </MDBDropdown>
+                    </MDBCol> */}
+                    <MDBCol col="6">
+                      <MDBInput
+                        select
+                        type="number"
+                        // min="2000"
+                        // max={new Date().getFullYear() - 1}
+                        // value={dropdownValue}
+                        // onChange={handleDropdownChange}
+                        onChange={(e) => {
+                          if (
+                            e.target.value >= 2000 &&
+                            e.target.value <= new Date().getFullYear() - 1
+                          ) {
+                            setSignUpData({
+                              ...signUpData,
+                              batch: e.target.value,
+                            });
+                            setDateError(false);
+                          } else {
+                            setDateError(true);
+                          }
+                        }}
+                        label="Batch"
+                      />
+                      {signUpData.batch !== "" &&
+                        (dateError === true && (
+                          <span style={{ color: "red" }}>
+                            Date must be between (2000 and{" "}
+                            {new Date().getFullYear()})
+                          </span>
+                        ))}
                     </MDBCol>
+
                     <MDBCol col="6">
                       <MDBInput
                         wrapperClass="mb-4"

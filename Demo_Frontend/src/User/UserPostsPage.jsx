@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 // import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Container, Row } from "react-bootstrap";
+import { LOCALHOST_URL } from "../config";
 
 const UserShowPosts = () => {
   const [postsData, setPostsData] = useState({});
@@ -15,7 +16,7 @@ const UserShowPosts = () => {
   }, []);
   async function fetchAllPosts() {
     await axios
-      .get("http://localhost:5000/fetch_all_admin_post")
+      .get(`${LOCALHOST_URL}/fetch_all_admin_post`)
       .then((res) => {
         setPostsData(res.data);
         setLoader(false);

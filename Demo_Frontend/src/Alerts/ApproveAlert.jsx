@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { LOCALHOST_URL } from "../config";
 
 function Example(props) {
   // console.log('=======APPORVECARD',props);
@@ -11,7 +12,7 @@ function Example(props) {
   const handleShow = () => setShow(true);
   async function approveUser() {
     await axios
-      .post("http://localhost:5000/approveuser", {
+      .post(`${LOCALHOST_URL}/approveuser`, {
         data: { email: props.data.email },
       })
       .then((res) => {

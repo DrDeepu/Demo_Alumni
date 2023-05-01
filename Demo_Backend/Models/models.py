@@ -61,9 +61,10 @@ class AdminPosts(db.Model):
     post_event_start_time = db.Column(db.String(100),nullable=False)
     post_event_end_date = db.Column(db.String(100),nullable=False)
     post_event_end_time = db.Column(db.String(100),nullable=False)
+    create_date = db.Column(db.String(30))
     accepted_users = db.relationship("User", secondary = accepted_users, backref='accepted_posts')
 
-    def __init__(self, post_title, post_description, post_date, post_image_url,post_event_start_time ,post_event_start_date,post_event_end_date,post_event_end_time):
+    def __init__(self, post_title, post_description,create_date, post_date, post_image_url,post_event_start_time ,post_event_start_date,post_event_end_date,post_event_end_time):
         self.post_title = post_title
         self.post_description = post_description
         self.post_date = post_date
@@ -71,8 +72,8 @@ class AdminPosts(db.Model):
         self.post_event_start_date = post_event_start_date
         self.post_event_start_time = post_event_start_time
         self.post_event_end_date = post_event_end_date
-        self.post_event_end_time = post_event_end_time
-
+        self.post_event_end_date = post_event_end_date
+        self.create_date = create_date
     def __repr__(self):
         return f'<Admin Post id : {self.id}, Admin Title : {self.post_title}>'
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { LOCALHOST_URL } from "../config";
 
 function Example(props) {
 // console.log("=======DISAPPORVECARD", props);
@@ -12,7 +13,7 @@ function Example(props) {
   const handleShow = () => setShow(true);
   async function disapproveUser() {
     await axios
-      .post("http://localhost:5000/disaproveuser", {
+      .post(`${LOCALHOST_URL}/disaproveuser`, {
         data: { email: props.data.email },
       })
       .then(() => {

@@ -4,6 +4,7 @@ import AdminAllPosts from "./AdminAllPosts";
 import AdminNavBar from "./AdminNavBar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { LOCALHOST_URL } from "../config";
 
 export default function AdminPosts() {
   const [postsData, setPostsData] = useState({});
@@ -15,7 +16,7 @@ export default function AdminPosts() {
   }, [reFetch]);
   async function fetchAllPosts() {
     await axios
-      .get("http://localhost:5000/fetch_all_admin_post")
+      .get(`${LOCALHOST_URL}/fetch_all_admin_post`)
       .then((res) => {
         // console.log(res.data);
         setPostsData(res.data);

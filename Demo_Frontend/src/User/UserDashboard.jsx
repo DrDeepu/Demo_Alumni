@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import NavBar from "./UserNavBar";
 import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
+import { LOCALHOST_URL } from "../config";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Dashboard = () => {
 
   async function profile() {
     await axios
-      .get("http://localhost:5000/profile", {
+      .get(`${LOCALHOST_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },

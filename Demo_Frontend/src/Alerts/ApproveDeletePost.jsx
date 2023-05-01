@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { LOCALHOST_URL } from "../config";
 
 function ApproveDeletePost({
   email,
@@ -20,7 +21,7 @@ function ApproveDeletePost({
   async function approveDeletePost(post_id) {
     // console.log(post_id);
     await axios
-      .post("http://localhost:5000/delete_admin_post", { data: { post_id } })
+      .post(`${LOCALHOST_URL}/delete_admin_post`, { data: { post_id } })
       .then((cl) => {
         // console.log(cl);
         // window.location.reload();

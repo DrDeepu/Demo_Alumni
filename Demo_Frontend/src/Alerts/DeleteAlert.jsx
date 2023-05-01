@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import { deleteMyAccount } from "../User/Chat/chat_api";
+import { LOCALHOST_URL } from "../config";
 
 function Example(props) {
   const [show, setShow] = useState(false);
@@ -11,7 +12,7 @@ function Example(props) {
   const handleShow = () => setShow(true);
   async function deleteUser() {
     await axios
-      .post("http://localhost:5000/deleteuser", {
+      .post(`${LOCALHOST_URL}/deleteuser`, {
         data: { email: props.data.email },
       })
       .then(

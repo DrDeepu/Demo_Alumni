@@ -38,7 +38,7 @@ const UserSearchPage = () => {
             className="me-2"
             aria-label="Search"
             onChange={(e) => {
-              setSearchUserData(e.target.value);
+              setSearchUserData(e.target.value.replace(/\s+/g, ""));
               getUserData();
             }}
           />
@@ -52,16 +52,22 @@ const UserSearchPage = () => {
               Object.keys(userData).map((user) => {
                 const userName =
                   userData[user].firstname + userData[user].lastname;
+                const firstName = userData[user].firstname;
+                const lastName = userData[user].lastname;
                 //   if (
                 //     searchUserData !== 0 &&
                 //     userName.slice(0, searchUserData.length) === searchUserData
                 //   )
                 return (
-                  searchUserData !== 0 &&
-                  searchUserData !== "" &&
-                  // (console.log(userData)
-                  userName.slice(0, searchUserData.length).toLowerCase() ===
-                    searchUserData.toLowerCase() && (
+                  ((searchUserData !== 0 &&
+                    searchUserData !== "" &&
+                    // (console.log(userData)
+                    userName.slice(0, searchUserData.length).toLowerCase() ===
+                      searchUserData.toLowerCase()) ||
+                    firstName.slice(0, searchUserData.length).toLowerCase() ===
+                      searchUserData.toLowerCase() ||
+                    lastName.slice(0, searchUserData.length).toLowerCase() ===
+                      searchUserData.toLowerCase()) && (
                     <AlumniSearchProfile userData={userData[user]} />
                   )
                 );

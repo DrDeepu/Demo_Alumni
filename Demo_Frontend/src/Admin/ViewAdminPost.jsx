@@ -69,17 +69,17 @@ export default function ViewAdminPosts({
   //   formData.append("post_event_end_date", endDate);
   //   formData.append("post_event_end_time", endTime);
 
-  //   await axios.post("http://localhost:5000/upload_admin_post", formData);
+  //   await axios.post(`${LOCALHOST_URL}/upload_admin_post`, formData);
   // };
 
   async function uploadPostImage() {
     const formData = new FormData();
     formData.append("file", uploadImage);
     await axios
-      .post("http://localhost:5000/upload_admin_post_image", formData)
+      .post(`${LOCALHOST_URL}/upload_admin_post_image`, formData)
       .then(async () => {
         await axios
-          .get("http://localhost:5000/fetch_admin_post_image")
+          .get(`${LOCALHOST_URL}/fetch_admin_post_image`)
           .then((res) => {
             setImageUrl(res.data);
             setImageLoader(false);

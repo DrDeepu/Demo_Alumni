@@ -47,23 +47,25 @@ card-container {
   transition-duration: 0.2s;
   /* border: 0.01px solid black; */
   /* box-shadow: 0px 3px 5px gray; */
-  background: rgba(0,0,0,0.2);
-  box-shadow: 0px 0px 5px 1px gray;
+  /* background: rgba(0,0,0,0.2); */
+  box-shadow: 0px 0px 5px gray;
 }
 #card_hover_posts:hover {
   /* transform: scale(1.02); */
   transition-duration: 0.2s;
   box-shadow: 0px 5px 10px gray;
+  transform: translateY(-5px);
 }
 #card_hover_users {
   transition-duration: 0.4s;
   /* border: 0.01px solid black; */
   /* box-shadow: 0px 3px 10px gray; */
-  background: rgba(255,255,255,1 );
+  background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 5px 1px gray;
 }
 
 #card_hover_users:hover {
+  transform: translateY(-3px);
   /* transform: scale(1.01); */
   transition-duration: 0.4s;
   box-shadow: 0px 5px 10px gray;
@@ -118,24 +120,23 @@ card-container {
   border-radius: none;
 }
 
-
-.admin-posts{
+.admin-posts {
   height: 100vh;
-  background: rgba(0,0,0,0.2) ;
+  background: rgba(0, 0, 0, 0.1);
 }
-.admin-users{
+.admin-users {
   height: 100vh;
-  background: rgba(0,0,0,0.1) ;
+  background: rgba(0, 0, 0, 0.1);
 }
-.admin-dashboard{
+.admin-dashboard {
   height: 100vh;
-  background: rgba(0,0,0,0.1) ;
+  background: rgba(0, 0, 0, 0.1);
 }
-.admin-navbar{
+.admin-navbar {
   /* height: 100vh; */
-  background: rgba(0,0,0,0.1) ;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-.admin-filter-box{
+.admin-filter-box {
   background: white;
 }

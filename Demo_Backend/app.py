@@ -1,6 +1,7 @@
 import json
 import datetime
 import bcrypt
+import os
 from django.http import Http404
 
 from flask import Flask,request
@@ -22,8 +23,6 @@ from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
 from Users.send_otp import bp as send_otp
 from Variables.mail import mail
-from itsdangerous import URLSafeSerializer
-from itsdangerous.serializer import Serializer
 
 # bot = Bot()
 # bot.login(username = '',password='')
@@ -35,13 +34,14 @@ app.secret_key = 'Something-Is-Not-Right'
 
 
 # Elephant SQL URI
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://fdbnntkj:wORnz0vouEjhYeYqDsNZuChsjieoa4uA@dumbo.db.elephantsql.com/fdbnntkj"
 
 # PosgreSQL URI
 # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:root@localhost:5432/snm_database"
 
 # Sqlite URI
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///snm_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(app.root_path,'snm_database.db')
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -318,13 +318,14 @@ def upload_admin_post():
     event_end_time = request.form['event_end_time']
     insta_check = request.form['insta_check']
     mail_check = request.form['mail_check']
+    create_date = datetime.datetime.now()
 
 
     admin_image_url = cloudinary.uploader.upload(file,folder='/Admin_Posts')
     # # print(admin_image_url['url'])
     date_time = datetime.datetime.now()
     post_image_url = admin_image_url['url']
-    post = AdminPosts(post_title=post_title, post_description=post_description, post_date=date_time, post_image_url= post_image_url, post_event_start_date=event_start_date, post_event_start_time=event_start_time, post_event_end_date = event_end_date, post_event_end_time= event_end_time)
+    post = AdminPosts(post_title=post_title,create_date=create_date, post_description=post_description, post_date=date_time, post_image_url= post_image_url, post_event_start_date=event_start_date, post_event_start_time=event_start_time, post_event_end_date = event_end_date, post_event_end_time= event_end_time)
     db.session.add(post)
     db.session.commit()
     if mail_check == 'true':

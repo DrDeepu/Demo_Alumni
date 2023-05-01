@@ -3,6 +3,7 @@ import React from "react";
 import "./ImageUpload.css";
 import { useState, useEffect } from "react";
 import ReactAnimations from "../React-Animations/ReactAnimations";
+import { LOCALHOST_URL } from "../config";
 
 const ImageUpload = () => {
   const [uploadimage, setuploadImage] = useState(null);
@@ -17,9 +18,9 @@ const ImageUpload = () => {
     formData.append("file", uploadimage);
 
     await axios
-      .post("http://localhost:5000/uploadimage", formData)
+      .post(`${LOCALHOST_URL}/uploadimage`, formData)
       .then(async () => {
-        await axios.get(`http://localhost:5000/fetchimage`).then((res) => {
+        await axios.get(`${LOCALHOST_URL}/fetchimage`).then((res) => {
           setfetchImage(res.data);
           setLoader(false);
         });

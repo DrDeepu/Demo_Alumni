@@ -5,6 +5,7 @@ import React from "react";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { LOCALHOST_URL } from "../config";
 
 export default function VerticalEditApp(props) {
   const [modalShow, setModalShow] = React.useState(false);
@@ -51,7 +52,7 @@ export default function VerticalEditApp(props) {
   }
   async function saveChangesFunction() {
     await axios
-      .post("http://localhost:5000/update_admin_post", {
+      .post(`${LOCALHOST_URL}/update_admin_post`, {
         data: {
           post_id: props.post_id,
           post_title: props.title,

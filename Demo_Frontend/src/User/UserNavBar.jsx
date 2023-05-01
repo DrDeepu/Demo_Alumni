@@ -14,6 +14,7 @@ import { store_user_profile_data } from "../Redux/actions";
 import { useNavigate } from "react-router";
 import "./User.css";
 import { ChatEngine } from "react-chat-engine";
+import { LOCALHOST_URL } from "../config";
 
 function UserNavBar(props) {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function UserNavBar(props) {
 
   async function profile() {
     await axios
-      .get("http://localhost:5000/profile", {
+      .get(`${LOCALHOST_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
