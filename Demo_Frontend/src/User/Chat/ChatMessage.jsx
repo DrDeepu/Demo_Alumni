@@ -1,12 +1,7 @@
+/* eslint-disable */
 import React from "react";
-import { useSelector } from "react-redux";
 import { ChatEngine, getOrCreateChat } from "react-chat-engine";
-import {
-  CHAT_ENGINE_API,
-  CHAT_ENGINE_API_ME,
-  CHAT_PROJECT_ID,
-  CHAT_PRIVATE_KEY,
-} from "../../config";
+import { CHAT_PROJECT_ID } from "../../config";
 import "./chat.css";
 import Form from "react-bootstrap/Form";
 

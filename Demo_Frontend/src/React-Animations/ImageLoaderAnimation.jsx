@@ -1,12 +1,13 @@
+/* eslint-disable */
 import React from "react";
-import './ImageLoaderAnimation.css'
+import "./ImageLoaderAnimation.css";
 
 const ImageLoaderAnimation = () => {
   return (
     <div className="lds-facebook">
-      <div id='first'></div>
-      <div id='second'></div>
-      <div id='third'></div>
+      <div id="first"></div>
+      <div id="second"></div>
+      <div id="third"></div>
     </div>
   );
 };

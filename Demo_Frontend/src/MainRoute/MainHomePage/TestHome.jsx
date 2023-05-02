@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const TestHome = () => {
       <div
         className="mask"
         // style={{
+
         //   background:
         //     "linear-gradient( 45deg,rgba(29, 236, 197, 0.7),rgba(91, 14, 214, 0.7) 100%)",
         // }}

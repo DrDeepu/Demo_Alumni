@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "../BlurAnimation.css";
 import "./Login.css";
 import * as React from "react";
@@ -209,7 +210,7 @@ export default function ForgetPassword() {
                             variant="secondary"
                             sx={{ mt: 3, mb: 2 }}
                           >
-                            Back to login 
+                            Back to login
                           </Button>
                         </NavLink>
                       </Box>

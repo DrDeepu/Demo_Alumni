@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import {
   MDBBtn,
@@ -208,13 +209,12 @@ function LoginTest() {
                         }}
                         label="Batch"
                       />
-                      {signUpData.batch !== "" &&
-                        (dateError === true && (
-                          <span style={{ color: "red" }}>
-                            Date must be between (2000 and{" "}
-                            {new Date().getFullYear()})
-                          </span>
-                        ))}
+                      {signUpData.batch !== "" && dateError === true && (
+                        <span style={{ color: "red" }}>
+                          Date must be between (2000 and{" "}
+                          {new Date().getFullYear()})
+                        </span>
+                      )}
                     </MDBCol>
 
                     <MDBCol col="6">

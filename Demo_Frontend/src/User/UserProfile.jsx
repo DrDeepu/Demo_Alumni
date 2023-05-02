@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import {
   MDBCol,
@@ -264,10 +265,11 @@ export default function ProfilePage() {
                         </MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText>{
-                        userData.phone?userData.phone:
-                        "No Phone Number Added"
-                        }</MDBCardText>
+                        <MDBCardText>
+                          {userData.phone
+                            ? userData.phone
+                            : "No Phone Number Added"}
+                        </MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />

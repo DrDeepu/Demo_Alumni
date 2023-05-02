@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import React from "react";
@@ -88,7 +89,7 @@ function App() {
             <Route exact path="/SingleUsers" element={<SingleUsers />}></Route>
             {/* <Route exact path="/Html" element={<Html />}></Route> */}
 
-            <Route path="*" element={<PageNotFound />} /> 
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </Provider>

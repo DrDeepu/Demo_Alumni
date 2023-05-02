@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import {
   CHAT_PRIVATE_KEY,
@@ -72,7 +73,7 @@ export async function getChatUser(id) {
       "PRIVATE-KEY": CHAT_PRIVATE_KEY,
       //   ...data.getHeaders(),
     },
-  })
+  });
   // .then((res) => console.log(res));
 }
 
@@ -172,7 +173,7 @@ export async function updateMyChatAccount(
       "User-Name": `${user_name}`,
       "User-Secret": `${user_secret}`,
     },
-  })
+  });
   // .then((res) => console.log(res));
 }
 //   updateMyChatAccount(

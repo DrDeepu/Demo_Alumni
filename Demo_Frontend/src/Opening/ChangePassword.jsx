@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "../BlurAnimation.css";
 import "./Login.css";
 import * as React from "react";

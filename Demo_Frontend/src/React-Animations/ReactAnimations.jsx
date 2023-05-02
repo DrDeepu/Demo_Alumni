@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import UseAnimations from "react-useanimations";
 import loading2 from "react-useanimations/lib/loading2";

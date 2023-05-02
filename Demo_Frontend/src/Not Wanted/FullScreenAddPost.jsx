@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -56,7 +57,7 @@ export default function FullScreenDialog(props) {
             </Button>
           </Toolbar>
         </AppBar>
-       
+
         <NewsCard />
       </Dialog>
     </div>

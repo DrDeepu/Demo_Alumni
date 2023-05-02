@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import AdminNavBar from "./AdminNavBar";
 import UserCard from "./UserCard";

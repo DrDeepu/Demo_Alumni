@@ -1,15 +1,14 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Image from "react-bootstrap/Image";
 import SingleAlumni from "../TestPages/Single_User_Hover_Effect";
-import { NavLink} from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 function AlumniSearchProfile(props) {
   const [show, setShow] = useState(false);
 
-//   console.log(props);
+  //   console.log(props);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -45,78 +44,78 @@ function AlumniSearchProfile(props) {
           <p>
             <b>Email</b> :{props.userData.email}
           </p>
-          {props.userData.phone&&
-          <p>
-            <b>Phoneno</b> :{props.userData.phone}
-          </p>
-          }
-          {
-props.userData.batch&&
+          {props.userData.phone && (
             <p>
-            <b>Batch</b> :{props.userData.batch}
-          </p>
-          }
-          {
-            props.userData.degree&&
+              <b>Phoneno</b> :{props.userData.phone}
+            </p>
+          )}
+          {props.userData.batch && (
             <p>
-            <b>Degree</b> :{props.userData.degree}
-          </p>
-          }
-          {
-            props.userData.department&&
-          <p>
-            <b>Department</b> :{props.userData.department}
-          </p>
-          }
-          {
-props.userData.company&&
+              <b>Batch</b> :{props.userData.batch}
+            </p>
+          )}
+          {props.userData.degree && (
             <p>
-            <b>Company</b> :{props.userData.company}{" "}
-          </p>
-          }
-          {
-            props.userData.website&&
-          <p>
-            <b>Website</b> :{props.userData.website}{" "}
-          </p>
-          }
-          {
-            props.userData.profession&&
-          <p>
-            <b>Profession</b> :{props.userData.profession}{" "}
-          </p>
-          }
-          {
-            props.userData.domain&&
-          <p>
-            <b>Intrested Domain</b> :{props.userData.domain}
-          </p>
-          }
-          {
-            props.userData.gitid&&
-          <p>
-            <b>GitHub Id</b> :{props.userData.gitid}{" "}
-          </p>
-          }
-          {
-            props.userData.instaid&&
-          <p>
-            <b>Insta Id</b> :{
-            <NavLink to={`https://instagram.com/${props.userData.instaid}`}
-target="_blank"          >      
-               {   props.userData.instaid}
-            </NavLink>
-          }
-          </p>
-          }
-          {
-            props.userData.linkedinid&&
-          <p>
-            <b>Linkedin Id</b> :{<NavLink to={`https://linkedin/in/${props.userData.linkedinid}`}
-            target="_blank"
-            >   {props.userData.linkedinid}</NavLink>}
-          </p>
-          }
+              <b>Degree</b> :{props.userData.degree}
+            </p>
+          )}
+          {props.userData.department && (
+            <p>
+              <b>Department</b> :{props.userData.department}
+            </p>
+          )}
+          {props.userData.company && (
+            <p>
+              <b>Company</b> :{props.userData.company}{" "}
+            </p>
+          )}
+          {props.userData.website && (
+            <p>
+              <b>Website</b> :{props.userData.website}{" "}
+            </p>
+          )}
+          {props.userData.profession && (
+            <p>
+              <b>Profession</b> :{props.userData.profession}{" "}
+            </p>
+          )}
+          {props.userData.domain && (
+            <p>
+              <b>Intrested Domain</b> :{props.userData.domain}
+            </p>
+          )}
+          {props.userData.gitid && (
+            <p>
+              <b>GitHub Id</b> :{props.userData.gitid}{" "}
+            </p>
+          )}
+          {props.userData.instaid && (
+            <p>
+              <b>Insta Id</b> :
+              {
+                <NavLink
+                  to={`https://instagram.com/${props.userData.instaid}`}
+                  target="_blank"
+                >
+                  {props.userData.instaid}
+                </NavLink>
+              }
+            </p>
+          )}
+          {props.userData.linkedinid && (
+            <p>
+              <b>Linkedin Id</b> :
+              {
+                <NavLink
+                  to={`https://linkedin/in/${props.userData.linkedinid}`}
+                  target="_blank"
+                >
+                  {" "}
+                  {props.userData.linkedinid}
+                </NavLink>
+              }
+            </p>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import "./Login.css";

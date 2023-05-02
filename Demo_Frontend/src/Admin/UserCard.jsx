@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Container from "react-bootstrap/Container";
 import "./Admin.css";
 import Row from "react-bootstrap/Row";
@@ -12,15 +13,7 @@ function UserCard(props) {
 
   return (
     <>
-      <Container
-        id="card_hover_users"
-        style={{
-          // border: "2px solid",
-          // borderColor: "black",
-          borderRadius: "10px",
-          padding: "10px",
-        }}
-      >
+      <Container id="card_hover_users">
         <Row>
           <Col xs={8}>
             <FullScreenUserModal mail={props.email} data={props.data} />

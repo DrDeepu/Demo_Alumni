@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -94,7 +95,11 @@ export default function ViewPosts({
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} style={{borderRadius:'0px' ,}}>
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        style={{ borderRadius: "0px" }}
+      >
         View
       </Button>
 

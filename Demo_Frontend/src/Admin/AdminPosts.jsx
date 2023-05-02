@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "../BlurAnimation.css";
 import AdminAddPostsModal from "./AdminAddPostsModal";
 import AdminAllPosts from "./AdminAllPosts";

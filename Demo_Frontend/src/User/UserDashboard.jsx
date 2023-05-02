@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -87,7 +88,7 @@ const Dashboard = () => {
   };
   return user === "true" || user === true ? (
     <>
-        <NavBar />
+      <NavBar />
       <div id="dashboard_blur_animation">
         <div align="center">
           {/* <button

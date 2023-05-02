@@ -9,11 +9,13 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/joy": "^5.0.0-alpha.74",
     "@mui/material": "^5.11.13",
+    "@mui/x-date-pickers": "^6.3.0",
     "@open-web/react-sdk": "^1.4.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "chart.js": "^4.2.1",
+    "dayjs": "^1.11.7",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "mdb-react-ui-kit": "^5.1.0",
@@ -30,7 +32,9 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "react-share": "^4.4.1",
     "react-spinners": "^0.13.8",
+    "react-time-picker": "^6.0.4",
     "react-toastify": "^9.1.2",
     "react-transition-group": "^4.4.5",
     "react-useanimations": "^2.10.0",
@@ -66,5 +70,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.1"
+  },
+  "resolutions": {
+    "autoprefixer": "10.4.5"
   }
 }

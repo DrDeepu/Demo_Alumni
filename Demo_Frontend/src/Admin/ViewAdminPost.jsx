@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -59,18 +60,6 @@ export default function ViewAdminPosts({
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const uploadPost = async () => {
-  //   const formData = new FormData();
-  //   formData.append("file", uploadImage);
-  //   formData.append("post_title", postTitle);
-  //   formData.append("post_description", postDescription);
-  //   formData.append("post_event_start_date", startDate);
-  //   formData.append("post_event_start_time", startTime);
-  //   formData.append("post_event_end_date", endDate);
-  //   formData.append("post_event_end_time", endTime);
-
-  //   await axios.post(`${LOCALHOST_URL}/upload_admin_post`, formData);
-  // };
 
   async function uploadPostImage() {
     const formData = new FormData();

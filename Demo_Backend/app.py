@@ -2,16 +2,14 @@ import json
 import datetime
 import bcrypt
 import os
-from django.http import Http404
 
 from flask import Flask,request
 from flask import Response
 from flask_cors import CORS
-from flask import jsonify
 from flask_jwt_extended import (JWTManager,jwt_required,
 get_jwt_identity,create_access_token)
 from Variables.variables import (CLOUDINARY_API_KEY,CLOUDINARY_CLOUD_NAME
-,CLOUDINARY_API_SECRET,PASSWORD_SECRET_KEY)
+,CLOUDINARY_API_SECRET)
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api

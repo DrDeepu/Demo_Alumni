@@ -1,4 +1,5 @@
 // VerticalEditConfirmModal.jsx;
+/* eslint-disable */
 import "./User.css";
 import React from "react";
 

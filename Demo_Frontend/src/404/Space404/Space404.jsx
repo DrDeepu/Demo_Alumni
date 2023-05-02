@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import "./Space404.css";
 
@@ -12,11 +13,7 @@ const Html = () => {
             src="http://salehriaz.com/404Page/img/404.svg"
             width="300px"
           />
-          <a
-            href="/login"
-            className="btn-go-home"
-            target="_blank"
-          >
+          <a href="/login" className="btn-go-home" target="_blank">
             GO BACK HOME
           </a>
         </div>

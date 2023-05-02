@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -8,7 +9,7 @@ import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Toaster } from "react-hot-toast";
-// import AdminReport from "./AdminReport";
+import AdminReport from "./AdminReport";
 import { LOCALHOST_URL } from "../config";
 // import Chart from "chart.js/auto";
 
@@ -83,33 +84,33 @@ const Admin = () => {
           >
             {/* <NavBar /> */}
 
-            <div
-              id="container"
-              // className="flex flex-col grid grid-cols-3"
-            >
-              <div id="card_hover_users_count" className="box box1">
-                <p>Total Users : </p>
+            <div id="container">
+              <div
+                id="card_hover_users_total"
+                className="box box1 card_hover_users"
+              >
                 <h2>{user_data.total_users}</h2>
+                <br />
+                <p>Total Users </p>
               </div>
-              <div id="card_hover_users_count" className="box box2">
-                <p>Total Approved Users : </p>
+              <div
+                id="card_hover_users_approved"
+                className="box box2 card_hover_users"
+              >
                 <h2>{user_data.valid_users}</h2>
+                <br />
+                <p>Total Approved Users </p>
               </div>
-              <div id="card_hover_users_count" className="box box3">
-                <p>Total Pending Users : </p>
+              <div
+                id="card_hover_users_pending"
+                className="box box3 card_hover_users"
+              >
                 <h2>{user_data.not_valid_users}</h2>
+                <br />
+                <p>Total Pending Users</p>
               </div>
             </div>
             {/* <AdminReport /> */}
-            {/* <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-              onClick={() => {
-                setUser(false);
-                localStorage.removeItem("access_token");
-              }}
-            >
-              logout
-            </button> */}
           </div>
         </div>
       </>

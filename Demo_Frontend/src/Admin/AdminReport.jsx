@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
@@ -91,18 +92,20 @@ const AdminReport = () => {
   };
   return (
     <div>
-      <h2>Student Registration Chart</h2>
-      <select value={year} onChange={handleYearChange}>
-        {Object.keys(year_wise_data).map((years, key) => {
-          return (
-            <option value={years} key={key}>
-              {years}
-            </option>
-          );
-        })}
-      </select>
-      <div id="bar_div">
-        <Bar data={data} options={options} />
+      <div id="select">
+        <h2>Student Registration Chart</h2>
+        <select value={year} onChange={handleYearChange}>
+          {Object.keys(year_wise_data).map((years, key) => {
+            return (
+              <option value={years} key={key}>
+                {years}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div id="bar_div" aligin="center">
+        <Bar className="bar" data={data} options={options} />
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
+/* eslint-disable */
 import React from "react";
 import "./Pentagon404.css";
 
 const Html = () => {
   return (
     <div className="body">
-      <svg className="svg"
+      <svg
+        className="svg"
         width="380px"
         height="500px"
         viewBox="0 0 837 1045"

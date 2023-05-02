@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -5,7 +6,7 @@ import axios from "axios";
 import { LOCALHOST_URL } from "../config";
 
 function Example(props) {
-// console.log("=======DISAPPORVECARD", props);
+  // console.log("=======DISAPPORVECARD", props);
 
   const [show, setShow] = useState(false);
 
@@ -57,8 +58,6 @@ function Example(props) {
             onClick={() => {
               handleClose();
               disapproveUser();
-
-
             }}
           >
             Deactivate

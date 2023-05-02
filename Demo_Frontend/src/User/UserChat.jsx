@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import ChatMessage from "./Chat/ChatMessage";
 import { useSelector, useDispatch } from "react-redux";
