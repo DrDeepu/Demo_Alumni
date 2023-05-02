@@ -1,4 +1,4 @@
-/* eslint-disable */
+ /* eslint-disable */
 import React from "react";
 import {
   MDBCol,
@@ -31,10 +31,21 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
   const [userData, setUserData] = useState({});
+  const user_email = useSelector((state) => state.set_user_data.user_email);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     //   git();
+    if (localStorage.getItem("access_token")) {
+      if (user_email !== "admin@email.com") {
+        navigate("/profile");
+        profile();
+        setUser(true);
+      }
+    } else {
+      navigate("/login");
+    }
     async function profile() {
       if (access_token)
         await axios
@@ -45,6 +56,23 @@ export default function ProfilePage() {
           })
           .then((res) => {
             // setUser(true);
+            dispatch(
+              store_user_profile_data({
+                firstName: res.data.firstname,
+                lastName: res.data.lastname,
+                email: res.data.email,
+                phone: res.data.phone,
+                password: res.data.password,
+                instaId: res.data.instaid,
+                linkedinId: res.data.linkedinid,
+                githubId: res.data.gitid,
+                domain: res.data.domain,
+                profession: res.data.profession,
+                company: res.data.company,
+                websiteUrl: res.data.website,
+                imageUrl: res.data.user_profile_image_url,
+              })
+            );
             setUserData({
               firstName: res.data.firstname,
               lastName: res.data.lastname,

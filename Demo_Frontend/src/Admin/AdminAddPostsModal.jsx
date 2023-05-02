@@ -12,13 +12,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SendMail from "./SendMail";
 import { LOCALHOST_URL } from "../config";
-import "react-time-picker/dist/TimePicker.css";
-import "react-clock/dist/Clock.css";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
-import dayjs from "dayjs";
 
 export default function AdminAddPosts({ setRefetch, postsData }) {
   const [show, setShow] = useState(false);
@@ -185,7 +178,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                   selected={startDate}
                   onChange={(e) => {
                     setStartDate(e);
-                    setEndDate(e);
+                    setEndDate(e)
                   }}
                   minDate={minDate}
                   filterDate={filterLimit(postsData)}
@@ -204,29 +197,14 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Event Start Time</Form.Label>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={["TimePicker"]}>
-                    <MobileTimePicker
-                      format="hh:mm"
-                      onChange={(e) => {
-                        e && setStartTime(dayjs(e["$d"]));
-                        e && console.log(e["$d"]);
-                      }}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-
-                {/* <Form.Label>Event Start Time</Form.Label>
                 <Form.Control
                   type="time"
                   placeholder="new post description"
                   rows={2}
                   onChange={(e) => {
                     setStartTime(e.target.value);
-                    console.log(typeof e.target.value);
-
                   }}
-                /> */}
+                />
               </Form.Group>
 
               <Form.Group
@@ -256,39 +234,15 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Event End Time</Form.Label>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={["TimePicker"]}>
-                    {startTime ? (
-                      <MobileTimePicker
-                        format="hh:mm"
-                        value={dayjs(startTime)}
-                        minTime={dayjs(startTime)}
-                        onChange={(e) => {
-                          e && setEndTime(e["$d"]);
-                          e && console.log(e["$d"]);
-                        }}
-                      />
-                    ) : (
-                      <MobileTimePicker
-                        format="hh:mm"
-                        minTime={dayjs(startTime)}
-                        onChange={(e) => {
-                          e && setEndTime(e["$d"]);
-                          e && console.log(e["$d"]);
-                        }}
-                      />
-                    )}
-                  </DemoContainer>
-                </LocalizationProvider>
-                {/* <Form.Label>Event End Time</Form.Label>
                 <Form.Control
                   type="time"
                   rows={2}
-                  // minTime={startTime}
+                  // minTim={startTime}
                   onChange={(e) => {
                     setEndTime(e.target.value);
+                    // console.log(e.target.value)
                   }}
-                /> */}
+                />
               </Form.Group>
 
               {/* <Form.Group

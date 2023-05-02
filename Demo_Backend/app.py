@@ -317,13 +317,33 @@ def upload_admin_post():
     insta_check = request.form['insta_check']
     mail_check = request.form['mail_check']
     create_date = datetime.datetime.now()
+    # print(file)
+    # print(post_title)
+    # print(post_description)
+    # print(event_start_date)
+    # print(event_start_time)
+    # print(event_end_date)
+    print(event_end_time)
+    # print(insta_check)
+    # print(mail_check)
+    # print(create_date)
 
 
     admin_image_url = cloudinary.uploader.upload(file,folder='/Admin_Posts')
-    # # print(admin_image_url['url'])
+    # # # print(admin_image_url['url'])
     date_time = datetime.datetime.now()
     post_image_url = admin_image_url['url']
-    post = AdminPosts(post_title=post_title,create_date=create_date, post_description=post_description, post_date=date_time, post_image_url= post_image_url, post_event_start_date=event_start_date, post_event_start_time=event_start_time, post_event_end_date = event_end_date, post_event_end_time= event_end_time)
+    post = AdminPosts(
+    post_title=post_title,
+    post_description=post_description, 
+    post_date=date_time, 
+    post_image_url= post_image_url, 
+    post_event_start_date=event_start_date, 
+    post_event_start_time=event_start_time, 
+    post_event_end_date = event_end_date, 
+    post_event_end_time= event_end_time,
+    create_date=create_date,
+    )
     db.session.add(post)
     db.session.commit()
     if mail_check == 'true':

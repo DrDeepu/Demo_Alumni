@@ -134,11 +134,11 @@
   transition: border-bottom 0.5s ease-in-out;
 }
 .nav-link-logout.active {
-  /* background-color: var(--bg); */
   color: var(--color-text);
   border-bottom: black 3px solid;
   animation: bottom_width 0.2s;
 }
+/* background-color: var(--bg); */
 
 @keyframes bottom_width {
   from {

@@ -26,6 +26,8 @@ import {
   MDBDropdownToggle,
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
+import { Select } from "mdb-react-ui-kit";
+
 function LoginTest() {
   // const [phone, setPhone] = React.useState("");
 
@@ -60,12 +62,13 @@ function LoginTest() {
         // console.log("JWT DECODE", jwt_decode(access_token));
         dispatch(store_user_email(access_token));
         if (user_email === "admin@email.com") navigate("/admindashboard");
-        else navigate("/userdashboard");
+        else navigate("/profile");
       }
     }
     toast.dismiss();
-    // eslint-disable-next-line
-  }, [access_token, user_email, dateError]);
+
+    console.log(signUpData.department);
+  }, [access_token, user_email, dateError, signUpData]);
 
   async function buttonClick() {
     await axios
@@ -218,7 +221,7 @@ function LoginTest() {
                     </MDBCol>
 
                     <MDBCol col="6">
-                      <MDBInput
+                      {/* <MDBInput
                         wrapperClass="mb-4"
                         label="Department"
                         id="form3"
@@ -229,7 +232,37 @@ function LoginTest() {
                             department: e.target.value,
                           })
                         }
-                      />
+                      /> */}
+
+                      <select
+                        className="department"
+                        onChange={(e) => {
+                          setSignUpData({
+                            ...signUpData,
+                            department: e.target.value,
+                          });
+                        }}
+                      >
+                        <option value="0">Select Department</option>
+                        <option value="Department of Physics">
+                          Department of Physics
+                        </option>
+                        <option value="Department of Chemistry">
+                          Department of Chemistry
+                        </option>
+                        <option value="Department of ComputerScience">
+                          Department of ComputerScience
+                        </option>
+                        <option value="Department of Technology">
+                          Department of Technology
+                        </option>
+                        <option value="Department of Music">
+                          Department of Music
+                        </option>
+                        <option value="Department of Sports">
+                          Department of Sports
+                        </option>
+                      </select>
                     </MDBCol>
                   </MDBRow>
 

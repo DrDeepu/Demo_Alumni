@@ -4,11 +4,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import SingleAlumni from "../TestPages/Single_User_Hover_Effect";
 import { NavLink } from "react-router-dom";
+import Image from "react-bootstrap/Image";
 
 function AlumniSearchProfile(props) {
   const [show, setShow] = useState(false);
 
-  //   console.log(props);
+  // console.log(props);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -31,11 +32,11 @@ function AlumniSearchProfile(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <Image
-            src={props.data.user_profile_image_url}
+          <Image
+            src={props.userData.user_profile_image_url}
             width="150px"
             height="150px"
-          /> */}
+          />
           <br />
           <p>
             <b>FullName</b> :{" "}
@@ -117,6 +118,7 @@ function AlumniSearchProfile(props) {
             </p>
           )}
         </Modal.Body>
+        <F />
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Close
@@ -142,3 +144,13 @@ export function Single_User_Hover_Effect({ name, profession, image_url }) {
 }
 
 export default AlumniSearchProfile;
+function F() {
+  const [countValue, setCountValue] = React.useState(0);
+  const time = 3;
+  const total = 200;
+  const timeDuration = time / total;
+  setTimeout(() => {
+    countValue <= total && setCountValue(countValue + 1);
+  }, timeDuration * 100);
+  return <h1>{countValue}</h1>;
+}

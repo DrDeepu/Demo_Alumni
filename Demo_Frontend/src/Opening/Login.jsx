@@ -43,11 +43,9 @@ export default function Login() {
         // console.log("JWT DECODE", jwt_decode(access_token));
         dispatch(store_user_email(access_token));
         if (user_email === "admin@email.com") navigate("/admindashboard");
-        else navigate("/userdashboard");
+        else navigate("/profile");
       }
     }
-    toast.dismiss();
-    // eslint-disable-next-line
   }, [access_token, user_email]);
 
   // useEffect(() => {}, [access_token]);
@@ -81,7 +79,7 @@ export default function Login() {
           dispatch(store_user_email(res.data.access_token));
           if (user_email === "admin@email.com") {
             navigate("/admindashboard");
-          } else navigate("/userdashboard");
+          } else navigate("/profile");
         }
       });
   }

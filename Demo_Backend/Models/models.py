@@ -72,7 +72,7 @@ class AdminPosts(db.Model):
         self.post_event_start_date = post_event_start_date
         self.post_event_start_time = post_event_start_time
         self.post_event_end_date = post_event_end_date
-        self.post_event_end_date = post_event_end_date
+        self.post_event_end_time = post_event_end_time
         self.create_date = create_date
     def __repr__(self):
         return f'<Admin Post id : {self.id}, Admin Title : {self.post_title}>'
