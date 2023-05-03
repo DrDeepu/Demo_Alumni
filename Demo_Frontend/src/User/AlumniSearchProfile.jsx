@@ -43,56 +43,76 @@ function AlumniSearchProfile(props) {
             {props.userData.firstname + "  " + props.userData.lastname}
           </p>
           <p>
-            <b>Email</b> :{props.userData.email}
+            <b>Email</b> :{"   "}
+            {props.userData.email}
           </p>
           {props.userData.phone && (
             <p>
-              <b>Phoneno</b> :{props.userData.phone}
+              <b>Phoneno</b> :{"   "}
+              {props.userData.phone}
             </p>
           )}
           {props.userData.batch && (
             <p>
-              <b>Batch</b> :{props.userData.batch}
+              <b>Batch</b> :{"   "}
+              {props.userData.batch}
             </p>
           )}
           {props.userData.degree && (
             <p>
-              <b>Degree</b> :{props.userData.degree}
+              <b>Degree</b> :{"   "}
+              {props.userData.degree}
             </p>
           )}
           {props.userData.department && (
             <p>
-              <b>Department</b> :{props.userData.department}
+              <b>Department</b> :{"   "}
+              {props.userData.department}
             </p>
           )}
           {props.userData.company && (
             <p>
-              <b>Company</b> :{props.userData.company}{" "}
-            </p>
-          )}
-          {props.userData.website && (
-            <p>
-              <b>Website</b> :{props.userData.website}{" "}
+              <b>Company</b> :{"   "}
+              {props.userData.company}{" "}
             </p>
           )}
           {props.userData.profession && (
             <p>
-              <b>Profession</b> :{props.userData.profession}{" "}
+              <b>Profession</b> :{"   "}
+              {props.userData.profession}{" "}
             </p>
           )}
           {props.userData.domain && (
             <p>
-              <b>Intrested Domain</b> :{props.userData.domain}
+              <b>Intrested Domain</b> :{"   "}
+              {props.userData.domain}
+            </p>
+          )}
+          {props.userData.website && (
+            <p>
+              <b>Website</b> :{"   "}
+              <NavLink
+                to={`http://www.${props.userData.website}.com`}
+                target="_blank"
+              >
+                {props.userData.website}{" "}
+              </NavLink>
             </p>
           )}
           {props.userData.gitid && (
             <p>
-              <b>GitHub Id</b> :{props.userData.gitid}{" "}
+              <b>GitHub Id</b> : {"   "}
+              <NavLink
+                to={`https://github.com/${props.userData.gitid}`}
+                target="_blank"
+              >
+                {props.userData.gitid}
+              </NavLink>
             </p>
           )}
           {props.userData.instaid && (
             <p>
-              <b>Insta Id</b> :
+              <b>Insta Id</b> :{"   "}
               {
                 <NavLink
                   to={`https://instagram.com/${props.userData.instaid}`}
@@ -105,7 +125,7 @@ function AlumniSearchProfile(props) {
           )}
           {props.userData.linkedinid && (
             <p>
-              <b>Linkedin Id</b> :
+              <b>Linkedin Id</b> :{"   "}
               {
                 <NavLink
                   to={`https://linkedin/in/${props.userData.linkedinid}`}
@@ -118,7 +138,6 @@ function AlumniSearchProfile(props) {
             </p>
           )}
         </Modal.Body>
-        <F />
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Close
@@ -131,9 +150,9 @@ function AlumniSearchProfile(props) {
 export function Single_User_Hover_Effect({ name, profession, image_url }) {
   return (
     // <div class="wrapper">
-    <div class="profile" style={{ backgroundImage: `url("${image_url}")` }}>
-      <div class="overlay">
-        <div class="about d-flex flex-column">
+    <div className="profile" style={{ backgroundImage: `url("${image_url}")` }}>
+      <div className="overlay">
+        <div className="about d-flex flex-column">
           <h4>{name ? name : "Smitha"}</h4>{" "}
           <span>{profession ? profession : "Software Developer"}</span>
         </div>
@@ -144,13 +163,3 @@ export function Single_User_Hover_Effect({ name, profession, image_url }) {
 }
 
 export default AlumniSearchProfile;
-function F() {
-  const [countValue, setCountValue] = React.useState(0);
-  const time = 3;
-  const total = 200;
-  const timeDuration = time / total;
-  setTimeout(() => {
-    countValue <= total && setCountValue(countValue + 1);
-  }, timeDuration * 100);
-  return <h1>{countValue}</h1>;
-}

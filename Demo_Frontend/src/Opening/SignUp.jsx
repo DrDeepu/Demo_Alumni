@@ -8,8 +8,8 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBDropdown,
 } from "mdb-react-ui-kit";
+
 import "mdb-ui-kit/css/mdb.min.css";
 import "./SignupTest.css";
 import "../BlurAnimation.css";
@@ -20,17 +20,11 @@ import { createChatUser } from "../User/Chat/chat_api";
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
-import { store_access_token, store_user_email } from "../Redux/actions";
-import {
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem,
-} from "mdb-react-ui-kit";
-import { Select } from "mdb-react-ui-kit";
+import { store_user_email } from "../Redux/actions";
+import './Login.css'
+
 
 function LoginTest() {
-  // const [phone, setPhone] = React.useState("");
-
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
   const [passwordError, setPasswordError] = React.useState(false);
@@ -49,6 +43,13 @@ function LoginTest() {
   const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  let yearList = [];
+  const curYear = new Date().getFullYear();
+  for (let i = 2000; i < curYear; i++) {
+    yearList.push(i);
+  }
+  console.log(yearList);
 
   React.useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -189,7 +190,7 @@ function LoginTest() {
                       </MDBDropdown>
                     </MDBCol> */}
                     <MDBCol col="6">
-                      <MDBInput
+                      {/* <MDBInput
                         select
                         type="number"
                         // min="2000"
@@ -217,23 +218,25 @@ function LoginTest() {
                           Date must be between (2000 and{" "}
                           {new Date().getFullYear()})
                         </span>
-                      )}
+                      )} */}
+
+                      <select
+                        className="batch"
+                        onChange={(e) => {
+                          setSignUpData({
+                            ...signUpData,
+                            batch: e.target.value,
+                          });
+                        }}
+                      >
+                        <option value="0">Select Batch </option>
+                        {yearList.map((year) => {
+                          return <option value={year}>{year}</option>;
+                        })}
+                      </select>
                     </MDBCol>
 
                     <MDBCol col="6">
-                      {/* <MDBInput
-                        wrapperClass="mb-4"
-                        label="Department"
-                        id="form3"
-                        type="text"
-                        onChange={(e) =>
-                          setSignUpData({
-                            ...signUpData,
-                            department: e.target.value,
-                          })
-                        }
-                      /> */}
-
                       <select
                         className="department"
                         onChange={(e) => {

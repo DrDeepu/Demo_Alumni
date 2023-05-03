@@ -20,6 +20,8 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AttendingUsers from "./AttendingUsers";
+import "./Admin.css";
+
 export default function ViewAdminPosts({
   title,
   img_url,
@@ -94,7 +96,7 @@ export default function ViewAdminPosts({
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="viewButton" variant="primary" onClick={handleShow}>
         View
       </Button>
 

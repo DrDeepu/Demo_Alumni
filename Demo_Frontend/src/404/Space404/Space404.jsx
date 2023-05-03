@@ -7,7 +7,7 @@ const Html = () => {
     <div className="body">
       <div className="bg-purple">
         <div className="stars"></div>
-        <div class="central-body">
+        <div className="central-body">
           <img
             className="image-404"
             src="http://salehriaz.com/404Page/img/404.svg"

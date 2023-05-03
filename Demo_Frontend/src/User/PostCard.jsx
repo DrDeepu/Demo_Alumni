@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/esm/Image";
 import { LOCALHOST_URL } from "../config";
 import "./User.css";
+import '../Admin/Admin.css'
 import ViewPost from "./ViewPost";
 import { useSelector } from "react-redux";
 

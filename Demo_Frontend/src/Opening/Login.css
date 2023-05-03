@@ -25,3 +25,9 @@
 .MuiInputBase-root {
   margin-bottom: 5%;
 }
+
+.batch {
+  /* width:35px;
+  padding-left: 20%; */
+  border: 1px black solid;
+}

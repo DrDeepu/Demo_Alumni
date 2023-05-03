@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import { LOCALHOST_URL } from "../config";
+import "../Admin/Admin.css";
 
 function ApproveDeletePost({
   email,
@@ -33,11 +34,7 @@ function ApproveDeletePost({
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={handleShow}
-        style={{ backgroundColor: "red" }}
-      >
+      <Button className="deleteButton" variant="primary" onClick={handleShow}>
         {value}
       </Button>
 

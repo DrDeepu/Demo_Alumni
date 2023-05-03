@@ -226,7 +226,7 @@ export default function ViewPosts({
               />
               <input
                 type="text"
-                class="form-control form-control-lg"
+                className="form-control form-control-lg"
                 id="exampleFormControlInput1"
                 value={data.comment ? data.comment : ""}
                 onChange={(e) => {

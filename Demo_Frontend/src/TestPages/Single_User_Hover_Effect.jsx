@@ -5,13 +5,13 @@ function Single_User_Hover_Effect(props) {
   console.log(props);
   return (
     <div
-      class="profile"
+      className="profile"
       style={{
         backgroundImage: `url("${props.userData.user_profile_image_url}")`,
       }}
     >
-      <div class="overlay">
-        <div class="about d-flex flex-column">
+      <div className="overlay">
+        <div className="about d-flex flex-column">
           <h4>
             {props.userData.firstname && props.userData.lastname
               ? props.userData.firstname + " " + props.userData.lastname

@@ -44,32 +44,31 @@ card-container {
 /* admin_blur_animation */
 
 #card_hover_posts {
-  transition-duration: 0.2s;
-  /* border: 0.01px solid black; */
+  transition-duration: 0.3s;
+  border-radius: 0%;
   /* box-shadow: 0px 3px 5px gray; */
   /* background: rgba(0,0,0,0.2); */
-  box-shadow: 0px 0px 5px gray;
+  /* box-shadow: 0px 0px 5px gray; */
 }
 #card_hover_posts:hover {
   /* transform: scale(1.02); */
-  transition-duration: 0.2s;
+  transition-duration: 0.3s;
   box-shadow: 0px 5px 10px gray;
   transform: translateY(-5px);
 }
 #card_hover_users {
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
   /* border: 0.01px solid black; */
   /* box-shadow: 0px 3px 10px gray; */
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px 5px 1px gray;
+  box-shadow: 0px 0px 1px gray;
   padding: 10px;
-  border-radius: 5px;
 }
 
 #card_hover_users:hover {
   transform: translateY(-3px);
   /* transform: scale(1.01); */
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
   box-shadow: 0px 5px 10px gray;
 }
 
@@ -84,24 +83,25 @@ card-container {
 #card_hover_users_approved h2 {
   color: green;
 }
-#card_hover_users_approved:hover {
+/* #card_hover_users_approved:hover {
   transform: translateY(2%);
   transition-duration: 0.4s;
   box-shadow: 0px 5px 10px gray;
-}
+} */
 
 .card_hover_users p {
   color: black;
 }
 
 .card_hover_users {
+  border-radius: 0%;
   background-color: white;
   transition-duration: 0.4s;
-  box-shadow: 0px 3px 10px gray;
+  /* box-shadow: 0px 3px 10px gray; */
 }
 
 .card_hover_users:hover {
-  transform: translateY(2%);
+  transform: translateY(-2%);
   transition-duration: 0.4s;
   box-shadow: 0px 5px 10px gray;
 }
@@ -131,7 +131,7 @@ card-container {
   transition: border-bottom 0.5s ease-in-out;
 }
 .nav-link.active {
-  /* background-color: var(--bg); */
+  background-color: var(--bg);
   color: var(--color-text);
   border-bottom: black 3px solid;
   animation: bottom_width 0.2s;
@@ -147,9 +147,6 @@ card-container {
   }
 }
 
-.nav-link-logout.active {
-  color: var(--color-text);
-}
 .usecard {
   border-radius: none;
 }
@@ -173,4 +170,21 @@ card-container {
 
 .admin-filter-box {
   background: white;
+}
+
+.viewButton {
+  color: white;
+  margin-right: 5%;
+  background-color: rgba(0, 123, 255, 0.638);
+}
+.viewButton:hover {
+}
+.deleteButton {
+  margin-left: 5%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.deleteButton:hover {
+  /* color: white; */
+  background-color: rgba(255, 0, 0, 0.713);
 }

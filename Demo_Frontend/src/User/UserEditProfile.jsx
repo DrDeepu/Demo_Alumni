@@ -93,7 +93,7 @@ export default function User(props) {
   }
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="edit-profile" variant="primary" onClick={handleShow}>
         Edit Profile
       </Button>
 
@@ -190,17 +190,20 @@ export default function User(props) {
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
                   type="number"
-                  defaultValue={userData.phoneNumber}
+                  // defaultValue={userData.phoneNumber}
+                  value = {userData.phoneNumber}
                   rows={2}
                   onChange={(e) => {
                     e.target.value.trim() !== ""
-                      ? setUserData({
-                          ...userData,
-                          phoneNumber: e.target.value.trim(),
-                        })
+                      ? e.target.value.length > 10
+                        ? alert("Phone number must be less than 10 digits")
+                        : setUserData({
+                            ...userData,
+                            phoneNumber: e.target.value.trim(),
+                          })
                       : setUserData({
                           ...userData,
-                          phoneNumber: e.target.value.trim(),
+                          phoneNumber: "",
                         });
                   }}
                 />
@@ -225,7 +228,7 @@ export default function User(props) {
                         })
                       : setUserData({
                           ...userData,
-                          batch: e.target.value.trim(),
+                          batch: "",
                         });
                   }}
                 />
@@ -409,7 +412,7 @@ export default function User(props) {
                         })
                       : setUserData({
                           ...userData,
-                          websiteUrl: e.target.value.trim(),
+                          websiteUrl: "",
                         });
                   }}
                 />

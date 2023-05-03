@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { store_user_profile_data } from "../Redux/actions";
 import { useNavigate } from "react-router";
 import "./User.css";
+import "../Admin/Admin.css";
 import { LOCALHOST_URL } from "../config";
 
 function UserNavBar(props) {
@@ -17,6 +18,12 @@ function UserNavBar(props) {
   const [user, setUser] = useState(false);
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
+  const userFirstName = useSelector(
+    (state) =>
+      state.set_user_profile_data.firstName +
+      " " +
+      state.set_user_profile_data.lastName
+  );
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -68,7 +75,7 @@ function UserNavBar(props) {
           <Navbar bg="light" expand="lg">
             <Container fluid>
               {/* <Navbar.Brand href="/userdashboard">Alumni Panel</Navbar.Brand> */}
-              <Navbar.Brand href="/profile">Alumni Panel</Navbar.Brand>
+              <Navbar.Brand href="/profile">{userFirstName}</Navbar.Brand>
               <Navbar.Toggle aria-controls="navbarScroll" />
               <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -118,16 +125,25 @@ function UserNavBar(props) {
                   </Nav.Link>
 
                   {/* <ChatIcon /> */}
-                  <button
-                    onClick={() => {
-                      setUser(false);
-                      // ChatEngine.disconnect();
 
-                      localStorage.removeItem("access_token");
-                    }}
-                  >
-                    logout
-                  </button>
+                  <Nav.Link>
+                    <NavLink
+                      className="nav-link"
+                      style={{ border: "none" }}
+                      to="#"
+                    >
+                      <span
+                        onClick={() => {
+                          setUser(false);
+                          // ChatEngine.disconnect();
+
+                          localStorage.removeItem("access_token");
+                        }}
+                      >
+                        logout
+                      </span>
+                    </NavLink>
+                  </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>

@@ -10,7 +10,7 @@
   }
 }
 
-#chat1 .form-outline ~ .form-notch div {
+/* #chat1 .form-outline ~ .form-notch div {
   pointer-events: none;
   border: 1px solid;
   border-color: #eee;
@@ -84,7 +84,7 @@
 
 #chat1 .form-outline .form-control ~ .form-label {
   color: #bfbfbf;
-}
+} */
 
 #user_card_hover_posts {
   transition-duration: 0.5s;
@@ -111,33 +111,6 @@
   transition: transform 0.4s; /* smoother zoom */
 }
 
-.nav-link {
-  transition: border-bottom 0.5s ease-in-out;
-}
-.nav-link.active {
-  /* background-color: var(--bg); */
-  color: var(--color-text);
-  border-bottom: black 3px solid;
-  animation: bottom_width 0.2s;
-}
-
-@keyframes bottom_width {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-    /* border-right: black 2px solid; */
-  }
-}
-.nav-link-logout {
-  transition: border-bottom 0.5s ease-in-out;
-}
-.nav-link-logout.active {
-  color: var(--color-text);
-  border-bottom: black 3px solid;
-  animation: bottom_width 0.2s;
-}
 /* background-color: var(--bg); */
 
 @keyframes bottom_width {
@@ -156,4 +129,14 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.edit-profile {
+  width: fit-content;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+.profile-section {
+  background-color: #eee ;
+  background-color: rgba(red, green, blue, 0.5);
 }

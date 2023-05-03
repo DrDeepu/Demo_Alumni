@@ -120,8 +120,8 @@ export default function ProfilePage() {
     <>
       <NavBar />
       <div id="user_profile_blur_animation">
-        <section style={{ backgroundColor: "#eee" }}>
-          <MDBContainer className="py-5">
+        <section className='profile-section' >
+          <MDBContainer className="py-1">
             {/* <MDBRow> </MDBRow> */}
 
             <MDBRow>
@@ -159,7 +159,7 @@ export default function ProfilePage() {
                       <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                         {/* <MDBIcon fas icon="globe fa-lg text-warning" /> */}
 
-                        <i class="fas fa-globe"></i>
+                        <i className="fas fa-globe"></i>
                         <MDBCardText
                           className={userData.websiteUrl ? "pointer" : ""}
                         >
