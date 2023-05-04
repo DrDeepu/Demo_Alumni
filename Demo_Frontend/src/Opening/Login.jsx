@@ -175,8 +175,8 @@ export default function Login() {
                     )}
                     <div className="grid grid-cols-2">
                       <Grid item>
-                        <NavLink to="/ForgetPassword" variant="body2">
-                          Forget Password ?
+                        <NavLink to="/ForgotPassword" variant="body2">
+                          Forgot Password ?
                         </NavLink>
                       </Grid>
                       <Grid item>

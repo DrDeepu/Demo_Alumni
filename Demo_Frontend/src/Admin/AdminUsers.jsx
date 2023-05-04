@@ -22,6 +22,7 @@ const AdminUsers = () => {
   const [pagination, setPagination] = React.useState(5);
 
   const handleChange = (event) => {
+    setPage(1);
     setFilter(event.target.value);
   };
   const access_token = useSelector((state) => state.access_token.access_token);
@@ -29,6 +30,8 @@ const AdminUsers = () => {
     fetch_all_users();
     // authenticaiton();
     // console.log(page);
+    // setPage(1);
+
     setPagination(page * 5);
 
     //eslint-disable-next-line
@@ -60,6 +63,7 @@ const AdminUsers = () => {
   let countValue = 0;
   const values = Object.keys(userdata).filter((value, key) => {
     // console.log(key);
+    // setPage(1);
     // countValue += 1;
     return filter !== 0
       ? filter === true
@@ -67,29 +71,31 @@ const AdminUsers = () => {
         : userdata[value]["valid"] === "false" && value
       : value;
   });
-  console.log(countValue);
+  // console.log(countValue);
   return (
     <>
       <AdminNavBar count={count} />
       <div id="admin_users_blur_animation" className="admin-users">
         <Box sx={{ minWidth: 120 }}>
-          <FormControl sx={{ width: "10%" }}>
-            <InputLabel id="demo-simple-select-label">Filter User</InputLabel>
-            <Select
-              className="admin-filter-box"
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={filter}
-              label="Filter"
-              onChange={handleChange}
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={true}>Accepted</MenuItem>
-              <MenuItem value={false}>Pending</MenuItem>
-            </Select>
-          </FormControl>
+          <div className="filter-form">
+            <FormControl>
+              <InputLabel id="demo-simple-select-label">Filter User</InputLabel>
+              <Select
+                className="admin-filter-box"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={filter}
+                label="Filter"
+                onChange={handleChange}
+              >
+                <MenuItem value={0}>All Users</MenuItem>
+                <MenuItem value={true}>Accepted</MenuItem>
+                <MenuItem value={false}>Pending</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
         </Box>
-        <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+        <div className="admin-users-list-div">
           {Object.keys(values).map((value, key) => {
             // console.log(key);
             countValue += 1;
@@ -109,24 +115,28 @@ const AdminUsers = () => {
                     data={userdata[values[value]]}
                   />
                 )}
-                <br />
+                {/* <br /> */}
               </>
             );
           })}
         </div>
-        <div width="100%">
-          <Pagination
-            count={Math.ceil(countValue / 5)}
-            color="primary"
-            onChange={(e) => {
-              setPage(parseInt(e.target.innerText));
-            }}
-            onClick={(e) => {
-              // console.log(e.target.innerText);
-            }}
-            hideNextButton
-            hidePrevButton
-          />
+        <div width="100%" align="center">
+          <div className="pagination">
+            {countValue > 5 && (
+              <Pagination
+                // defaultChecked={2}
+                value={2}
+                // className="pagination"
+                count={Math.ceil(countValue / 5)}
+                color="primary"
+                onChange={(e, p) => {
+                  setPage(parseInt(p));
+                  // console.log(p);
+                }}
+                page={page}
+              />
+            )}
+          </div>
         </div>
       </div>
     </>

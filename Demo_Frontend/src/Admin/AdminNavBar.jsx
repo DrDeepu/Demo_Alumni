@@ -108,7 +108,7 @@ function AdminNavBar(props) {
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink className="nav-link" style={{border:'none'}} to='#'>
+                <NavLink className="nav-link" style={{ border: "none" }} to="#">
                   {/* Posts */}
                   {/* <PostAddIcon /> */}
 

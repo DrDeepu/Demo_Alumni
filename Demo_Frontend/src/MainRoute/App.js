@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // Opening Folder Files
 import SignUp from "../Opening/SignUp";
 import Login from "../Opening/Login";
-import ForgetPassword from "../Opening/ForgetPassword";
+import ForgotPassword from "../Opening/ForgotPassword";
 
 // User Folder Files
 import UserDashboard from "../User/UserDashboard";
@@ -53,8 +53,8 @@ function App() {
             <Route exact path="/SignUp" element={<SignUp />}></Route>
             <Route
               exact
-              path="/ForgetPassword"
-              element={<ForgetPassword />}
+              path="/ForgotPassword"
+              element={<ForgotPassword />}
             ></Route>
             <Route
               exact

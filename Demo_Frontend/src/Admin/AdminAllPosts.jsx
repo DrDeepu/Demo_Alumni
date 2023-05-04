@@ -9,7 +9,29 @@ export default function AdminAllPosts({
   loader,
   setRefetch,
   fetchAllPosts,
+  filter,
 }) {
+  const [pagination, setPagination] = React.useState(5);
+  const [count, setCount] = React.useState(0);
+  const [page, setPage] = React.useState(1);
+  let countValue = 0;
+  React.useEffect(() => {}, [filter]);
+  const values = Object.keys(postsData).filter((value, key) => {
+    // console.log(key);
+    // setPage(1);
+    // countValue += 1;
+    return filter === 0
+      ? new Date(postsData[value]["post_event_start_date"]) > new Date() &&
+          postsData[value]
+      : filter === true
+      ? new Date(postsData[value]["post_event_start_date"]) < new Date() &&
+        new Date(postsData[value]["post_end_start_date"]) > new Date() &&
+        postsData[value]
+      : new Date(postsData[value]["post_event_start_date"]) < new Date() &&
+        postsData[value];
+    // return postsData[value];
+  });
+  console.log(values);
   return loader ? (
     <div
       align="center"
@@ -26,27 +48,31 @@ export default function AdminAllPosts({
     <div id="card-container" align="center">
       <Container>
         <Row xs={1} sm={2} md={3} style={{ gap: "10px" }}>
-          {Object.keys(postsData).map((post) => {
+          {Object.keys(values).map((post,key) => {
             return (
               <>
                 <PostCard
                   fetchAllPosts={() => {
                     fetchAllPosts();
                   }}
-                  key={post}
+                  key={key}
                   className="card"
-                  title={postsData[post]["post_title"]}
-                  description={postsData[post]["post_description"]}
-                  img_url={postsData[post]["post_image_url"]}
-                  post_id={postsData[post]["post_id"]}
+                  title={postsData[values[post]]["post_title"]}
+                  description={postsData[values[post]]["post_description"]}
+                  img_url={postsData[values[post]]["post_image_url"]}
+                  post_id={postsData[values[post]]["post_id"]}
                   post_event_start_date={
-                    postsData[post]["post_event_start_date"]
+                    postsData[values[post]]["post_event_start_date"]
                   }
                   post_event_start_time={
-                    postsData[post]["post_event_start_time"]
+                    postsData[values[post]]["post_event_start_time"]
                   }
-                  post_event_end_time={postsData[post]["post_event_end_time"]}
-                  post_event_end_date={postsData[post]["post_event_end_date"]}
+                  post_event_end_time={
+                    postsData[values[post]]["post_event_end_time"]
+                  }
+                  post_event_end_date={
+                    postsData[values[post]]["post_event_end_date"]
+                  }
                   setRefetch={() => setRefetch()}
                   // post_delete={() => post_delete(post)}
                 />
@@ -55,6 +81,24 @@ export default function AdminAllPosts({
           })}
         </Row>
       </Container>
+      <div width="100%" align="center">
+        <div className="pagination">
+          {countValue > 5 && (
+            <Pagination
+              // defaultChecked={2}
+              value={2}
+              // className="pagination"
+              count={Math.ceil(countValue / 5)}
+              color="primary"
+              onChange={(e, p) => {
+                setPage(parseInt(p));
+                // console.log(p);
+              }}
+              page={page}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

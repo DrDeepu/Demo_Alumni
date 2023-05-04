@@ -21,8 +21,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
 import { store_user_email } from "../Redux/actions";
-import './Login.css'
-
+import "./Login.css";
 
 function LoginTest() {
   const access_token = useSelector((state) => state.access_token.access_token);
@@ -135,7 +134,7 @@ function LoginTest() {
                 className="position-absolute shadow-5-strong"
               ></div>
 
-              <MDBCard className="my-5 bg-glass">
+              <MDBCard className="my-5 bg-glass sign-up-container">
                 <MDBCardBody className="p-5">
                   <MDBRow>
                     <MDBCol col="6">
@@ -170,58 +169,9 @@ function LoginTest() {
                   </MDBRow>
 
                   <MDBRow>
-                    {/* <MDBCol col="6">
-                      <MDBDropdown>
-                        <MDBInput
-                          select
-                          type="date"
-                          min="2000-01-01"
-                          max={new Date().toISOString().slice(0, 10)}
-                          // value={dropdownValue}
-                          // onChange={handleDropdownChange}
-                          onChange={(e) =>
-                            setSignUpData({
-                              ...signUpData,
-                              batch: e.target.value,
-                            })
-                          }
-                          label="Batch"
-                        />
-                      </MDBDropdown>
-                    </MDBCol> */}
                     <MDBCol col="6">
-                      {/* <MDBInput
-                        select
-                        type="number"
-                        // min="2000"
-                        // max={new Date().getFullYear() - 1}
-                        // value={dropdownValue}
-                        // onChange={handleDropdownChange}
-                        onChange={(e) => {
-                          if (
-                            e.target.value >= 2000 &&
-                            e.target.value <= new Date().getFullYear() - 1
-                          ) {
-                            setSignUpData({
-                              ...signUpData,
-                              batch: e.target.value,
-                            });
-                            setDateError(false);
-                          } else {
-                            setDateError(true);
-                          }
-                        }}
-                        label="Batch"
-                      />
-                      {signUpData.batch !== "" && dateError === true && (
-                        <span style={{ color: "red" }}>
-                          Date must be between (2000 and{" "}
-                          {new Date().getFullYear()})
-                        </span>
-                      )} */}
-
                       <select
-                        className="batch"
+                        className="mb-4 batch"
                         onChange={(e) => {
                           setSignUpData({
                             ...signUpData,
@@ -238,7 +188,7 @@ function LoginTest() {
 
                     <MDBCol col="6">
                       <select
-                        className="department"
+                        className="department mb-4"
                         onChange={(e) => {
                           setSignUpData({
                             ...signUpData,

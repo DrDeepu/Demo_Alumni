@@ -23,7 +23,7 @@ import { LOCALHOST_URL } from "../config";
 import DoneIcon from "@mui/icons-material/Done";
 const theme = createTheme();
 
-export default function ForgetPassword() {
+export default function ForgotPassword() {
   const success_toast = () => {
     toast.dismiss();
     toast.success("Mail Sent.");

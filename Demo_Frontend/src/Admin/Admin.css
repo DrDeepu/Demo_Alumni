@@ -63,6 +63,7 @@ card-container {
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 1px gray;
   padding: 10px;
+  margin-bottom: 1%;
 }
 
 #card_hover_users:hover {
@@ -177,8 +178,6 @@ card-container {
   margin-right: 5%;
   background-color: rgba(0, 123, 255, 0.638);
 }
-.viewButton:hover {
-}
 .deleteButton {
   margin-left: 5%;
   color: white;
@@ -187,4 +186,11 @@ card-container {
 .deleteButton:hover {
   /* color: white; */
   background-color: rgba(255, 0, 0, 0.713);
+}
+
+.pagination {
+  padding-left: 10%;
+}
+.admin-users-list-div {
+  height: 50%;
 }
