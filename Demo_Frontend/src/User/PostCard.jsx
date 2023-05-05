@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/esm/Image";
 import { LOCALHOST_URL } from "../config";
 import "./User.css";
-import '../Admin/Admin.css'
+import "../Admin/Admin.css";
 import ViewPost from "./ViewPost";
 import { useSelector } from "react-redux";
 
@@ -21,7 +21,7 @@ function PostCard({
   end_time,
 }) {
   const userData = useSelector((state) => state.set_user_profile_data);
-  const user_email = useSelector((state) => state.set_user_data.user_email);
+  const user_email = useSelector((state) => state.set_user_profile_data.email);
 
   const [accept, setAccept] = useState(false);
   useEffect(
@@ -29,7 +29,6 @@ function PostCard({
       get_accept_decline();
     },
 
-    // eslint - disable - next - line;
     [accept]
   );
 
@@ -89,8 +88,9 @@ function PostCard({
                 get_accept_decline();
               }}
               accept={accept}
-              setAccept={() => {
+              setAccept={(e) => {
                 setAccept();
+                console.log(e);
               }}
             />
             {/* <ApproveDeletePost value="Delete" post_id={post_id} /> */}

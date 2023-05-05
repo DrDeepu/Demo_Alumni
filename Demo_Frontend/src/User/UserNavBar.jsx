@@ -27,7 +27,8 @@ function UserNavBar(props) {
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      if (user_email !== "admin@email.com") {
+      // if (user_email !== "admin@email.com") {
+      if (user_email===null) {
         setUser(true);
       }
     } else {

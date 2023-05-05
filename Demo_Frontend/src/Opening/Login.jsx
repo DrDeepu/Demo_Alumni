@@ -27,28 +27,26 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Login() {
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-  // console.log(access_token, user_email);
+  console.log("userdata", user_email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      // console.log("ACCESS TOKEN", access_token);
-      // console.log("USER EMAIL", user_email);
       const expired_or_not =
         new Date(jwt_decode(access_token).exp * 1000) > new Date();
       if (!expired_or_not) {
         localStorage.removeItem("access_token");
       } else {
-        // console.log("JWT DECODE", jwt_decode(access_token));
-        dispatch(store_user_email(access_token));
-        if (user_email === "admin@email.com") navigate("/admindashboard");
+        dispatch(store_access_token(access_token));
+
+        // if (user_email === "admin@email.com")
+        if (user_email) navigate("/admindashboard");
         else navigate("/profile");
       }
     }
   }, [access_token, user_email]);
 
-  // useEffect(() => {}, [access_token]);
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [email, setEmail] = useState("");
@@ -63,23 +61,17 @@ export default function Login() {
       buttonClick();
     }
   }
-  // console.log(localStorage.getItem("access_token"));
   async function buttonClick() {
     await axios
-      .post(`${LOCALHOST_URL}/login`, {
-        data: { email, password },
-      })
+      .post(`${LOCALHOST_URL}/login`, { email, password })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.status === 400) {
           toast.dismiss();
           toast.error(res.data.error);
         } else {
           dispatch(store_access_token(res.data.access_token));
           dispatch(store_user_email(res.data.access_token));
-          if (user_email === "admin@email.com") {
-            navigate("/admindashboard");
-          } else navigate("/profile");
         }
       });
   }

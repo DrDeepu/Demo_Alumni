@@ -1,5 +1,5 @@
-MAIL_ID = 'Deepukumarpu@outlook.com'
-MAIL_PASSWORD = 'SruthyDeepu#143'
+MAIL_ID = 'lorddeepukumar@outlook.com'
+MAIL_PASSWORD = 'Deepu#143'
 CLOUDINARY_CLOUD_NAME = 'dy59sbjqc'
 CLOUDINARY_API_KEY = '881838449818181'
 CLOUDINARY_API_SECRET= "pg2mTTj2xYxN39WR31wh1W7D0Fw"

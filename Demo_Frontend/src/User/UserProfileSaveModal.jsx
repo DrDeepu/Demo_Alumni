@@ -37,10 +37,7 @@ export default function VerticalEditApp(props) {
           <Button
             onClick={() => {
               props.onHide();
-              //   saveChangesFunction();
-              //   props.setEdit();
               props.props.saveProfile();
-              //   setEdit(false);
             }}
           >
             Sure
@@ -49,24 +46,6 @@ export default function VerticalEditApp(props) {
       </Modal>
     );
   }
-  //   async function saveChangesFunction() {
-  //     await axios
-  //       .post(`${LOCALHOST_URL}/update_admin_post`, {
-  //         data: {
-  //           post_id: props.post_id,
-  //           post_title: props.title,
-  //           post_image_url: props.image_url,
-  //           post_description: props.description,
-  //           post_event_start_date: props.post_event_start_date,
-  //           post_event_start_time: props.post_event_start_time,
-  //           post_event_end_date: props.post_event_end_date,
-  //           post_event_end_time: props.post_event_end_time,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log(res);
-  //       });
-  //   }
 
   return (
     <>
@@ -85,7 +64,6 @@ export default function VerticalEditApp(props) {
           setModalShow(false);
         }}
         props={props}
-        // setEdit={() => props.setEdit()}
       />
     </>
   );

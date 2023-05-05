@@ -52,7 +52,7 @@ export default function AdminPosts() {
                   className="admin-filter-box"
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  // value={filter}
+                  value={filter}
                   label="Filter"
                   onChange={(e) => {
                     setFilter(e.target.value);

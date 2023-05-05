@@ -81,6 +81,7 @@ function MyVerticallyCenteredModal(props) {
 }
 
 function AttendingUsers(props) {
+  console.log(props);
   const [modalShow, setModalShow] = React.useState(false);
   // eslint-disable-next-line
   const [checked, setCheckbox] = React.useState(false);

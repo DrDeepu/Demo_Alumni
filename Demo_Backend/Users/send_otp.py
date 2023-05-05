@@ -1,9 +1,9 @@
 import json
-import random
 import bcrypt
-from flask import Blueprint,Flask,request,jsonify,Response
+from flask import Blueprint,request,Response
 from itsdangerous import URLSafeSerializer
-from Models.models import db,User,AdminPosts
+from Models.models import db
+from Models.User import User
 import smtplib
 from datetime import datetime
 from email.mime.text import MIMEText
@@ -11,8 +11,6 @@ from email.mime.multipart import MIMEMultipart
 
 from Variables.variables import MAIL_ID,MAIL_PASSWORD
 
-
-# email = EmailMessage()
 
 SECRET_KEY = 'THIS_is_LAST_message'
 
@@ -65,15 +63,7 @@ def send_otp():
     smtp_connect.login(my_mail_id, my_password)
     smtp_connect.sendmail(my_mail_id, email, msg.as_string())
     smtp_connect.quit()
-    # # print('OTP Send')
-    # return 'Otp Send'
-    # final_result()
     return 'Mail Send'
-        # yield {'status':700,'message':'Otp Send'}
-    # else:
-
-        # # print('OTP not Send')
-        # return Response(status=400)
 
 
 
@@ -88,9 +78,7 @@ def change_password():
         if (current_time-token_time).total_seconds()<=600:
             email = serializer.loads(token)['email']
             password = json.loads(request.data)['password']
-            # # print(email,password)
             user = User.query.filter_by(email=email).first()
-            # print(user)
             salt = bcrypt.gensalt()
             pw_encode = password.encode('utf-8')
             hash_pw = bcrypt.hashpw(pw_encode, salt)
