@@ -37,6 +37,10 @@ export default function AdminPosts() {
         setLoader(true);
       });
   }
+
+  async function fitlerFetchPosts(){
+    await axios.post(`${LOCALHOST_URL}/filter_fetch_posts`,filter).then(res=>console.log(res))
+  }
   return (
     <>
       <AdminNavBar />

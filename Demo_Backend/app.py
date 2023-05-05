@@ -21,6 +21,7 @@ from Admin.upload_fetch_admin_post_image import bp as upload_fetch_admin_post_im
 from Admin.approve_delete_disapprove_users import bp as approve_delete_disapprove_users
 from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
+from Posts.filter_posts import bp as filter_posts
 from Users.send_otp import bp as send_otp
 from Variables.mail import mail
 from flask_migrate import Migrate
@@ -371,6 +372,9 @@ app.register_blueprint(post_comments)
 
 
 app.register_blueprint(send_otp)
+
+# Filter Fetch Posts 
+app.register_blueprint(filter_posts)
 
 
 # Upload User Image to Cloudinary
