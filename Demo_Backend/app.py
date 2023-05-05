@@ -2,7 +2,6 @@ import json
 import datetime
 import bcrypt
 import os
-
 from flask import Flask,request
 from flask import Response
 from flask_cors import CORS
@@ -13,7 +12,10 @@ from Variables.variables import (CLOUDINARY_API_KEY,CLOUDINARY_CLOUD_NAME
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from Models.models import db,User,AdminPosts,PostComments
+from Models.models import db
+from Models.AdminPosts import AdminPosts
+from Models.PostComments import PostComments
+from Models.User import User
 from flask_jwt_extended import JWTManager
 from Admin.upload_fetch_admin_post_image import bp as upload_fetch_admin_post_image
 from Admin.approve_delete_disapprove_users import bp as approve_delete_disapprove_users
@@ -21,10 +23,10 @@ from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
 from Users.send_otp import bp as send_otp
 from Variables.mail import mail
+from flask_migrate import Migrate
 
-# bot = Bot()
-# bot.login(username = '',password='')
-# Test
+
+
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'application/json'
 app.debug = True
@@ -39,13 +41,17 @@ app.secret_key = 'Something-Is-Not-Right'
 
 # Sqlite URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(app.root_path,'snm_database.db')
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 
 db.init_app(app)
+
+
+migrate = Migrate(app, db)
+
 
 
 
@@ -65,80 +71,58 @@ jwt = JWTManager(app)
 # SIGN UP API ROUTE
 @app.route('/create_user',methods=['POST'])
 def create_user():
-    email= (json.loads(request.data)['data']['email']).lower()
-    if not User.query.filter_by(email=email).count():
-        firstname = json.loads(request.data)['data']['firstName']
-        lastname = json.loads(request.data)['data']['lastName']
-        password = json.loads(request.data)['data']['password']
-        batch = json.loads(request.data)['data']['batch']
-        department = json.loads(request.data)['data']['department']
-        join_date = datetime.datetime.now()
-        image_url = 'https://res.cloudinary.com/dy59sbjqc/image/upload/v1682411013/Users/guest-user_hicyp0.webp'
+    data = request.json | {}
+    email = data.get('email')
+    print(data)
+    if not User.query.filter_by(email=email).first():
         salt = bcrypt.gensalt()
-        pw_encode = password.encode('utf-8')
+        pw_encode = data.get('password').encode('utf-8')
         hash_pw = bcrypt.hashpw(pw_encode,salt)
-        user = User(firstname=firstname,lastname=lastname,email=email,batch=batch,join_date=join_date,department=department, password=hash_pw,user_profile_image_url=image_url)
-        db.session.add(user)
-        db.session.commit()
+        data['password']=hash_pw
+        data['user_profile_image_url']='https://res.cloudinary.com/dy59sbjqc/image/upload/v1683282743/Users/guest-user_hicyp0.jpg'
+        data['join_date']=datetime.datetime.now()
+        User.create(**data)
         return {'status':200,'message':'User Registered Successfully'}
     else:
         return {'status':400,'message':'User email already exists'}
 
-# LOGIN API ROUTE
-@app.route('/login',methods=['GET','POST'])
-def login():
-    email= (json.loads(request.data)['data']['email']).lower()
-    password = json.loads(request.data)['data']['password']
-    # user = db.one_or_404(db.select(User).filter_by(email=email,password=password))
-    user_count = User.query.filter_by(email=email).count()
-    pw_encode = password.encode('utf-8')
-    if user_count!=0 :
-        user = User.query.filter_by(email=email).first()
-    #         if user.password == password:
-        if user.email == 'admin@email.com':
-            if bcrypt.checkpw(pw_encode,user.password):
-                access_token = create_access_token(identity=email)
-                return {'user':user.firstname,'user_email':email,'admin':True,'access_token':access_token,'status':200}
-            else:
-                return {'status':400,'error':'Invalid Password'}
 
-        elif user.valid == 'true':
-            # if user.password == password:
-            if bcrypt.checkpw(pw_encode,user.password):
-                print('_____CHECK____',bcrypt.checkpw(pw_encode,user.password))
-                access_token = create_access_token(identity=email)
-                return {'status':200,'user':user.firstname,'user_email':email,'admin':False,'access_token':access_token}
-            else:
-                print('____INVALID_PASSWORD____')
-                return {'status':400,'error':'Invalid Password'}
-        elif user.valid == 'false':
-            return {'status':400,'error':'Admin is yet to approve your Account. Please wait till then.'}
+
+# LOGIN API ROUTE
+@app.route('/login',methods=['POST'])
+def login():
+    data = request.json | {}
+    email = data.get('email').lower()
+    password = data.get('password')
+    user = User.query.filter_by(email=email).first()
+    pw_encode = password.encode('utf-8')
+    if user :
+        if bcrypt.checkpw(pw_encode,user.password):
+            access_token = create_access_token(identity={'email':email,'is_admin':user.is_admin})
+            return {'user':user.firstname,'user_email':email,'access_token':access_token,'status':200}
+        else:
+            return {'status':400,'error':'Invalid Password'}
     else:
         return {'status':400,'error':'User not Found'}
-    return 'response'
-
-@app.route('/access_user_validation',methods=['GET'])
-@jwt_required()
-def access_user_validation():
-    access_user = get_jwt_identity()
-    # # print('Access User ',access_user)
-    return {'access_user':access_user}
+    # return 'response'
 
 
 @app.route('/profile')
 @jwt_required()
 def my_profile():
-    user_email =  get_jwt_identity()
+    user_data = get_jwt_identity()
+    user_email =  user_data['email']
+    print(user_email)
     user = User.query.filter_by(email=user_email).first()
-    # # print(user.website)
+    if not user:
+        return ''
     response_body = {
        'firstname': user.firstname,
        'lastname': user.lastname,
        'email': user.email,
        'phone': user.phone,
-        # 'password':user.password.,
-        'batch':user.batch,
-        'department':user.department,
+       'batch':user.batch,
+       'department':user.department,
        'instaid':user.instaid,
        'gitid':user.gitid,
        'linkedinid':user.linkedinid,
@@ -148,91 +132,42 @@ def my_profile():
        'company':user.company,
        'website':user.website,
        'user_profile_image_url':user.user_profile_image_url,
-       'jwt':get_jwt_identity()
     }
-    # # print(response_body)
-    # # print(user.user_profile_image_url)
-    if user.email == 'admin@email.com' and bcrypt.checkpw('admin1'.encode('utf-8'),user.password):
-        response_body['admin']=True
-    else:
-        response_body['admin']=False
     return response_body
 
 
-@app.route('/get_registered_report',methods=['GET'])
-def get_registered_report():
-    batch_list = []
-    year_wise_data = {}
-    for i in User.query.all():
-        if i.email == "admin@email.com":
-            continue
-        date = i.batch.split('-')
-        batch_list.append({'year':date[0],'month':date[1],'date':date[2]})
-        year_wise_data[date[0]]=[
-        ]
-    for i in batch_list:
-            year_wise_data[i['year']].append(i['month'])
-    f = {}
-    t={}
-    for i in year_wise_data:
-        t[i] = f
-        for j in year_wise_data[i]:
-            # # print(i)
-            try:
-                f[j]= f[j]+1
-            except:
-                f[j]= 1
-            return f
-    # # print(t)
-    return year_wise_data
-#
+
 @app.route('/save_profile_data',methods=["POST"])
 @jwt_required()
 def save_profile_data():
-    
-    email = (json.loads(request.data)['data']['email']).lower()
+    data = request.json['data'] | {}
+    email = data.get('email').lower()
     user = User.query.filter_by(email=email).first()
-    # # print('DB IMAGE URL',user.user_profile_image_url)
     url = ''
-    IMAGE_URL= json.loads(request.data)['data']['imageUrl']
-    # print('JSON IMAGE URL',IMAGE_URL)
-    # print(user.user_profile_image_url)
-    # print(IMAGE_URL)
-    if not user.user_profile_image_url:
-        # print('not present')
+    IMAGE_URL= data.get('imageUrl')
+    if not user.user_profile_image_url :
         if IMAGE_URL!=user.user_profile_image_url:
-            # print('HUH')
             url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
             user.user_profile_image_url=url
-        # # print(url)
     else:
         if IMAGE_URL!=user.user_profile_image_url:
-            # # print('HUH')
-            # print('present')
             public_id = user.user_profile_image_url.split('/Users/')[1].split('.')[0]
             url = cloudinary.uploader.upload(IMAGE_URL,public_id=public_id,folder='/Users')['url']
             user.user_profile_image_url=url
-        # # print(url)
-    # print(json.loads(request.data)["data"]["websiteUrl"])
-    user.firstname = json.loads(request.data)['data']['firstName']
-    user.lastname = json.loads(request.data)['data']['lastName']
-    user.phone = json.loads(request.data)['data']['phoneNumber']
-    # user.batch = json.loads(request.data)['data']['batch']
-    user.department = json.loads(request.data)['data']['department']
-    user.instaid = json.loads(request.data)['data']['instagramId']
-    user.linkedinid = json.loads(request.data)['data']['linkedinId']
-    user.gitid = json.loads(request.data)['data']['githubId']
-    user.domain = json.loads(request.data)['data']['domain']
-    user.website = json.loads(request.data)['data']['websiteUrl']
+    user.firstname = data.get('firstName')
+    user.lastname = data.get('lastName')
+    user.phone = data.get('phoneNumber')
+    user.department = data.get('department')
+    user.instaid = data.get('instagramId')
+    user.linkedinid = data.get('linkedinId')
+    user.gitid = data.get('githubId')
+    user.domain = data.get('domain')
+    user.website = data.get('websiteUrl')
 
-    user.profession = json.loads(request.data)['data']['profession']
-    user.company = json.loads(request.data)['data']['companyName']
-    
-    # # print(user.user_profile_image_url)
+    user.profession = data.get('profession')
+    user.company = data.get('companyName')
+    # User(**data)
     db.session.commit()
-    # print(user.user_profile_image_url)
-    # print(url)
-    # # print(user.firstname)
     return Response({'Updated Successfully'})
 
     # user = User.query
@@ -317,20 +252,10 @@ def upload_admin_post():
     insta_check = request.form['insta_check']
     mail_check = request.form['mail_check']
     create_date = datetime.datetime.now()
-    # print(file)
-    # print(post_title)
-    # print(post_description)
-    # print(event_start_date)
-    # print(event_start_time)
-    # print(event_end_date)
     print(event_end_time)
-    # print(insta_check)
-    # print(mail_check)
-    # print(create_date)
 
 
     admin_image_url = cloudinary.uploader.upload(file,folder='/Admin_Posts')
-    # # # print(admin_image_url['url'])
     date_time = datetime.datetime.now()
     post_image_url = admin_image_url['url']
     post = AdminPosts(
@@ -451,57 +376,14 @@ app.register_blueprint(send_otp)
 # Upload User Image to Cloudinary
 @app.route('/uploadimage',methods=['GET','POST'])
 def uploadimage():
-
-    # print(request.files['file'])
     file = request.files['file']
     global url
-    # value = 'Admin_Image_Preview/kzsgvupe8ooitbik8d1l'.split('/')[1]
     value = 'kzsgvupe8ooitbik8d1l'
     url = 'http://res.cloudinary.com/dy59sbjqc/image/upload/v1680858857/Users/kzsgvupe8ooitbik8d1l.jpg'
-    # url = cloudinary.uploader.upload(file,public_id=value,folder='/Users')['url']
     public_id = url.split('/Users/')[1].split('.')[0]
-    # print(public_id)
-    response = cloudinary.uploader.upload(file,public_id=public_id,folder='/Users')
-    # print(response)
-
-
-    # # print(image_url)
-    # url =cloudinary.uploader.upload(image_url,public_id=value,folder='/Admin_Image_Preview')
-
     return Response("Successfully Uploaded Image")
 
 
-# Fetch User Image from Cloudinary
-@app.route('/fetchimage',methods=['GET','POST'])
-def fetchimage():
-    # image_url = cloudinary.CloudinaryImage('my_custom_names').build_url()
-    # image_url = cloudinary.api.resource("/Users/my_custom_name",transformation={"width": 300, "height": 300})['url']
-    # # print('URL',url)
-    value = 'kzsgvupe8ooitbik8d1l'
-    # image_url = cloudinary.api.resource(public_id=value,folder='/Users')
-    # # print(image_url)
-    # image_url = cloudinary.api.resource("/Users/my_custom_name")['url']
-    # image_url = cloudinary.api.resource("/Users/my_custom_name")['public_id']
-    # i_image_url = cloudinary.api.resource("/Users/my_custom_name",transformation={"width": 300, "height": 300})
-    # result_image =cloudinary.utils.cloudinary_url("my_custom_name", width = 200, height = 200)[0]
-    # # print(image_url)
-    # # print(i_image_url)
-    return Response('image_url')
-    # return Response(result_image)
-
-
-
-
-
-
-
-
-
-
-
-
-
-# admin.add_view(ModelView(User,db.session))
-
 if __name__=='__main__':
+    # app.run()
     app.run()

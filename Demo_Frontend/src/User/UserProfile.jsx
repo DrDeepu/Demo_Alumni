@@ -38,7 +38,8 @@ export default function ProfilePage() {
   useEffect(() => {
     //   git();
     if (localStorage.getItem("access_token")) {
-      if (user_email !== "admin@email.com") {
+      // if (user_email !== "admin@email.com") {
+      if (!user_email) {
         navigate("/profile");
         profile();
         setUser(true);

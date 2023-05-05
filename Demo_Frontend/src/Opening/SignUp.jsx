@@ -27,16 +27,15 @@ function LoginTest() {
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
   const [passwordError, setPasswordError] = React.useState(false);
-  const [dateError, setDateError] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const dispatch = useDispatch();
   const [signUpData, setSignUpData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     batch: "",
     department: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const navigate = useNavigate();
@@ -52,31 +51,27 @@ function LoginTest() {
 
   React.useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      // console.log("ACCESS TOKEN", access_token);
-      // console.log("USER EMAIL", user_email);
       const expired_or_not =
         new Date(jwt_decode(access_token).exp * 1000) > new Date();
       if (!expired_or_not) {
         localStorage.removeItem("access_token");
       } else {
-        // console.log("JWT DECODE", jwt_decode(access_token));
         dispatch(store_user_email(access_token));
-        if (user_email === "admin@email.com") navigate("/admindashboard");
+        // if (user_email === "admin@email.com") 
+        if (user_email) 
+        
+        navigate("/admindashboard");
         else navigate("/profile");
       }
     }
     toast.dismiss();
 
     console.log(signUpData.department);
-  }, [access_token, user_email, dateError, signUpData]);
+  }, [access_token, user_email, signUpData]);
 
   async function buttonClick() {
     await axios
-      .post("http://127.0.0.1:5000/create_user", {
-        data: {
-          ...signUpData,
-        },
-      })
+      .post("http://127.0.0.1:5000/create_user", { ...signUpData })
       .then((res) => {
         // console.log(res);
         if (res.data.status === 200) {
@@ -85,8 +80,8 @@ function LoginTest() {
             createChatUser(
               signUpData.email.toLowerCase(),
               signUpData.email.toLowerCase(),
-              signUpData.firstName,
-              signUpData.lastName
+              signUpData.firstname,
+              signUpData.lastname
             );
             navigate("/Login");
           }, 2000);
@@ -146,7 +141,7 @@ function LoginTest() {
                         onChange={(e) => {
                           setSignUpData({
                             ...signUpData,
-                            firstName: e.target.value,
+                            firstname: e.target.value,
                           });
                         }}
                       />
@@ -161,7 +156,7 @@ function LoginTest() {
                         onChange={(e) =>
                           setSignUpData({
                             ...signUpData,
-                            lastName: e.target.value,
+                            lastname: e.target.value,
                           })
                         }
                       />
@@ -243,8 +238,8 @@ function LoginTest() {
                       });
                       if (
                         e.target.value.length > 0 &&
-                        signUpData.confirmPassword !== "" &&
-                        signUpData.confirmPassword !== e.target.value
+                        confirmPassword !== "" &&
+                        confirmPassword !== e.target.value
                       ) {
                         setPasswordError(true);
                       } else {
@@ -258,10 +253,7 @@ function LoginTest() {
                     id="form4"
                     type="password"
                     onChange={(e) => {
-                      setSignUpData({
-                        ...signUpData,
-                        confirmPassword: e.target.value,
-                      });
+                      setConfirmPassword(e.target.value);
                       if (
                         e.target.value.length > 0 &&
                         signUpData.password !== "" &&
@@ -277,10 +269,10 @@ function LoginTest() {
                     <span style={{ color: "red" }}>Password doesnt match</span>
                   )}
                   {emailValid.test(signUpData.email) &&
-                  signUpData.firstName.length > 2 &&
-                  signUpData.lastName.length > 2 &&
+                  signUpData.firstname.length > 2 &&
+                  signUpData.lastname.length > 2 &&
                   signUpData.password.length > 5 &&
-                  signUpData.confirmPassword.length > 5 &&
+                  confirmPassword.length > 5 &&
                   passwordError === false ? (
                     <MDBBtn
                       className="w-100 mb-4"

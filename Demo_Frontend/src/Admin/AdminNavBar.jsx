@@ -31,7 +31,8 @@ function AdminNavBar(props) {
     //   navigate("/admin");
     // }
     if (localStorage.getItem("access_token")) {
-      if (user_email === "admin@email.com") {
+      // if (user_email === "admin@email.com") {
+      if (user_email) {
         // navigate("/admindashboard");
         setUser(true);
       }

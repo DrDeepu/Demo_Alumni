@@ -32,7 +32,7 @@ export const access_token = (state = access_token_initialState, action) => {
 
 const set_user_data_initialState = {
   user_email: token
-    ? jwt_decode(localStorage.getItem("access_token")).sub
+    ? jwt_decode(localStorage.getItem("access_token")).sub['is_admin']
     : null,
 };
 export const set_user_data = (state = set_user_data_initialState, action) => {
@@ -42,7 +42,7 @@ export const set_user_data = (state = set_user_data_initialState, action) => {
         localStorage.getItem("access_token") !== "" ||
         localStorage.getItem("access_token") !== "undefined" ||
         localStorage.getItem("access_token")
-          ? jwt_decode(localStorage.getItem("access_token")).sub
+          ? jwt_decode(localStorage.getItem("access_token")).sub['is_admin']
           : "";
       return { user_email: user_email };
     default:

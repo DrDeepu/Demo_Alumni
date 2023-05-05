@@ -19,7 +19,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      if (user_email !== "admin@email.com") {
+      // if (user_email !== "admin@email.com") {
+      if (!user_email) {
         navigate("/userdashboard");
         profile();
         setUser(true);

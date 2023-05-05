@@ -6,8 +6,10 @@ export function store_access_token(access_token) {
   return { type: "store_token", payload: access_token };
 }
 
-export function store_user_email(access_token) {
-  return { type: "store_user_email", payload: access_token };
+// export function store_user_email(access_token) {
+  // return { type: "store_user_email", payload: access_token };
+export function store_user_email(admin) {
+  return { type: "store_user_email", payload: admin };
 }
 
 export function store_user_profile_data(data) {

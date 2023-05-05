@@ -9,25 +9,20 @@ import "./Admin.css";
 import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Toaster } from "react-hot-toast";
-import AdminReport from "./AdminReport";
 import { LOCALHOST_URL } from "../config";
-// import Chart from "chart.js/auto";
 
 const Admin = () => {
   const navigate = useNavigate();
 
   const [loader, setloader] = useState(true);
-  // const [user, setUser] = useState(localStorage.getItem("user"));
   const [user, setUser] = useState(false);
   const [user_data, setUser_data] = useState({});
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-  // console.log("access_token", access_token);
-  // console.log("user_email", user_email);
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      if (user_email === "admin@email.com") {
+      if (user_email) {
         navigate("/admindashboard");
         setUser(true);
       }
@@ -50,11 +45,7 @@ const Admin = () => {
 
     func();
     setloader(false);
-    //eslint-disable-next-line
   }, [loader, user]);
-  // window.onload = () => {
-  //   setloader(false);
-  // };
 
   return user === true || user === "true" ? (
     loader ? (
@@ -82,8 +73,6 @@ const Admin = () => {
               paddingRight: "30px",
             }}
           >
-            {/* <NavBar /> */}
-
             <div id="container">
               <div
                 id="card_hover_users_total"

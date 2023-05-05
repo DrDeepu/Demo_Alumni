@@ -1,8 +1,10 @@
 import json
 from flask import Blueprint
-from flask import Flask,request,jsonify
+from flask import request
 
-from Models.models import db,User,AdminPosts
+from Models.models import db
+from Models.AdminPosts import AdminPosts
+from Models.User import User
 
 
 bp = Blueprint('accept_decline',__name__)

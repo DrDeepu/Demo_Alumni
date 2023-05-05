@@ -51,7 +51,8 @@ export default function ViewPosts({
 
   const [data, setData] = useState({
     post_id: post_id,
-    comment: null,
+    comment_text: null,
+    user_email: userData.email,
   });
   useEffect(() => {
     if (uploadImage !== null) {
@@ -69,6 +70,7 @@ export default function ViewPosts({
       })
       .then((res) => {
         setAttendingUsers(res.data[0]);
+        console.log(res.data);
         // console.log(res.data[0]);
       });
   }
@@ -79,7 +81,7 @@ export default function ViewPosts({
 
   async function post_comment() {
     await axios
-      .post(`${LOCALHOST_URL}/post_comment`, { data, email: userData.email })
+      .post(`${LOCALHOST_URL}/post_comment`, data)
       .then((res) => {
         setRefresher(!refresher);
       })
@@ -194,7 +196,6 @@ export default function ViewPosts({
                 variant="danger"
                 onClick={() => {
                   post_decline();
-
                   setAccept(true);
                 }}
                 style={{ height: "50px" }}
@@ -228,21 +229,21 @@ export default function ViewPosts({
                 type="text"
                 className="form-control form-control-lg"
                 id="exampleFormControlInput1"
-                value={data.comment ? data.comment : ""}
+                value={data.comment_text ? data.comment_text : ""}
                 onChange={(e) => {
-                  setData({ ...data, comment: e.target.value });
+                  setData({ ...data, comment_text: e.target.value });
                 }}
               ></input>
               <Button
                 className="ms-3"
                 onClick={() => {
                   if (
-                    data.comment !== null &&
-                    data.comment !== "" &&
+                    data.comment_text !== null &&
+                    data.comment_text !== "" &&
                     userData.email
                   ) {
                     post_comment();
-                    setData({ ...data, comment: "" });
+                    setData({ ...data, comment_text: "" });
                   }
                 }}
               >
