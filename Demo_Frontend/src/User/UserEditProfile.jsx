@@ -91,6 +91,36 @@ export default function User(props) {
         props.setLoader();
       });
   }
+
+const department_list = ["Department of Physics",
+"Department of Chemistry",
+"Department of Computer Science",
+"Department of Technology",
+"Department of Music",
+"Department of Sports"
+]
+
+const intrested_domains = [
+  "Gaming",
+  "Web Technology",
+  "Software Technology",
+  "Engineering",
+  "Data Analysis",
+  "Data Science",
+  "Music",
+]
+const profession = [
+'Gamer',
+'Youtuber',
+"HR",
+"Full Stack Developer",
+"Musician",
+"Engineer",
+"Doctor",
+"CA",
+"Business"
+]
+
   return (
     <>
       <Button className="edit-profile" variant="primary" onClick={handleShow}>
@@ -141,8 +171,9 @@ export default function User(props) {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>First Name</Form.Label>
+                <Form.Label>First Name<sup >*</sup></Form.Label>
                 <Form.Control
+              
                   type="text"
                   rows={2}
                   defaultValue={userData.firstName}
@@ -164,9 +195,10 @@ export default function User(props) {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label>Last Name<sup >*</sup></Form.Label>
                 <Form.Control
                   type="text"
+                  
                   defaultValue={userData.lastName}
                   rows={2}
                   onChange={(e) => {
@@ -216,7 +248,7 @@ export default function User(props) {
                 <Form.Label>Batch</Form.Label>
                 <Form.Control
                   disabled
-                  type="date"
+                  type="number"
                   defaultValue={userData.batch}
                   rows={2}
                   min="2000-01-01"
@@ -239,7 +271,7 @@ export default function User(props) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Department</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   defaultValue={userData.department}
                   rows={2}
@@ -254,7 +286,24 @@ export default function User(props) {
                           department: "",
                         });
                   }}
-                />
+                /> */}
+                   <select
+                   
+                   defaultValue={userData.department}
+                        className="department mb-4"
+                        onChange={(e) => {
+                          setUserData({
+                            ...userData,
+                            department: e.target.value,
+                          });
+                        }}
+                      >
+                        {
+                          department_list.map((values,key)=>{
+                            return<option value={values} key={key}>{values}</option>
+                          })
+                        }
+                        </select>
               </Form.Group>
               {/* Instagram Id */}
               <Form.Group
@@ -331,7 +380,7 @@ export default function User(props) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Interested Domain</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="drop-down"
                   defaultValue={userData.domain}
                   rows={2}
@@ -346,7 +395,25 @@ export default function User(props) {
                           domain: "",
                         });
                   }}
-                />
+                /> */}
+
+<select defaultValue={userData.domain}
+                        className="department"
+                        onChange={(e) => {
+                          setUserData({
+                            ...userData,
+                            domain: e.target.value,
+                          });
+                        }}
+                      >
+                        {
+                          intrested_domains.map((values,key)=>{
+                            return<option value={values} key={key}>{values}</option>
+                          })
+                        }
+                        </select>
+
+
               </Form.Group>
               {/* Profession */}
               <Form.Group
@@ -354,22 +421,23 @@ export default function User(props) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Profession</Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue={userData.profession}
-                  rows={2}
-                  onChange={(e) => {
-                    e.target.value.trim() !== ""
-                      ? setUserData({
-                          ...userData,
-                          profession: e.target.value.trim(),
-                        })
-                      : setUserData({
-                          ...userData,
-                          profession: "",
-                        });
-                  }}
-                />
+                <select
+                   
+                   defaultValue={userData.profession}
+                        className="department mb-4"
+                        onChange={(e) => {
+                          setUserData({
+                            ...userData,
+                            profession: e.target.value,
+                          });
+                        }}
+                      >
+                        {
+                          profession.map((values,key)=>{
+                            return<option value={values} key={key}>{values}</option>
+                          })
+                        }
+                        </select>
               </Form.Group>
               {/* Company Name */}
               <Form.Group
@@ -424,7 +492,19 @@ export default function User(props) {
           <Button variant="secondary" onClick={handleClose}>
             Not Now
           </Button>
-          <UserProfileSaveModal saveProfile={() => saveProfile()} />
+          {
+            userData.firstName!==''&&userData.lastName!==''?
+          <UserProfileSaveModal saveProfile={() => saveProfile()} />:
+          <Button
+          disabled
+          variant="danger"
+          onClick={() => {
+            setModalShow(true);
+          }}
+        >
+          Save
+        </Button>
+          }
         </Modal.Footer>
       </Modal>
     </>

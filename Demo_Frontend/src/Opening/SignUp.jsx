@@ -135,7 +135,7 @@ function LoginTest() {
                     <MDBCol col="6">
                       <MDBInput
                         wrapperClass="mb-4"
-                        label="First name"
+                        label="First name*"
                         id="form1"
                         type="text"
                         onChange={(e) => {
@@ -150,7 +150,7 @@ function LoginTest() {
                     <MDBCol col="6">
                       <MDBInput
                         wrapperClass="mb-4"
-                        label="Last name"
+                        label="Last name*"
                         id="form2"
                         type="text"
                         onChange={(e) =>
@@ -198,7 +198,7 @@ function LoginTest() {
                         <option value="Department of Chemistry">
                           Department of Chemistry
                         </option>
-                        <option value="Department of ComputerScience">
+                        <option value="Department of Computer Science">
                           Department of ComputerScience
                         </option>
                         <option value="Department of Technology">
@@ -216,7 +216,7 @@ function LoginTest() {
 
                   <MDBInput
                     wrapperClass="mb-4"
-                    label="Email"
+                    label="Email*"
                     id="form3"
                     type="text"
                     onChange={(e) =>
@@ -228,7 +228,7 @@ function LoginTest() {
                   />
                   <MDBInput
                     wrapperClass="mb-4"
-                    label="Password"
+                    label="Password*"
                     id="form4"
                     type="password"
                     onChange={(e) => {
@@ -249,7 +249,7 @@ function LoginTest() {
                   />
                   <MDBInput
                     wrapperClass="mb-4"
-                    label="Confirm Password"
+                    label="Confirm Password*"
                     id="form4"
                     type="password"
                     onChange={(e) => {

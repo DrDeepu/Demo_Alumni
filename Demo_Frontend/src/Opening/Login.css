@@ -33,6 +33,7 @@
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.29);
   margin-bottom: 8%;
+  background-color: transparent;
 }
 
 .department {
@@ -42,6 +43,8 @@
   height: 35px;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.29);
+  background-color: transparent;
+
 }
 
 .sign-up-container {
