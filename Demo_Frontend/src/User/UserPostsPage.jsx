@@ -23,7 +23,6 @@ const UserShowPosts = () => {
         setLoader(false);
       })
       .catch((res) => {
-        // console.log(res);
         setLoader(true);
       });
   }

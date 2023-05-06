@@ -14,8 +14,10 @@ export default function AdminAllPosts({
   const [pagination, setPagination] = React.useState(5);
   const [count, setCount] = React.useState(0);
   const [page, setPage] = React.useState(1);
+  const [loader_sub, setLoader_sub] = React.useState(loader);
+  console.log(loader);
   let countValue = 0;
-  React.useEffect(() => {}, [filter]);
+  React.useEffect(() => {}, [filter, loader]);
   const values = Object.keys(postsData).filter((value, key) => {
     // console.log(key);
     // setPage(1);
@@ -31,7 +33,7 @@ export default function AdminAllPosts({
         postsData[value];
     // return postsData[value];
   });
-  console.log(values);
+
   return loader ? (
     <div
       align="center"
@@ -48,7 +50,7 @@ export default function AdminAllPosts({
     <div id="card-container" align="center">
       <Container>
         <Row xs={1} sm={2} md={3} style={{ gap: "10px" }}>
-          {Object.keys(values).map((post,key) => {
+          {Object.keys(postsData).map((post, key) => {
             return (
               <>
                 <PostCard
@@ -57,22 +59,18 @@ export default function AdminAllPosts({
                   }}
                   key={key}
                   className="card"
-                  title={postsData[values[post]]["post_title"]}
-                  description={postsData[values[post]]["post_description"]}
-                  img_url={postsData[values[post]]["post_image_url"]}
-                  post_id={postsData[values[post]]["post_id"]}
+                  title={postsData[post]["post_title"]}
+                  description={postsData[post]["post_description"]}
+                  img_url={postsData[post]["post_image_url"]}
+                  post_id={postsData[post]["post_id"]}
                   post_event_start_date={
-                    postsData[values[post]]["post_event_start_date"]
+                    postsData[post]["post_event_start_date"]
                   }
                   post_event_start_time={
-                    postsData[values[post]]["post_event_start_time"]
+                    postsData[post]["post_event_start_time"]
                   }
-                  post_event_end_time={
-                    postsData[values[post]]["post_event_end_time"]
-                  }
-                  post_event_end_date={
-                    postsData[values[post]]["post_event_end_date"]
-                  }
+                  post_event_end_time={postsData[post]["post_event_end_time"]}
+                  post_event_end_date={postsData[post]["post_event_end_date"]}
                   setRefetch={() => setRefetch()}
                   // post_delete={() => post_delete(post)}
                 />

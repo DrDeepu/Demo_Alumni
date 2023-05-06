@@ -1,9 +1,8 @@
 import json
+from pickletools import read_uint1
 from flask import Blueprint
 from flask import Response
 from flask import request,jsonify
-import cloudinary.uploader
-import cloudinary.api
 
 from Models.models import db
 from Models.User import User
@@ -13,9 +12,10 @@ from Models.User import User
 bp = Blueprint('approve_delete_disapprove_users',__name__)
 
 # Delete user by the email that the payload provides
-@bp.route('/deleteuser',methods=['POST'])
+@bp.route('/deleteuser',methods=["DELETE"])
 def deleteuser():
-    email = json.loads(request.data)['data']['email']
+    data = request.json|{}
+    email = data.get('email')
     user = User.query.filter(User.email==email).first()
     db.session.delete(user)
     db.session.commit()
@@ -25,11 +25,10 @@ def deleteuser():
 # Approve User Function
 @bp.route('/approveuser',methods=['POST'])
 def approveuser():
-    email = json.loads(request.data)['data']['email']
+    data = request.json['data']|{}
+    email = data.get('email')
     user = User.query.filter(User.email==email).first()
     user.valid = 'true'
-    # db.session.delete(user)
-    # db.session(user)
     db.session.commit()
     return jsonify(result = user.valid)
 
@@ -37,11 +36,10 @@ def approveuser():
 # Disapprove User Function
 @bp.route('/disaproveuser',methods=['POST'])
 def disaproveuser():
-    email = json.loads(request.data)['data']['email']
+    data = request.json['data'] | {}
+    email = data.get('email')
     user = User.query.filter(User.email==email).first()
     user.valid = 'false'
-    # db.session.delete(user)
-    # db.session(user)
     db.session.commit()
     return jsonify(result = user.valid)
 

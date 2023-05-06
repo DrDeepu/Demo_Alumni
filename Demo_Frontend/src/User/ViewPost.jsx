@@ -19,7 +19,7 @@ import {
   MDBScrollspy,
 } from "mdb-react-ui-kit";
 
-import AttendingUsers from "../Admin/AttendingUsers";
+import AttendingUsers from "../User/AttendingUsers";
 
 export default function ViewPosts({
   title,
@@ -70,8 +70,7 @@ export default function ViewPosts({
       })
       .then((res) => {
         setAttendingUsers(res.data[0]);
-        console.log(res.data);
-        // console.log(res.data[0]);
+        
       });
   }
   const handleClose = () => {
@@ -186,10 +185,11 @@ export default function ViewPosts({
                 onClick={() => {
                   post_accept();
                   setAccept(false);
+                  // getAttendingUsers();
                 }}
                 style={{ height: "50px" }}
               >
-                Accept
+                Attend
               </Button>
             ) : (
               <Button
@@ -197,6 +197,7 @@ export default function ViewPosts({
                 onClick={() => {
                   post_decline();
                   setAccept(true);
+                  // getAttendingUsers();
                 }}
                 style={{ height: "50px" }}
               >
@@ -211,7 +212,7 @@ export default function ViewPosts({
               attendingUsers={attendingUsers}
               getAttendingUsers={() => getAttendingUsers()}
             />
-            {/* {console.log("__POST__ID__",data.post_id)} */}
+           
           </div>
           <hr />
           <p>
@@ -250,7 +251,7 @@ export default function ViewPosts({
                 Send
               </Button>
             </MDBCardFooter>
-            {/* {console.log(comments)} */}
+          
             {comments ? (
               <MDBRow className="d-flex">
                 <MDBCol md="8" lg="6" xl="4">

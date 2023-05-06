@@ -41,13 +41,12 @@ function LoginTest() {
   const navigate = useNavigate();
   const emailValid =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+  const textValid = /^[a-zA-Z]*$/;
   let yearList = [];
   const curYear = new Date().getFullYear();
   for (let i = 2000; i < curYear; i++) {
     yearList.push(i);
   }
-  console.log(yearList);
 
   React.useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -57,16 +56,12 @@ function LoginTest() {
         localStorage.removeItem("access_token");
       } else {
         dispatch(store_user_email(access_token));
-        // if (user_email === "admin@email.com") 
-        if (user_email) 
-        
-        navigate("/admindashboard");
+        // if (user_email === "admin@email.com")
+        if (user_email) navigate("/admindashboard");
         else navigate("/profile");
       }
     }
     toast.dismiss();
-
-    console.log(signUpData.department);
   }, [access_token, user_email, signUpData]);
 
   async function buttonClick() {
@@ -138,11 +133,16 @@ function LoginTest() {
                         label="First name*"
                         id="form1"
                         type="text"
+                        value={signUpData.firstname}
                         onChange={(e) => {
-                          setSignUpData({
-                            ...signUpData,
-                            firstname: e.target.value,
-                          });
+                          textValid.test(e.target.value)
+                            ? setSignUpData({
+                                ...signUpData,
+                                firstname: e.target.value,
+                              })
+                            : alert(
+                                "Firstname can only have letters(a-z, A-Z). No space allowed"
+                              );
                         }}
                       />
                     </MDBCol>
@@ -152,12 +152,17 @@ function LoginTest() {
                         wrapperClass="mb-4"
                         label="Last name*"
                         id="form2"
+                        value={signUpData.lastname}
                         type="text"
                         onChange={(e) =>
-                          setSignUpData({
-                            ...signUpData,
-                            lastname: e.target.value,
-                          })
+                          textValid.test(e.target.value)
+                            ? setSignUpData({
+                                ...signUpData,
+                                lastname: e.target.value,
+                              })
+                            : alert(
+                                "Lastname can only have letters(a-z, A-Z). No space allowed"
+                              )
                         }
                       />
                     </MDBCol>

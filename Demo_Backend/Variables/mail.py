@@ -44,7 +44,6 @@ def mail(image_url='',mail_recipient_email='',event_subject='',recipient_name=''
         <li>Description: {event_description}</li>
         </ul>
         <a href='http://localhost:3000/userpostspage'>View Post in Alumni Site</a>
-        <p>To accept the meeting invitation, simply click the "Accept" button in the attached calendar event.</p>
         <p>Regards,</p>
         <p>Admin</p>
         <p>Uka Tarsadia University</p>
@@ -61,31 +60,7 @@ def mail(image_url='',mail_recipient_email='',event_subject='',recipient_name=''
     # DTEND:{event_end}
     # LOCATION:{event_location}
 
-    # Create the iCalendar attachment for the calendar event
-    ical_content = f"""BEGIN:VCALENDAR
-    PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN
-    VERSION:2.0
-    METHOD:REQUEST
-    BEGIN:VEVENT
-    DTSTART:{event_start}
-    DESCRIPTION:{event_description}
-    SUMMARY:{event_title}
-    PRIORITY:5
-    CLASS:PUBLIC
-    TRANSP:OPAQUE
-    STATUS:CONFIRMED
-    SEQUENCE:0
-    BEGIN:VALARM
-    ACTION:DISPLAY
-    DESCRIPTION:REMINDER
-    TRIGGER;RELATED=START:-PT15M
-    END:VALARM
-    END:VEVENT
-    END:VCALENDAR
-    """
-
-    ical_part = MIMEApplication(ical_content, _subtype='text/calendar', name='meeting.ics')
-    message.attach(ical_part)
+   
 
     # Connect to the SMTP server and send the email
     with smtplib.SMTP('smtp.office365.com', 587) as server:

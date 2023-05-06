@@ -1,4 +1,4 @@
- /* eslint-disable */
+/* eslint-disable */
 import React from "react";
 import {
   MDBCol,
@@ -110,7 +110,6 @@ export default function ProfilePage() {
   //         setloader(false);
   //       })
   //       .catch((res) => {
-  //         console.log(res);
   //       });
   //   }
 
@@ -121,7 +120,7 @@ export default function ProfilePage() {
     <>
       <NavBar />
       <div id="user_profile_blur_animation">
-        <section className='profile-section' >
+        <section className="profile-section">
           <MDBContainer className="py-1">
             {/* <MDBRow> </MDBRow> */}
 

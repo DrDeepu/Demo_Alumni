@@ -37,5 +37,6 @@ def fetch_admin_post_image():
     # result_image =cloudinary.utils.cloudinary_url("my_custom_name", width = 200, height = 200)[0]
     # # print(image_url)
     # # print(i_image_url)
+    # print(image_url)
     return Response(image_url)
     # return Response(result_image)

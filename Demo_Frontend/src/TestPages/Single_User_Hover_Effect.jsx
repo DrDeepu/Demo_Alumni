@@ -2,7 +2,7 @@
 import React from "react";
 import "./Single_User_Hover_Effect.css";
 function Single_User_Hover_Effect(props) {
-  console.log(props);
+
   return (
     <div
       className="profile"

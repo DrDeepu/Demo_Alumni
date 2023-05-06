@@ -24,10 +24,10 @@ export const createChatUser = async (username, secret, firstName, lastName) => {
     },
   })
     .then(function (response) {
-      // console.log(JSON.stringify(response.data));
+      
     })
     .catch(function (error) {
-      // console.log(error);
+      
     });
 };
 //   createChatUser();
@@ -41,7 +41,7 @@ export async function getChatUsers() {
       //   ...data.getHeaders(),
     },
   }).then(function (response) {
-    // console.log(JSON.stringify(response.data));
+    
   });
 }
 // getChatUsers();
@@ -61,7 +61,7 @@ export async function putChatUsers(username, secret) {
     },
   });
   // .then((res) =>
-  // console.log(res));
+ 
 }
 // putChatUsers("rahuls", "email1");
 
@@ -74,7 +74,7 @@ export async function getChatUser(id) {
       //   ...data.getHeaders(),
     },
   });
-  // .then((res) => console.log(res));
+  
 }
 
 // getChatUser(258793);
@@ -103,7 +103,7 @@ export async function patchCharUser(
       "PRIVATE-KEY": CHAT_PRIVATE_KEY,
     },
   }).then(function (response) {
-    // console.log(JSON.stringify(response.data));
+    
   });
 }
 //  patchCharUser(
@@ -124,7 +124,7 @@ export async function deleteChatUser(id) {
       "PRIVATE-KEY": CHAT_PRIVATE_KEY,
     },
   }).then(function (response) {
-    // console.log(JSON.stringify(response.data));
+    
   });
 }
 //   deleteChatUser(258822)
@@ -143,7 +143,7 @@ export async function isChatProjectAuthenticated(
       "User-Secret": `${user_secret}`,
     },
   });
-  // .then((res) => console.log(res));
+  
 }
 // isChatProjectAuthenticated(CHAT_PROJECT_ID, "AdminDeepu", "email1");
 
@@ -174,7 +174,7 @@ export async function updateMyChatAccount(
       "User-Secret": `${user_secret}`,
     },
   });
-  // .then((res) => console.log(res));
+  
 }
 //   updateMyChatAccount(
 //     CHAT_PROJECT_ID,

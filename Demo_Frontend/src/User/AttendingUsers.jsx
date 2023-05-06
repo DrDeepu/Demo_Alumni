@@ -3,15 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React from "react";
 import { useEffect } from "react";
-import "./Admin.css";
+import "../Admin/Admin.css";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 import { LOCALHOST_URL } from "../config";
 
 function MyVerticallyCenteredModal(props) {
   const [attendingUsers, setAttendingUsers] = React.useState(
-    // props.attendingUsers
-    []
+    props.attendingUsers
   );
 
   async function getAttendingUsers() {
@@ -37,14 +36,14 @@ function MyVerticallyCenteredModal(props) {
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           <b>Attending Alumni</b> :{" "}
-          {attendingUsers.count > 0 ? attendingUsers.count : 0}
+          {props.attendingUsers.count > 0 ? props.attendingUsers.count : 0}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <ul>
-            {attendingUsers.count > 0 ? (
-              attendingUsers.users.map((values, key) => {
+            {props.attendingUsers.count > 0 ? (
+              props.attendingUsers.users.map((values, key) => {
                 return (
                   <li key={key}>
                     <span>

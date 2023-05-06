@@ -19,11 +19,11 @@ const UserSearchPage = () => {
   async function getUserData() {
     await axios.get(`${LOCALHOST_URL}/all_users`).then((res) => {
       setUserData(res.data);
-      // console.log("=========AXIOS RESULT=======", res);
+     
     });
   }
   useEffect(() => {
-    // console.log("========= UseEffect userData =======", userData);
+    
     if (trigger === true) getUserData();
     setTrigger(false);
   }, [search, userData]);
@@ -62,7 +62,7 @@ const UserSearchPage = () => {
                 return (
                   ((searchUserData !== 0 &&
                     searchUserData !== "" &&
-                    // (console.log(userData)
+                    
                     userName.slice(0, searchUserData.length).toLowerCase() ===
                       searchUserData.toLowerCase()) ||
                     firstName.slice(0, searchUserData.length).toLowerCase() ===
@@ -88,7 +88,7 @@ const UserSearchPage = () => {
                     <AlumniSearchProfile userData={userData[user]} />
                   </>
                 );
-                // console.log(userData[user]);
+                
               })}
           </div>
         )}

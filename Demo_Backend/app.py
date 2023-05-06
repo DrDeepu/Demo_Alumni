@@ -80,13 +80,12 @@ def create_user():
         pw_encode = data.get('password').encode('utf-8')
         hash_pw = bcrypt.hashpw(pw_encode,salt)
         data['password']=hash_pw
-        data['user_profile_image_url']='https://res.cloudinary.com/dy59sbjqc/image/upload/v1683282743/Users/guest-user_hicyp0.jpg'
+        data['user_profile_image_url']='https://res.cloudinary.com/dy59sbjqc/image/upload/v1683352248/Default_Images/guest-user_ct3tej.png'
         data['join_date']=datetime.datetime.now()
         User.create(**data)
         return {'status':200,'message':'User Registered Successfully'}
     else:
         return {'status':400,'message':'User email already exists'}
-
 
 
 # LOGIN API ROUTE
@@ -142,19 +141,26 @@ def my_profile():
 @jwt_required()
 def save_profile_data():
     data = request.json['data'] | {}
+    print(data)
     email = data.get('email').lower()
     user = User.query.filter_by(email=email).first()
     url = ''
     IMAGE_URL= data.get('imageUrl')
-    if not user.user_profile_image_url :
+    # if not user.user_profile_image_url :
+    if  user.user_profile_image_url :
+        print('NOT user.user_profile_image_url')
         if IMAGE_URL!=user.user_profile_image_url:
+            print('IMAGE_URL!=user.user_profile_image_url')    
             url = cloudinary.uploader.upload(IMAGE_URL,folder='/Users')['url']
+            print(url)
             user.user_profile_image_url=url
     else:
         if IMAGE_URL!=user.user_profile_image_url:
+            print('IMAGE_URL!=user.user_profile_image_url SECOND')    
             public_id = user.user_profile_image_url.split('/Users/')[1].split('.')[0]
             url = cloudinary.uploader.upload(IMAGE_URL,public_id=public_id,folder='/Users')['url']
             user.user_profile_image_url=url
+            print(url)
     user.firstname = data.get('firstName')
     user.lastname = data.get('lastName')
     user.phone = data.get('phoneNumber')
@@ -168,7 +174,10 @@ def save_profile_data():
     user.profession = data.get('profession')
     user.company = data.get('companyName')
     # User(**data)
+
+    db.session.add(user)
     db.session.commit()
+    print(user.user_profile_image_url)
     return Response({'Updated Successfully'})
 
     # user = User.query

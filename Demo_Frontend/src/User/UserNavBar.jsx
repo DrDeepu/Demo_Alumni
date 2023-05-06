@@ -65,7 +65,6 @@ function UserNavBar(props) {
         );
       })
       .catch((res) => {
-        // console.log("Session Time out ------- ", res);
         navigate("/login");
       });
   }

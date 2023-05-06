@@ -13,7 +13,7 @@ function Example(props) {
   const handleShow = () => setShow(true);
   async function deleteUser() {
     await axios
-      .post(`${LOCALHOST_URL}/deleteuser`, {
+      .delete(`${LOCALHOST_URL}/deleteuser`, {
         data: { email: props.data.email },
       })
       .then(

@@ -27,7 +27,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Login() {
   const access_token = useSelector((state) => state.access_token.access_token);
   const user_email = useSelector((state) => state.set_user_data.user_email);
-  console.log("userdata", user_email);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ export default function Login() {
     await axios
       .post(`${LOCALHOST_URL}/login`, { email, password })
       .then((res) => {
-        console.log(res.data);
+
         if (res.data.status === 400) {
           toast.dismiss();
           toast.error(res.data.error);

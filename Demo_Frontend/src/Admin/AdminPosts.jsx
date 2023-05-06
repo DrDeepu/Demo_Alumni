@@ -16,6 +16,7 @@ import React from "react";
 
 export default function AdminPosts() {
   const [postsData, setPostsData] = useState({});
+  const [postsDataSecond, setPostsDataSecond] = useState({});
   const [loader, setLoader] = useState(true);
   const [reFetch, setReFetch] = useState(false);
   const [filter, setFilter] = React.useState(0);
@@ -23,13 +24,15 @@ export default function AdminPosts() {
   useEffect(() => {
     // setLoader(true);
     fetchAllPosts();
-  }, [reFetch]);
+    filterFetchPosts();
+  }, [reFetch,filter]);
   async function fetchAllPosts() {
     await axios
       .get(`${LOCALHOST_URL}/fetch_all_admin_post`)
       .then((res) => {
         // console.log(res.data);
         setPostsData(res.data);
+        // console.log(res.data)
         setLoader(false);
       })
       .catch((res) => {
@@ -38,15 +41,30 @@ export default function AdminPosts() {
       });
   }
 
-  async function fitlerFetchPosts(){
-    await axios.post(`${LOCALHOST_URL}/filter_fetch_posts`,filter).then(res=>console.log(res))
+  async function filterFetchPosts() {
+    await axios({
+      method: "post",
+      url: `${LOCALHOST_URL}/filter_posts`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { filter: filter },
+    })
+      .then(function (response) {
+        // console.log(response.data);
+        setPostsDataSecond(res.data)
+      })
+      .catch(function (error) {
+        // console.log(error);
+      });
   }
+
   return (
     <>
       <AdminNavBar />
       <div id="admin_add_post_blur_animation" className="admin-posts">
         <div align="center">
-          <Box>
+          {/* <Box>
             <div className="filter-form">
               <FormControl>
                 <InputLabel id="demo-simple-select-label">
@@ -62,13 +80,13 @@ export default function AdminPosts() {
                     setFilter(e.target.value);
                   }}
                 >
-                  <MenuItem value={0}>Upcoming</MenuItem>
+                  <MenuItem value={'0'}>Upcoming</MenuItem>
                   <MenuItem value={true}>Ongoing</MenuItem>
                   <MenuItem value={false}>Completed</MenuItem>
                 </Select>
               </FormControl>
             </div>
-          </Box>
+          </Box> */}
           <AdminAddPostsModal
             setRefetch={() => setReFetch(!reFetch)}
             postsData={postsData}

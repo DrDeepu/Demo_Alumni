@@ -15,7 +15,6 @@ export default function User(props) {
   const [show, setShow] = useState(false);
   const [uploadImage, setUploadImage] = useState(null);
   const [imageLoader, setImageLoader] = useState(false);
-  // console.log(props.userData.email);
   const initialState = {
     firstName: props.userData.firstName,
     lastName: props.userData.lastName,
@@ -52,7 +51,6 @@ export default function User(props) {
         await axios
           .get(`${LOCALHOST_URL}/fetch_admin_post_image`)
           .then((res) => {
-            // console.log(res);
             setUserData({ ...userData, imageUrl: res.data });
             setImageLoader(false);
           });
@@ -86,41 +84,42 @@ export default function User(props) {
         }
       )
       .then((res) => {
-        // console.log(res);
         handleClose();
         props.setLoader();
       });
   }
 
-const department_list = ["Department of Physics",
-"Department of Chemistry",
-"Department of Computer Science",
-"Department of Technology",
-"Department of Music",
-"Department of Sports"
-]
+  const department_list = [
+    "Department of Physics",
+    "Department of Chemistry",
+    "Department of Computer Science",
+    "Department of Technology",
+    "Department of Music",
+    "Department of Sports",
+  ];
 
-const intrested_domains = [
-  "Gaming",
-  "Web Technology",
-  "Software Technology",
-  "Engineering",
-  "Data Analysis",
-  "Data Science",
-  "Music",
-]
-const profession = [
-'Gamer',
-'Youtuber',
-"HR",
-"Full Stack Developer",
-"Musician",
-"Engineer",
-"Doctor",
-"CA",
-"Business"
-]
+  const intrested_domains = [
+    "Gaming",
+    "Web Technology",
+    "Software Technology",
+    "Engineering",
+    "Data Analysis",
+    "Data Science",
+    "Music",
+  ];
+  const profession = [
+    "Gamer",
+    "Youtuber",
+    "HR",
+    "Full Stack Developer",
+    "Musician",
+    "Engineer",
+    "Doctor",
+    "CA",
+    "Business",
+  ];
 
+  const textValid = /^[a-zA-Z]*$/;
   return (
     <>
       <Button className="edit-profile" variant="primary" onClick={handleShow}>
@@ -171,22 +170,33 @@ const profession = [
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>First Name<sup >*</sup></Form.Label>
+                <Form.Label>
+                  First Name<sup>*</sup>
+                </Form.Label>
                 <Form.Control
-              
                   type="text"
                   rows={2}
                   defaultValue={userData.firstName}
+                  value={userData.firstName}
                   onChange={(e) => {
-                    e.target.value.trim() !== ""
+                    textValid.test(e.target.value)
                       ? setUserData({
                           ...userData,
                           firstName: e.target.value.trim(),
                         })
-                      : setUserData({
-                          ...userData,
-                          firstName: "",
-                        });
+                      : alert(
+                          "Firstname can only have letters(a-z, A-Z). No space allowed"
+                        );
+
+                    // e.target.value.trim() !== ""
+                    //   ? setUserData({
+                    //       ...userData,
+                    //       firstName: e.target.value.trim(),
+                    //     })
+                    //   : setUserData({
+                    //       ...userData,
+                    //       firstName: "",
+                    //     });
                   }}
                 />
               </Form.Group>
@@ -195,22 +205,33 @@ const profession = [
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Last Name<sup >*</sup></Form.Label>
+                <Form.Label>
+                  Last Name<sup>*</sup>
+                </Form.Label>
                 <Form.Control
                   type="text"
-                  
                   defaultValue={userData.lastName}
+                  value={userData.lastName}
                   rows={2}
                   onChange={(e) => {
-                    e.target.value.trim() !== ""
+                    textValid.test(e.target.value)
                       ? setUserData({
                           ...userData,
                           lastName: e.target.value.trim(),
                         })
-                      : setUserData({
-                          ...userData,
-                          lastName: "",
-                        });
+                      : alert(
+                          "Lastname can only have letters(a-z, A-Z). No space allowed"
+                        );
+
+                    // e.target.value.trim() !== ""
+                    //   ? setUserData({
+                    //       ...userData,
+                    //       lastName: e.target.value.trim(),
+                    //     })
+                    //   : setUserData({
+                    //       ...userData,
+                    //       lastName: "",
+                    //     });
                   }}
                 />
               </Form.Group>
@@ -223,7 +244,7 @@ const profession = [
                 <Form.Control
                   type="number"
                   // defaultValue={userData.phoneNumber}
-                  value = {userData.phoneNumber}
+                  value={userData.phoneNumber}
                   rows={2}
                   onChange={(e) => {
                     e.target.value.trim() !== ""
@@ -271,39 +292,25 @@ const profession = [
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Department</Form.Label>
-                {/* <Form.Control
-                  type="text"
+                <select
+                disabled
                   defaultValue={userData.department}
-                  rows={2}
+                  className="department mb-4"
                   onChange={(e) => {
-                    e.target.value.trim() !== ""
-                      ? setUserData({
-                          ...userData,
-                          department: e.target.value.trim(),
-                        })
-                      : setUserData({
-                          ...userData,
-                          department: "",
-                        });
+                    setUserData({
+                      ...userData,
+                      department: e.target.value,
+                    });
                   }}
-                /> */}
-                   <select
-                   
-                   defaultValue={userData.department}
-                        className="department mb-4"
-                        onChange={(e) => {
-                          setUserData({
-                            ...userData,
-                            department: e.target.value,
-                          });
-                        }}
-                      >
-                        {
-                          department_list.map((values,key)=>{
-                            return<option value={values} key={key}>{values}</option>
-                          })
-                        }
-                        </select>
+                >
+                  {department_list.map((values, key) => {
+                    return (
+                      <option value={values} key={key}>
+                        {values}
+                      </option>
+                    );
+                  })}
+                </select>
               </Form.Group>
               {/* Instagram Id */}
               <Form.Group
@@ -397,23 +404,24 @@ const profession = [
                   }}
                 /> */}
 
-<select defaultValue={userData.domain}
-                        className="department"
-                        onChange={(e) => {
-                          setUserData({
-                            ...userData,
-                            domain: e.target.value,
-                          });
-                        }}
-                      >
-                        {
-                          intrested_domains.map((values,key)=>{
-                            return<option value={values} key={key}>{values}</option>
-                          })
-                        }
-                        </select>
-
-
+                <select
+                  defaultValue={userData.domain}
+                  className="department"
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      domain: e.target.value,
+                    });
+                  }}
+                >
+                  {intrested_domains.map((values, key) => {
+                    return (
+                      <option value={values} key={key}>
+                        {values}
+                      </option>
+                    );
+                  })}
+                </select>
               </Form.Group>
               {/* Profession */}
               <Form.Group
@@ -422,22 +430,23 @@ const profession = [
               >
                 <Form.Label>Profession</Form.Label>
                 <select
-                   
-                   defaultValue={userData.profession}
-                        className="department mb-4"
-                        onChange={(e) => {
-                          setUserData({
-                            ...userData,
-                            profession: e.target.value,
-                          });
-                        }}
-                      >
-                        {
-                          profession.map((values,key)=>{
-                            return<option value={values} key={key}>{values}</option>
-                          })
-                        }
-                        </select>
+                  defaultValue={userData.profession}
+                  className="department mb-4"
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      profession: e.target.value,
+                    });
+                  }}
+                >
+                  {profession.map((values, key) => {
+                    return (
+                      <option value={values} key={key}>
+                        {values}
+                      </option>
+                    );
+                  })}
+                </select>
               </Form.Group>
               {/* Company Name */}
               <Form.Group
@@ -467,7 +476,7 @@ const profession = [
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Enter Website URL</Form.Label>
+                <Form.Label>Enter Website Name</Form.Label>
                 <Form.Control
                   type="text"
                   defaultValue={userData.websiteUrl}
@@ -492,19 +501,19 @@ const profession = [
           <Button variant="secondary" onClick={handleClose}>
             Not Now
           </Button>
-          {
-            userData.firstName!==''&&userData.lastName!==''?
-          <UserProfileSaveModal saveProfile={() => saveProfile()} />:
-          <Button
-          disabled
-          variant="danger"
-          onClick={() => {
-            setModalShow(true);
-          }}
-        >
-          Save
-        </Button>
-          }
+          {userData.firstName !== "" && userData.lastName !== "" ? (
+            <UserProfileSaveModal saveProfile={() => saveProfile()} />
+          ) : (
+            <Button
+              disabled
+              variant="danger"
+              onClick={() => {
+                setModalShow(true);
+              }}
+            >
+              Save
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

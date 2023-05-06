@@ -38,7 +38,11 @@ function PostCard({
         post_id: post_id,
         email: user_email,
       })
-      .then(setAccept(false));
+      .then(
+        
+      setAccept(false)
+      
+      );
   }
 
   async function post_decline() {
@@ -90,7 +94,6 @@ function PostCard({
               accept={accept}
               setAccept={(e) => {
                 setAccept();
-                console.log(e);
               }}
             />
             {/* <ApproveDeletePost value="Delete" post_id={post_id} /> */}
