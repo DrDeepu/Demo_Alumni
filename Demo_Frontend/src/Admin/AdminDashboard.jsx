@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import ReactAnimations from "../React-Animations/ReactAnimations";
 import { Toaster } from "react-hot-toast";
 import { LOCALHOST_URL } from "../config";
+import AdminReport from './AdminReport' 
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const Admin = () => {
                 <p>Total Pending Users</p>
               </div>
             </div>
-            {/* <AdminReport /> */}
+            <AdminReport />
           </div>
         </div>
       </>

@@ -97,11 +97,14 @@ def login():
     user = User.query.filter_by(email=email).first()
     pw_encode = password.encode('utf-8')
     if user :
-        if bcrypt.checkpw(pw_encode,user.password):
+        
+        if (not user.valid):
+            return {'status':400,'error':'Admin is yet to activate your account'}
+        elif bcrypt.checkpw(pw_encode,user.password):
             access_token = create_access_token(identity={'email':email,'is_admin':user.is_admin})
             return {'user':user.firstname,'user_email':email,'access_token':access_token,'status':200}
         else:
-            return {'status':400,'error':'Invalid Password'}
+            return {'status':400,'error':'Invalid Email or Password'}
     else:
         return {'status':400,'error':'User not Found'}
     # return 'response'

@@ -65,7 +65,7 @@ export default function Login() {
     await axios
       .post(`${LOCALHOST_URL}/login`, { email, password })
       .then((res) => {
-
+console.log(res)
         if (res.data.status === 400) {
           toast.dismiss();
           toast.error(res.data.error);

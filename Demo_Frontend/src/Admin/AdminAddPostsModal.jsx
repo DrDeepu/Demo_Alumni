@@ -37,7 +37,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
     }
   }, [uploadImage]);
   const date = new Date();
-  const curDay = date.getDay();
+  const curDay = date.getDate();
   const curMonth = date.getMonth();
   const curYear = date.getFullYear();
   const minDate = new Date(curYear, curMonth, curDay + 1);
@@ -203,6 +203,7 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                   rows={2}
                   onChange={(e) => {
                     setStartTime(e.target.value);
+
                   }}
                 />
               </Form.Group>
@@ -237,7 +238,8 @@ export default function AdminAddPosts({ setRefetch, postsData }) {
                 <Form.Control
                   type="time"
                   rows={2}
-                  // minTim={startTime}
+                  defaultValue={startTime}
+                  // minDate = {startTime}
                   onChange={(e) => {
                     setEndTime(e.target.value);
                     // console.log(e.target.value)

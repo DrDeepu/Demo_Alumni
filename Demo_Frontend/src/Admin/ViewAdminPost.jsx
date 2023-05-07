@@ -179,7 +179,7 @@ export default function ViewAdminPosts({
                   onChange={(e) => {
                     setStartDate(e);
                   }}
-                  minDate={new Date()}
+                  minDate={new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+1)}
                   dateFormat="dd/MM/yyyy"
                   className="form-control"
                 />

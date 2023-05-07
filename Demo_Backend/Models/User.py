@@ -11,6 +11,7 @@ class User(db.Model,Base):
     email = db.Column(db.String(100),unique=True,nullable = False)
     password = db.Column(db.LargeBinary,nullable = False)
     valid = db.Column(db.String(20),default=False)
+    # valid = db.Column(db.Boolean,default=False)
     phone = db.Column(db.String(15))
     batch = db.Column(db.String(30))
     department = db.Column(db.String(50))
