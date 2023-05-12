@@ -22,6 +22,7 @@ from Admin.approve_delete_disapprove_users import bp as approve_delete_disapprov
 from PostComments.comments import bp as post_comments
 from Users.accept_decline import bp as accept_decline
 from Posts.filter_posts import bp as filter_posts
+from Admin.admin_report import bp as admin_report
 from Users.send_otp import bp as send_otp
 from Variables.mail import mail
 from flask_migrate import Migrate
@@ -98,7 +99,7 @@ def login():
     pw_encode = password.encode('utf-8')
     if user :
         
-        if (not user.valid):
+        if (user.valid == 'false'):
             return {'status':400,'error':'Admin is yet to activate your account'}
         elif bcrypt.checkpw(pw_encode,user.password):
             access_token = create_access_token(identity={'email':email,'is_admin':user.is_admin})
@@ -379,11 +380,14 @@ app.register_blueprint(accept_decline)
 # Upload and Fetch Image from Cloudinary (Single Post, which gives image url)
 app.register_blueprint(upload_fetch_admin_post_image)
 
-
+# Comment in Posts 
 app.register_blueprint(post_comments)
 
+# Admin Page Reports
+app.register_blueprint(admin_report)
 
-app.register_blueprint(send_otp)
+
+# app.register_blueprint(send_otp)
 
 # Filter Fetch Posts 
 app.register_blueprint(filter_posts)

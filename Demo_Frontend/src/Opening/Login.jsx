@@ -40,7 +40,7 @@ export default function Login() {
       } else {
         dispatch(store_access_token(access_token));
 
-        // if (user_email === "admin@email.com")
+        
         if (user_email) navigate("/admindashboard");
         else navigate("/profile");
       }

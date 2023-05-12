@@ -5,7 +5,19 @@ import Chart from "chart.js/auto";
 import { LOCALHOST_URL } from "../config";
 import axios from "axios";
 
+
+const year = ['January','February','March','April',
+'May','June','July',"August","September","October","November","December"
+]
+
 const AdminReport = () => {
+
+
+  const yearWiseData = async()=>{
+    await axios.get(`${LOCALHOST_URL}/year_wise_report`).then((e)=>{
+      console.log(e.data)
+    })
+  }
   const year_wise_data = {
     2022: [
       { month: "January", count: 10 },
@@ -16,10 +28,10 @@ const AdminReport = () => {
       { month: "June", count: 30 },
       { month: "July", count: 10 },
       { month: "August", count: 10 },
-      { month: "Sepetember", count: 10 },
+      { month: "September", count: 10 },
       { month: "October", count: 10 },
       { month: "Novemeber", count: 10 },
-      { month: "December", count: 10 },
+      // { month: "December", count: 10 },
     ],
     2023: [
       { month: "January", count: 120 },
@@ -30,12 +42,16 @@ const AdminReport = () => {
       { month: "June", count: 110 },
       { month: "July", count: 120 },
       { month: "August", count: 10 },
-      { month: "Sepetember", count: 10 },
+      { month: "September", count: 10 },
       { month: "October", count: 10 },
       { month: "Novemeber", count: 10 },
       { month: "December", count: 10 },
     ],
   };
+
+  useEffect(()=>{yearWiseData()},[])
+
+
 
   const [year, setYear] = useState(new Date().getFullYear().toString());
   const [reportData, setReportData] = useState({});
